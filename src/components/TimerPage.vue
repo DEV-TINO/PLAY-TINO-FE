@@ -38,6 +38,10 @@
 </script>
 
 <style scoped>
+@font-face {
+    font-family: 'DS-Digital';
+    src: url(../../ds-digib.woff) format('woff');
+}
 .text-outline {
   text-shadow:
     -1px -1px 0 white, 1px -1px 0 white,
