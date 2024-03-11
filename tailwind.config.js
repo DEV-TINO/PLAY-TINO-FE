@@ -10,7 +10,8 @@ module.exports = {
         'priamry': '#1C0F38',
         'timer-bg': '#FDDCDC', 
         'timer-stop': '#FF8484',
-        'timer-start': '#58AFF9'
+        'timer-start': '#58AFF9',
+        'timer-number': '#E4C7C7'
       }
     },
   },
