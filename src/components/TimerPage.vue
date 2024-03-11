@@ -10,10 +10,11 @@
       </div>
     </div>
     <div class="w-full h-full flex items-start justify-center">
-      <div class="bg-white min-h-80 py-7 h-auto w-9/12 rounded-2xl flex flex-col justify-center items-center gap-6">
-        <div class="text-4xl md:text-5xl lg:text-7xl text-timer-stop">06.00</div>
-        <div class="w-8/12 h-40 bg-timer-bg rounded-2xl border-priamry border-4 flex items-center justify-center">
-          <div class="text-8xl">02.38</div>
+      <div class="bg-white min-h-60 min-w-96 max-w-6xl py-7 h-auto w-7/12 rounded-2xl flex flex-col justify-center items-center gap-6">
+        <div class="text-5xl sm:text-4xl md:text-6xl lg:text-7xl text-timer-stop font-['DS-Digital']">06.00</div>
+        <div class="w-8/12 h-40 bg-timer-bg rounded-2xl border-priamry border-[5px] flex items-center justify-center">
+          <div class="text-8xl sm:text-7xl md:text-9xl text-timer-number font-['DS-Digital']">88.88</div>
+          <div class="text-8xl sm:text-7xl md:text-9xl text-priamry -ml-[212.8px] sm:-ml-[159.5px] md:-ml-[283.5px] font-['DS-Digital']">02.37</div>
         </div>
         <div class="flex justify-center gap-4">
           <div class="w-24 h-12 hover:bg-timer-start hover:text-white text-timer-start border-timer-start border-2 flex items-center justify-center rounded-md mx-4">
