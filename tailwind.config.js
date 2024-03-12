@@ -13,7 +13,8 @@ module.exports = {
         'timer-start': '#58AFF9',
         'timer-number': '#E4C7C7',
         'quiz-theme' : '#F113DC',
-        'quiz-box' : '#D875FF'
+        'quiz-box' : '#D875FF',
+        'progress-bar-dark' : '#6A3ED1',
       }
     },
   },

@@ -36,7 +36,7 @@
           <div class="text-white text-sm md:text-lg">/10</div>
         </div>
       </div>
-      <div class="bg-quiz-theme w-full h-full min-h-1 max-h-2"></div>
+      <div class="bg-progress-bar-dark w-full h-full min-h-1 max-h-2"></div>
     </div>
   </template>
   
