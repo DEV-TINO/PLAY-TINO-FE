@@ -9,6 +9,8 @@ const routes = [
     component: () => import("./components/QuizPage.vue")},
     { path: "/favorite",
     component: () => import("./components/FavoritePage.vue")},
+    { path: "/comment",
+    component: () => import("./components/CommentPage.vue")},
 ]
 
 const router = createRouter({
