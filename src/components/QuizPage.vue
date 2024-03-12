@@ -24,7 +24,9 @@
           </div>
           <div class="flex w-11/12 gap-4">
             <textarea placeholder="정답을 작성해주세요" class="border-primary overflow-hidden rounded-xl border-2 w-full h-12 pt-2 px-3 text-lg md:text-xl resize-none font-semibold"></textarea>
-            <div class="bg-quiz-theme text-white font-bold w-14 rounded-lg flex justify-center items-center text-2xl">></div>
+            <div class="bg-quiz-theme text-white font-bold w-14 rounded-lg flex justify-center items-center text-2xl">
+              <font-awesome-icon :icon="['fas', 'angle-right']" />
+            </div>
           </div>
         </div>
       </div>
