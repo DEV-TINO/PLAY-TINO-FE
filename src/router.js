@@ -11,6 +11,10 @@ const routes = [
     component: () => import("./components/FavoritePage.vue")},
     { path: "/comment",
     component: () => import("./components/CommentPage.vue")},
+    { path: "/timer-statistic",
+    component: () => import("./components/TimerStatisticPage.vue")},
+    { path: "/quiz-statistic",
+    component: () => import("./components/QuizStatisticPage.vue")},
 ]
 
 const router = createRouter({
