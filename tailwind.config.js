@@ -16,6 +16,9 @@ module.exports = {
         'quiz-box' : '#D875FF',
         'progress-bar-dark' : '#6A3ED1',
         'light-purple' : '#8F73CF',
+        'modal-background' : '#00000080',
+        'correct-modal' : '#58AFF9',
+        'wrong-modal' : '#D875FF',
       }
     },
   },
