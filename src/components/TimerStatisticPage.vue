@@ -13,61 +13,61 @@
         <div>
           <div class="flex pb-4 md:pb-7">
             <div class="w-3/12 min-w-10 flex justify-end px-4 sm:px-8 md:px-10 lg:px-14 xl:px-20 text-light-purple text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold items-center">1</div>
-            <div class="w-3/12 min-w-40 items-center pl-1 text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl">alswlfjddl</div>
-            <div class="w-3/12 min-w-40 flex gap-3 justify-center text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl items-center">
+            <div class="w-3/12 min-w-40 items-center pl-1 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">alswlfjddl</div>
+            <div class="w-3/12 min-w-40 flex gap-3 justify-center text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl items-center">
               <div>03.98</div>
               <div>/</div>
               <div>04.00</div>
             </div>
-            <div class="w-1/12 flex justify-center items-center text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl min-w-14">0.02</div>
+            <div class="w-1/12 flex justify-center items-center text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl min-w-14">0.02</div>
           </div>
         </div>
         <div>
           <div class="flex pb-4 md:pb-7">
             <div class="w-3/12 min-w-10 flex justify-end px-4 sm:px-8 md:px-10 lg:px-14 xl:px-20 text-light-purple text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold items-center">2</div>
-            <div class="w-3/12 min-w-40 items-center pl-1 text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl">alswlfjddl</div>
-            <div class="w-3/12 min-w-40 flex gap-3 justify-center text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl items-center">
+            <div class="w-3/12 min-w-40 items-center pl-1 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">alswlfjddl</div>
+            <div class="w-3/12 min-w-40 flex gap-3 justify-center text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl items-center">
               <div>03.98</div>
               <div>/</div>
               <div>04.00</div>
             </div>
-            <div class="w-1/12 flex justify-center items-center text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl min-w-14">0.02</div>
+            <div class="w-1/12 flex justify-center items-center text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl min-w-14">0.02</div>
           </div>
         </div>
         <div>
           <div class="flex pb-4 md:pb-7">
             <div class="w-3/12 min-w-10 flex justify-end px-4 sm:px-8 md:px-10 lg:px-14 xl:px-20 text-light-purple text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold items-center">3</div>
-            <div class="w-3/12 min-w-40 items-center pl-1 text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl">alswlfjddl</div>
-            <div class="w-3/12 min-w-40 flex gap-3 justify-center text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl items-center">
+            <div class="w-3/12 min-w-40 items-center pl-1 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">alswlfjddl</div>
+            <div class="w-3/12 min-w-40 flex gap-3 justify-center text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl items-center">
               <div>03.98</div>
               <div>/</div>
               <div>04.00</div>
             </div>
-            <div class="w-1/12 flex justify-center items-center text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl min-w-14">0.02</div>
+            <div class="w-1/12 flex justify-center items-center text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl min-w-14">0.02</div>
           </div>
         </div>
         <div>
           <div class="flex pb-4 md:pb-7">
             <div class="w-3/12 min-w-10 flex justify-end px-4 sm:px-8 md:px-10 lg:px-14 xl:px-20 text-light-purple text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold items-center">4</div>
-            <div class="w-3/12 min-w-40 items-center pl-1 text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl">alswlfjddl</div>
-            <div class="w-3/12 min-w-40 flex gap-3 justify-center text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl items-center">
+            <div class="w-3/12 min-w-40 items-center pl-1 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">alswlfjddl</div>
+            <div class="w-3/12 min-w-40 flex gap-3 justify-center text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl items-center">
               <div>03.98</div>
               <div>/</div>
               <div>04.00</div>
             </div>
-            <div class="w-1/12 flex justify-center items-center text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl min-w-14">0.02</div>
+            <div class="w-1/12 flex justify-center items-center text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl min-w-14">0.02</div>
           </div>
         </div>
         <div>
           <div class="flex pb-4 md:pb-7">
             <div class="w-3/12 min-w-10 flex justify-end px-4 sm:px-8 md:px-10 lg:px-14 xl:px-20 text-light-purple text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold items-center">5</div>
-            <div class="w-3/12 min-w-40 items-center pl-1 text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl">alswlfjddl</div>
-            <div class="w-3/12 min-w-40 flex gap-3 justify-center text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl items-center">
+            <div class="w-3/12 min-w-40 items-center pl-1 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">alswlfjddl</div>
+            <div class="w-3/12 min-w-40 flex gap-3 justify-center text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl items-center">
               <div>03.98</div>
               <div>/</div>
               <div>04.00</div>
             </div>
-            <div class="w-1/12 flex justify-center items-center text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl min-w-14">0.02</div>
+            <div class="w-1/12 flex justify-center items-center text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl min-w-14">0.02</div>
           </div>
         </div>
         <div class="flex items-center justify-center gap-2 md:gap-3 lg:gap-4 text-sm md:text-lg lg:text-xl">
