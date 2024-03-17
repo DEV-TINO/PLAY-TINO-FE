@@ -1,4 +1,9 @@
 <template>
+  <Transition name="myAnimation">
+    <ModalCard v-if="openModal"
+      @closeModal="openModal = $event">
+    </ModalCard>
+  </Transition>
   <div class="flex flex-col h-screen w-full bg-primary">
     <div class="w-full h-24 min-h-20 flex items-center bg-primary">
       <div class="text-white text-xl pl-4 font-semibold hover:cursor-pointer">PLAY - TINO</div>
@@ -17,10 +22,10 @@
           <div class="text-7xl sm:text-8xl md:text-9xl text-primary -ml-[159.5px] sm:-ml-[212.8px] md:-ml-[283.5px] font-['DS-Digital']">02.37</div>
         </div>
         <div class="flex justify-center gap-4">
-          <div class="w-20 md:w-24 h-10 md:h-12 hover:bg-timer-start hover:text-white text-timer-start border-timer-start border-2 flex items-center justify-center rounded-md mx-4">
+          <div class="w-20 md:w-24 h-10 md:h-12 bg-timer-start text-white flex items-center justify-center rounded-md mx-4">
             <div class="text-l md:text-2xl font-semibold hover:cursor-pointer">START</div>
           </div>
-          <div class="w-20 md:w-24 h-10 md:h-12 bg-timer-stop text-white flex items-center justify-center rounded-md mx-4">
+          <div class="w-20 md:w-24 h-10 md:h-12 hover:bg-timer-stop hover:text-white text-timer-stop border-timer-stop border-2 flex items-center justify-center rounded-md mx-4">
             <div class="text-l md:text-2xl font-semibold hover:cursor-pointer">STOP</div>
           </div>
         </div>
@@ -30,12 +35,22 @@
 </template>
 
 <script>
+import ModalCard from '../components/TimerResultModal.vue'
   export default {
+    components:{
+      ModalCard,
+  },
     data() { 
       return {
+        openModal: false,
       }
-    }
+  },
+  methods: {
+    handleClickTitle(index){
+      this.openModal = true
+    },
   }
+}
 </script>
 
 <style scoped>
@@ -55,5 +70,23 @@
     -1px 2px 0 white, 1px 2px 0 white,
     -2px -1px 0 white, 2px -1px 0 white,
     -2px 1px 0 white, 2px 1px 0 white;
+}
+.myAnimation-enter-from {
+  opacity: 0;
+}
+.myAnimation-enter-active {
+  transition: all 0.5s;
+}
+.myAnimation-enter-to {
+  opacity: 1;
+}
+.myAnimation-leave-from {
+  opacity: 1;
+}
+.myAnimation-leave-active {
+  transition: all 0.2s;
+}
+.myAnimation-leave-to {
+  opacity: 0;
 }
 </style>
