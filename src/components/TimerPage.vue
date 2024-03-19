@@ -16,16 +16,15 @@
     </div>
     <div class="w-full h-full flex items-start justify-center bg-primary">
       <div class="bg-white min-h-60 min-w-96 max-w-6xl py-5 md:py-6 lg:py-7 h-auto w-7/12 rounded-2xl flex flex-col justify-center items-center gap-3 sm:gap-4 md:gap-5">
-        <div class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-timer-stop font-['DS-Digital']">06.00</div>
+        <div class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-timer-stop font-['Share-Tech-Mono']">06.00</div>
         <div class="w-8/12 h-auto py-4 sm:py-5 md:py-6 lg:py-7 bg-timer-bg rounded-2xl border-primary border-4 md:border-[5px] flex items-center justify-center">
-          <div class="text-7xl sm:text-8xl md:text-9xl text-timer-number font-['DS-Digital']">88.88</div>
-          <div class="text-7xl sm:text-8xl md:text-9xl text-primary -ml-[159.5px] sm:-ml-[212.8px] md:-ml-[283.5px] font-['DS-Digital']">02.37</div>
+          <span class="text-7xl sm:text-8xl md:text-9xl text-primary font-['Share-Tech-Mono']">{{ time }}</span>
         </div>
         <div class="flex justify-center gap-4">
-          <div class="w-20 md:w-24 h-10 md:h-12 bg-timer-start text-white flex items-center justify-center rounded-md mx-4">
+          <div @click="start" class="w-20 md:w-24 h-10 md:h-12 bg-timer-start text-white flex items-center justify-center rounded-md mx-4">
             <div class="text-l md:text-2xl font-semibold hover:cursor-pointer">START</div>
           </div>
-          <div class="w-20 md:w-24 h-10 md:h-12 hover:bg-timer-stop hover:text-white text-timer-stop border-timer-stop border-2 flex items-center justify-center rounded-md mx-4">
+          <div @click="stop" class="w-20 md:w-24 h-10 md:h-12 hover:bg-timer-stop hover:text-white text-timer-stop border-timer-stop border-2 flex items-center justify-center rounded-md mx-4">
             <div class="text-l md:text-2xl font-semibold hover:cursor-pointer">STOP</div>
           </div>
         </div>
@@ -40,23 +39,74 @@ import ModalCard from '../components/TimerResultModal.vue'
     components:{
       ModalCard,
   },
-    data() { 
-      return {
-        openModal: false,
-      }
+  data() { 
+    return {
+      openModal: false,
+      time: '00.00',
+      timeBegan: null,
+      timeStopped: null,
+      stoppedDuration: 0,
+      started: null,
+      running: false
+    }
   },
   methods: {
     handleClickTitle(index){
       this.openModal = true
     },
+    start() {
+      if (this.running) return;
+      if (this.timeBegan === null) {
+        this.reset();
+        this.timeBegan = new Date();
+      }
+      if (this.timeStopped !== null) {
+        this.stoppedDuration += new Date() - this.timeStopped;
+      }
+      this.started = setInterval(this.clockRunning, 10);
+      this.running = true;
+    },
+    stop() {
+      this.running = false;
+      this.timeStopped = new Date();
+      clearInterval(this.started);
+    },
+    reset() {
+      this.running = false;
+      clearInterval(this.started);
+      this.stoppedDuration = 0;
+      this.timeBegan = null;
+      this.timeStopped = null;
+      this.time = '00.00';
+    },
+    clockRunning() {
+      var currentTime = new Date(),
+        timeElapsed = new Date(currentTime - this.timeBegan - this.stoppedDuration),
+        sec = timeElapsed.getUTCSeconds(),
+        ms = timeElapsed.getUTCMilliseconds();
+      
+      this.time =
+        this.zeroPrefix(sec, 2) + '.' +
+        this.zeroPrefix(ms, 2);
+    },
+    zeroPrefix(num, digit) {
+      var zero = '';
+      for (var i = 0; i < digit; i++) {
+        zero += '0';
+      }
+      return (zero + num).slice(-digit);
+    }
   }
 }
 </script>
 
 <style scoped>
 @font-face {
-    font-family: 'DS-Digital';
-    src: url(../../ds-digib.woff) format('woff');
+  font-family: 'Share-Tech-Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/sharetechmono/v15/J7aHnp1uDWRBEqV98dVQztYldFcLowEF.woff2) format('woff2');
 }
 .text-outline {
   text-shadow:
