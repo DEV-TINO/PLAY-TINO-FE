@@ -4,7 +4,7 @@
 		<div class="flex justify-center">
 			<img src="/image/logo.png" class="w-30 h-20" />
 		</div>
-		<div class="text-lightPurple order-last flex justify-center mr-10 font-medium">Login</div>
+		<div class="text-lightPurple order-last flex justify-center mr-10 font-medium cursor-pointer">Login</div>
 	</div>
 	<div class="bg-priamry h-96">
 		<div class="w-full text-white p-4 font-medium">Games</div>
@@ -23,11 +23,11 @@
 	</div>
 	<div class="pb-20 pt-20">
 		<div class="flex text-lightPurple font-semibold text-3xl justify-center pb-8">How can use?</div>
-		<div class="w-full text-priamry flex justify-center">
-			<ul class="pt-8 flex justify-center items-start">
+		<div class="w-full text-priamry flex justify-evenly">
+			<ul class="w-3/4 pt-8 flex justify-evenly items-start">
 				<li
 					v-for="(game, i) in this.$store.state.gameData"
-					class="w-96 pr-12 pl-12"
+					class="w-96 pr-4 pl-4"
 				>
 					<h2 class="flex justify-center font-bold text-priamry text-xl pb-7">{{ game.name }}</h2>
 					<p>{{ game.rule }}</p>
