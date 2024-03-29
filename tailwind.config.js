@@ -14,6 +14,10 @@ module.exports = {
         'timer-number': '#E4C7C7',
         'lightPurple': '#8F73CF',
         'favorite-title': '#6A3ED2'
+      },
+      inset: {
+        '47%' : '47%',
+        '55%': '55%'
       }
     },
   },
