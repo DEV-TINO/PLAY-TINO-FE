@@ -24,10 +24,10 @@
 	<div class="pb-20 pt-20">
 		<div class="flex text-lightPurple font-semibold text-3xl justify-center pb-8">How can use?</div>
 		<div class="w-full text-priamry flex justify-center">
-			<ul class="flex justify-center items-center">
+			<ul class="pt-8 flex justify-center items-start">
 				<li
 					v-for="(game, i) in this.$store.state.gameData"
-					class="w-96 p-12"
+					class="w-96 pr-12 pl-12"
 				>
 					<h2 class="flex justify-center font-bold text-priamry text-xl pb-7">{{ game.name }}</h2>
 					<p>{{ game.rule }}</p>
