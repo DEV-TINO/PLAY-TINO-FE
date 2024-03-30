@@ -1,5 +1,5 @@
 <template>
-  <Transition name="myAnimation">
+  <Transition name="modalFadeEffect">
     <ModalCard v-if="openModal"
       @closeModal="openModal = $event">
     </ModalCard>
@@ -78,22 +78,22 @@ import ModalCard from '../components/QuizWrongModal.vue'
     -2px -1px 0 white, 2px -1px 0 white,
     -2px 1px 0 white, 2px 1px 0 white;
 }
-.myAnimation-enter-from {
+.modalFadeEffect-enter-from {
   opacity: 0;
 }
-.myAnimation-enter-active {
+.modalFadeEffect-enter-active {
   transition: all 0.5s;
 }
-.myAnimation-enter-to {
+.modalFadeEffect-enter-to {
   opacity: 1;
 }
-.myAnimation-leave-from {
+.modalFadeEffect-leave-from {
   opacity: 1;
 }
-.myAnimation-leave-active {
+.modalFadeEffect-leave-active {
   transition: all 0.2s;
 }
-.myAnimation-leave-to {
+.modalFadeEffect-leave-to {
   opacity: 0;
 }
 </style>
