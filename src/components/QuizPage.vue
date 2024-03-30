@@ -6,10 +6,10 @@
   </Transition>
   <div class="flex flex-col h-screen w-full bg-primary">
     <div class="w-full h-24 min-h-20 flex items-center">
-      <div class="text-white text-xl pl-4 font-semibold hover:cursor-pointer">PLAY - TINO</div>
+      <div class="text-white text-xl pl-4 font-semibold hover:cursor-pointer min-w-40">PLAY - TINO</div>
     </div>
     <div class="w-full min-h-40 flex justify-center items-center bg-primary">
-      <div class="flex items-baseline gap-2">
+      <div class="flex items-baseline gap-2 min-w-52">
         <div class="text-4xl md:text-5xl lg:text-7xl text-quiz-theme font-extrabold text-outline">문제를</div>
         <div class="text-xl md:text-2xl lg:text-4xl text-white font-bold">맞춰라!</div>
       </div>
