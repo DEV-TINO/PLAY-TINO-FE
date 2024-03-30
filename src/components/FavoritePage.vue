@@ -13,15 +13,15 @@
       <div class="w-full text-white text-xl flex justify-center items-center">16강</div>
     </div>
     <div class="w-full h-full min-w-1 mt-2 flex justify-center">
-      <div class="w-1/3 flex flex-col justify-center items-end">
+      <div class="w-1/3 flex flex-col justify-center items-end cursor-pointer">
         <img class="border-8" src="/image/cat1.png" />
         <div class="flex items-center justify-center w-full text-white text-2xl mt-3">고급묘다냥 샴 고양이</div>
       </div>
-      <div class="w-1/3 flex flex-col justify-center">
+      <div class="w-1/3 flex flex-col justify-center cursor-pointer">
         <img class="border-8" src="/image/cat2.png" />
         <div class="flex items-center justify-center w-full text-white text-2xl mt-3">왕 크니까 왕 귀엽다 메인쿤</div>
       </div>
-      <img class="fixed right-47% top-31.5rem w-32 h-32" src="/image/vs.png" />
+      <img class="fixed right-47% top-31.5rem w-24 h-24" src="/image/vs.png" />
     </div>
 	</div>
 </template>
