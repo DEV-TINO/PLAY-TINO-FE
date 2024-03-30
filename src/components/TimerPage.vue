@@ -18,7 +18,7 @@
       <div class="bg-white min-h-60 min-w-96 max-w-6xl py-5 md:py-6 lg:py-7 h-auto w-7/12 rounded-2xl flex flex-col justify-center items-center gap-3 sm:gap-4 md:gap-5">
         <div class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-timer-stop font-['Share-Tech-Mono']">06.00</div>
         <div class="w-8/12 h-auto py-4 sm:py-5 md:py-6 lg:py-7 bg-timer-bg rounded-2xl border-primary border-4 md:border-[5px] flex items-center justify-center">
-          <span class="text-7xl sm:text-8xl md:text-9xl text-primary font-['Share-Tech-Mono']">{{ time }}</span>
+          <span class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-primary font-['Share-Tech-Mono']">{{ time }}</span>
         </div>
         <div class="flex justify-center gap-4">
           <div @click="start" class="w-20 md:w-24 h-10 md:h-12 bg-timer-start text-white flex items-center justify-center rounded-md mx-4">
@@ -70,14 +70,6 @@ import ModalCard from '../components/TimerResultModal.vue'
       this.running = false;
       this.timeStopped = new Date();
       clearInterval(this.started);
-    },
-    reset() {
-      this.running = false;
-      clearInterval(this.started);
-      this.stoppedDuration = 0;
-      this.timeBegan = null;
-      this.timeStopped = null;
-      this.time = '00.00';
     },
     clockRunning() {
       var currentTime = new Date(),
