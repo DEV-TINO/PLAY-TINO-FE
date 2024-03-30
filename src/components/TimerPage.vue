@@ -57,7 +57,6 @@ import ModalCard from '../components/TimerResultModal.vue'
     start() {
       if (this.running) return;
       if (this.timeBegan === null) {
-        this.reset();
         this.timeBegan = new Date();
       }
       if (this.timeStopped !== null) {
