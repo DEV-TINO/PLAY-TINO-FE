@@ -7,5 +7,14 @@ export default createStore({
 	state: {
 		gameData: game,
 		footerMenu: FOOTERMENU,
+		active: 0
+	},
+	mutations: {
+		handleActive(state, i) {
+			state.active = i
+		}
+	},
+	actions: {
+
 	}
 })
