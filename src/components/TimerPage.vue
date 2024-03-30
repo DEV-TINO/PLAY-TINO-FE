@@ -21,7 +21,7 @@
           <span class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-primary font-['Share-Tech-Mono']">{{ time }}</span>
         </div>
         <div class="flex justify-center gap-4">
-          <div @click="start" class="w-20 md:w-24 h-10 md:h-12 bg-timer-start text-white flex items-center justify-center rounded-md mx-4">
+          <div @click="start" class="w-20 md:w-24 h-10 md:h-12 hover:bg-timer-start hover:text-white text-timer-start border-timer-start border-2 flex items-center justify-center rounded-md mx-4">
             <div class="text-l md:text-2xl font-semibold hover:cursor-pointer">START</div>
           </div>
           <div @click="stop" class="w-20 md:w-24 h-10 md:h-12 hover:bg-timer-stop hover:text-white text-timer-stop border-timer-stop border-2 flex items-center justify-center rounded-md mx-4">
