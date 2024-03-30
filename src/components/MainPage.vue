@@ -14,14 +14,14 @@
 				v-for="(game, i) in this.$store.state.gameData"
 				:style="`background-image: url(${game.image});` "
 				role="button"
-				:class="active === i ? 'active' : ''"
-				@click="() => (active = i)"
+				:class="this.$store.state.active === i ? 'active' : ''"
+				@click="this.$store.state.active === i ? handleRouterLink(i) : this.$store.commit('handleActive', i)"
 			>
-				<div :class="active === i ? 'title-default' : 'select-title'">
+				<div :class="this.$store.state.active === i ? 'title-default' : 'select-title'">
 					<h3 class="text-3xl font-bold">{{ game.name }}</h3>
 					<div
-						:class="active === i ? '' : 'section-content'"
-						@click="() => (active = i)"
+						:class="this.$store.state.active === i ? '' : 'section-content'"
+						@click="this.$store.commit('handleActive', i)"
 						>
 						<p>
 							{{ game.subtitle }}
@@ -32,15 +32,15 @@
 		</ul>
 	</div>
 	<div class="pb-20 pt-20">
-		<div class="flex text-lightPurple font-semibold text-3xl justify-center pb-8">How can use?</div>
+		<div class="flex text-lightPurple font-semibold text-4xl justify-center pb-8">How can use?</div>
 		<div class="w-full text-priamry flex justify-evenly">
-			<ul class="w-3/4 pt-8 flex justify-evenly items-start">
+			<ul class="w-5/6 pt-8 flex justify-evenly items-start">
 				<li
 					v-for="(game, i) in this.$store.state.gameData"
 					class="w-96 pr-4 pl-4"
 				>
-					<h2 class="flex justify-center font-bold text-priamry text-xl pb-7">{{ game.name }}</h2>
-					<p>{{ game.rule }}</p>
+					<h2 class="flex justify-center font-bold text-priamry text-2xl pb-7">{{ game.name }}</h2>
+					<p class="text-xl">{{ game.rule }}</p>
 				</li>
 			</ul>
 		</div>
@@ -57,21 +57,19 @@
 	export default {
 		data() {
 			return {
-				active: 0
 			}
 		},
 		methods: {
-			nextSlide() {
-				if (this.active <= this.artists.length) {
-					this.active = this.active += 1;
-				}
-			},
-			prevSlide() {
-				if (this.active > 0) {
-					this.active = this.active + -1;
+			handleRouterLink(i) {
+				if(i === 0) {
+					this.$router.push(`/favorite`)
+				} else if(i === 1) {
+					this.$router.push(`/timer`)
+				} else if(i === 2) {
+					this.$router.push(`/quiz`)
 				}
 			}
-  	}
+		}
 	}
 </script>
   
@@ -128,7 +126,7 @@
   &.active {
     flex: 2;
 		justify-content: center;
-    cursor: default;
+    cursor: pointer;
 
     &:before {
       background: linear-gradient(180deg, rgba(15, 15, 15, 0) 0%, #111111 100%);
