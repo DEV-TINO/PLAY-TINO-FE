@@ -6,20 +6,30 @@
 		</div>
 		<div class="text-lightPurple order-last flex justify-center mr-10 font-medium cursor-pointer">Login</div>
 	</div>
-	<div class="bg-priamry h-96">
-		<div class="w-full text-white p-4 font-medium">Games</div>
-		<!-- <ul>
-			<li 
+	<div class="w-full bg-priamry text-white p-4 font-medium">Games</div>
+	<div class="bg-priamry w-full h-690 pb-8">
+		<ul class="flex w-full h-full overflow-hidden">
+			<li
+				id="game-list"
 				v-for="(game, i) in this.$store.state.gameData"
-				:style="`background-image: url(${game.image});`"
+				:style="`background-image: url(${game.image});` "
 				role="button"
-				:class="active == i ? 'active' : ''"
+				:class="active === i ? 'active' : ''"
 				@click="() => (active = i)"
 			>
-				<h3>{{ game.name }}</h3>
-				<p>{{ game.subtitle }}</p>
+				<div :class="active === i ? 'title-default' : 'select-title'">
+					<h3 class="text-3xl font-bold">{{ game.name }}</h3>
+					<div
+						:class="active === i ? '' : 'section-content'"
+						@click="() => (active = i)"
+						>
+						<p>
+							{{ game.subtitle }}
+						</p>
+					</div>
+				</div>
 			</li>
-		</ul> -->
+		</ul>
 	</div>
 	<div class="pb-20 pt-20">
 		<div class="flex text-lightPurple font-semibold text-3xl justify-center pb-8">How can use?</div>
@@ -47,11 +57,21 @@
 	export default {
 		data() {
 			return {
-				
+				active: 0
 			}
 		},
-		method: {
-		}
+		methods: {
+			nextSlide() {
+				if (this.active <= this.artists.length) {
+					this.active = this.active += 1;
+				}
+			},
+			prevSlide() {
+				if (this.active > 0) {
+					this.active = this.active + -1;
+				}
+			}
+  	}
 	}
 </script>
   
@@ -61,5 +81,98 @@
      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
      font-weight: normal;
      font-style: normal;
+}
+.title-default {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: end;
+	align-content: start;
+	z-index: 20;
+	padding: 4rem;
+}
+.select-title {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: end;
+	align-items: center;
+	z-index: 20;
+	padding: 4rem;
+}
+#game-list {
+	flex: 1;
+  display: flex;
+  align-items: stretch;
+  cursor: pointer;
+  transition: all 0.35s ease;
+  cursor: pointer;
+  position: relative;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top center;
+  overflow: hidden;
+	color: white;
+
+	&:before {
+    content: "";
+    position: absolute;
+    z-index: 20;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(15, 15, 15, 0) 0%, #111111 100%);
+  }
+
+  &.active {
+    flex: 2;
+		justify-content: center;
+    cursor: default;
+
+    &:before {
+      background: linear-gradient(180deg, rgba(15, 15, 15, 0) 0%, #111111 100%);
+    }
+  }
+}
+.section-content {
+  position: relative;
+  z-index: 30;
+  opacity: 0;
+  align-self: flex-end;
+  width: 100%;
+  transition: all 0.35s 0.1s ease-out;
+
+  .active & {
+    opacity: 1;
+  }
+
+  .inner {
+    display: flex;
+    align-items: flex-end;
+    left: 0;
+    bottom: 0;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.25s ease-out;
+
+    @media only screen and (min-width: 768px) {
+      grid-auto-flow: column;
+      grid-template-columns: calc(100% - 340px) 300px;
+      grid-column-gap: 40px;
+      padding: 40px;
+    }
+
+    @media only screen and (min-width: 1280px) {
+      grid-auto-flow: column;
+      grid-template-columns: 460px 200px;
+      grid-column-gap: 40px;
+      padding: 40px;
+    }
+
+    .active & {
+      opacity: 1;
+    }
+  }
 }
 </style>  
