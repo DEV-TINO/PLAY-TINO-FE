@@ -1,76 +1,76 @@
 <template>
-	<div class="flex w-full h-24 bg-white justify-between items-center">
-		<div class="w-30 h-20"></div>
-		<div class="flex justify-center">
-			<img src="/image/logo.png" class="w-30 h-20" />
-		</div>
-		<div class="text-lightPurple order-last flex justify-center mr-10 font-medium cursor-pointer">Login</div>
-	</div>
-	<div class="w-full bg-priamry text-white p-4 font-medium">Games</div>
-	<div class="bg-priamry w-full h-690 pb-8">
-		<ul class="flex w-full h-full overflow-hidden">
-			<li
-				id="game-list"
-				v-for="(game, i) in this.$store.state.gameData"
-				:style="`background-image: url(${game.image});` "
-				role="button"
-				:class="this.$store.state.active === i ? 'active' : ''"
-				@click="this.$store.state.active === i ? handleRouterLink(i) : this.$store.commit('handleActive', i)"
-			>
-				<div :class="this.$store.state.active === i ? 'title-default' : 'select-title'">
-					<h3 class="text-3xl font-bold">{{ game.name }}</h3>
-					<div
-						:class="this.$store.state.active === i ? '' : 'section-content'"
-						@click="this.$store.commit('handleActive', i)"
-						>
-						<p>
-							{{ game.subtitle }}
-						</p>
-					</div>
-				</div>
-			</li>
-		</ul>
-	</div>
-	<div class="pb-20 pt-20">
-		<div class="flex text-lightPurple font-semibold text-4xl justify-center pb-8">How can use?</div>
-		<div class="w-full text-priamry flex justify-evenly">
-			<ul class="w-5/6 pt-8 flex justify-evenly items-start">
-				<li
-					v-for="(game, i) in this.$store.state.gameData"
-					class="w-96 pr-4 pl-4"
-				>
-					<h2 class="flex justify-center font-bold text-priamry text-2xl pb-7">{{ game.name }}</h2>
-					<p class="text-xl">{{ game.rule }}</p>
-				</li>
-			</ul>
-		</div>
-	</div>
-	<div class="bg-priamry h-64 p-10 flex flex-row justify-around items-center">
-		<div v-for="(menu, i) in this.$store.state.footerMenu" class="w-48">
-			<div class="text-white text-xl font-medium mb-3">{{ menu }}</div>
-			<div class="text-white font-medium">{{ menu }}</div>
-		</div>
-	</div>
+  <div class="flex w-full h-24 bg-white justify-between items-center">
+    <div class="w-30 h-20"></div>
+    <div class="flex justify-center">
+      <img src="/image/logo.png" class="w-30 h-20" />
+    </div>
+    <div class="text-lightPurple order-last flex justify-center mr-10 font-medium cursor-pointer">Login</div>
+  </div>
+  <div class="w-full bg-priamry text-white p-4 font-medium">Games</div>
+  <div class="bg-priamry w-full h-690 pb-8">
+    <ul class="flex w-full h-full overflow-hidden">
+      <li
+        id="game-list"
+        v-for="(game, i) in this.$store.state.gameData"
+        :style="`background-image: url(${game.image});` "
+        role="button"
+        :class="this.$store.state.active === i ? 'active' : ''"
+        @click="this.$store.state.active === i ? handleRouterLink(i) : this.$store.commit('handleActive', i)"
+      >
+        <div :class="this.$store.state.active === i ? 'title-default' : 'select-title'">
+          <h3 class="text-3xl font-bold">{{ game.name }}</h3>
+          <div
+            :class="this.$store.state.active === i ? '' : 'section-content'"
+            @click="this.$store.commit('handleActive', i)"
+            >
+            <p>
+              {{ game.subtitle }}
+            </p>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="pb-20 pt-20">
+    <div class="flex text-lightPurple font-semibold text-4xl justify-center pb-8">How can use?</div>
+    <div class="w-full text-priamry flex justify-evenly">
+      <ul class="w-5/6 pt-8 flex justify-evenly items-start">
+        <li
+          v-for="(game, i) in this.$store.state.gameData"
+          class="w-96 pr-4 pl-4"
+        >
+          <h2 class="flex justify-center font-bold text-priamry text-2xl pb-7">{{ game.name }}</h2>
+          <p class="text-xl">{{ game.rule }}</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="bg-priamry h-64 p-10 flex flex-row justify-around items-center">
+    <div v-for="(menu, i) in this.$store.state.footerMenu" class="w-48">
+      <div class="text-white text-xl font-medium mb-3">{{ menu }}</div>
+      <div class="text-white font-medium">{{ menu }}</div>
+    </div>
+  </div>
 </template>
   
 <script>
-	export default {
-		data() {
-			return {
-			}
-		},
-		methods: {
-			handleRouterLink(i) {
-				if(i === 0) {
-					this.$router.push(`/favorite`)
-				} else if(i === 1) {
-					this.$router.push(`/timer`)
-				} else if(i === 2) {
-					this.$router.push(`/quiz`)
-				}
-			}
-		}
-	}
+  export default {
+    data() {
+      return {
+      }
+    },
+    methods: {
+      handleRouterLink(i) {
+        if(i === 0) {
+          this.$router.push(`/favorite`)
+        } else if(i === 1) {
+          this.$router.push(`/timer`)
+        } else if(i === 2) {
+          this.$router.push(`/quiz`)
+        }
+      }
+    }
+  }
 </script>
   
 <style>
@@ -81,25 +81,25 @@
      font-style: normal;
 }
 .title-default {
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	justify-content: end;
-	align-content: start;
-	z-index: 20;
-	padding: 4rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-content: start;
+  z-index: 20;
+  padding: 4rem;
 }
 .select-title {
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	justify-content: end;
-	align-items: center;
-	z-index: 20;
-	padding: 4rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: center;
+  z-index: 20;
+  padding: 4rem;
 }
 #game-list {
-	flex: 1;
+  flex: 1;
   display: flex;
   align-items: stretch;
   cursor: pointer;
@@ -110,9 +110,9 @@
   background-repeat: no-repeat;
   background-position: top center;
   overflow: hidden;
-	color: white;
+  color: white;
 
-	&:before {
+  &:before {
     content: "";
     position: absolute;
     z-index: 20;
@@ -125,7 +125,7 @@
 
   &.active {
     flex: 2;
-		justify-content: center;
+    justify-content: center;
     cursor: pointer;
 
     &:before {
