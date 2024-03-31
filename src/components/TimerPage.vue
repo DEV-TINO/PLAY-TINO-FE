@@ -55,37 +55,37 @@ import ModalCard from '../components/TimerResultModal.vue'
       this.openModal = true
     },
     start() {
-      if (this.running) return;
+      if (this.running) return
       if (this.timeBegan === null) {
-        this.timeBegan = new Date();
+        this.timeBegan = new Date()
       }
       if (this.timeStopped !== null) {
-        this.stoppedDuration += new Date() - this.timeStopped;
+        this.stoppedDuration += new Date() - this.timeStopped
       }
-      this.started = setInterval(this.clockRunning, 10);
-      this.running = true;
+      this.started = setInterval(this.clockRunning, 10)
+      this.running = true
     },
     stop() {
-      this.running = false;
-      this.timeStopped = new Date();
-      clearInterval(this.started);
+      this.running = false
+      this.timeStopped = new Date()
+      clearInterval(this.started)
     },
     clockRunning() {
       var currentTime = new Date(),
         timeElapsed = new Date(currentTime - this.timeBegan - this.stoppedDuration),
         sec = timeElapsed.getUTCSeconds(),
-        ms = timeElapsed.getUTCMilliseconds();
+        ms = timeElapsed.getUTCMilliseconds()
       
       this.time =
         this.zeroPrefix(sec, 2) + '.' +
-        this.zeroPrefix(ms, 2);
+        this.zeroPrefix(ms, 2)
     },
     zeroPrefix(num, digit) {
-      var zero = '';
+      var zero = ''
       for (var i = 0; i < digit; i++) {
-        zero += '0';
+        zero += '0'
       }
-      return (zero + num).slice(-digit);
+      return (zero + num).slice(-digit)
     }
   }
 }
