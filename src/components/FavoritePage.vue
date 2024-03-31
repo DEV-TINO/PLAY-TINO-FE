@@ -1,5 +1,5 @@
 <template>
-	<div class="flex flex-col h-screen w-full bg-priamry">
+  <div class="flex flex-col h-screen w-full bg-priamry">
     <div class="w-full h-24 flex items-center">
       <div class="text-white text-xl pl-6 font-semibold hover:cursor-pointer">PLAY - TINO</div>
     </div>
@@ -23,12 +23,12 @@
       </div>
       <img class="fixed right-47% top-31.5rem w-24 h-24" src="/image/vs.png" />
     </div>
-	</div>
+  </div>
 </template>
 
 <script>
 export default {
-	
+  
 }
 </script>
 
