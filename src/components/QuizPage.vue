@@ -41,7 +41,12 @@
         <div class="text-white text-sm md:text-lg">/10</div>
       </div>
     </div>
+    <div class="progressBar">
+       <div id="bar" class="innerbar"></div>
+    </div>
+    <!--
     <div class="bg-progress-bar-dark w-full h-full min-h-1 max-h-2"></div>
+    -->
   </div>
 </template>
   
@@ -54,13 +59,48 @@ import ModalCard from '../components/QuizWrongModal.vue'
     data() { 
       return {
         openModal: false,
+        progressbarHandler: null,
+        timeBegan: null,
+        MAX_TIME: 15000,
       }
   },
   methods: {
     handleClickTitle(index){
       this.openModal = true
     },
-  }
+    start() {
+      this.timeBegan = new Date()
+      let el = document.getElementById("bar")
+      el.style.width = "0%"
+
+      if (this.progressbarHandler == null) {
+        this.progressbarHandler = setInterval(this.updateProgressbar, 30)
+      }
+    },
+    stop() {
+      if (this.progressbarHandler != null) {
+        clearInterval(this.progressbarHandler)
+        this.progressbarHandler = null
+      }
+    },
+    updateProgressbar() {
+      var currentTime = new Date(),
+        timeElapsed = new Date(
+          this.countDownTime - (currentTime - this.timeBegan)
+        )
+      let time = currentTime - this.timeBegan
+      let el = document.getElementById("bar")
+      let width = (time / this.MAX_TIME) * 100 + "%"
+      width = parseFloat(width).toFixed(2)
+      if (width > 100) width = 100
+
+      let widthStr = width + "%"
+      el.style.width = widthStr
+    },
+  },
+  mounted() {
+    this.start()
+  },
 }
 </script>
   
@@ -95,5 +135,17 @@ import ModalCard from '../components/QuizWrongModal.vue'
 }
 .modalFadeEffect-leave-to {
   opacity: 0;
+}
+.progressBar {
+  width: 100%;
+  height: 8px;
+  background: #EAE1FF;
+}
+.innerbar {
+  height: 100%;
+  text-align: right;
+  height: 8px;
+  width: 0%;
+  background: #6A3ED1;
 }
 </style>
