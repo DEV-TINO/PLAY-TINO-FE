@@ -7,7 +7,7 @@
     <div class="text-lightPurple order-last flex justify-center mr-10 font-medium cursor-pointer">Login</div>
   </div>
   <div class="w-full bg-priamry text-white p-4 font-medium">Games</div>
-  <div class="bg-priamry w-full h-690 pb-8">
+  <div class="bg-priamry w-full h-[calc(100svh-9rem)]">
     <ul class="flex w-full h-full overflow-hidden">
       <li
         id="game-list"
