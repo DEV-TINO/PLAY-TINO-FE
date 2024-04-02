@@ -15,12 +15,6 @@ module.exports = {
         'light-purple' : '#8F73CF',
         'favorite-title': '#6A3ED2'
       },
-      inset: {
-        'favorite-vs-right' : '47%',
-        '50%' : '50%',
-        '55%': '55%',
-        'favorite-vs-top': '31.5rem'
-      },
       height: {
         'quiz-theme' : '#F113DC',
         'quiz-box' : '#D875FF',
