@@ -4,10 +4,10 @@
     <div class="flex justify-center">
       <img src="/image/logo.png" class="w-30 h-20" />
     </div>
-    <div class="text-lightPurple order-last flex justify-center mr-10 font-medium cursor-pointer">Login</div>
+    <div class="text-light-purple order-last flex justify-center mr-10 font-medium cursor-pointer">Login</div>
   </div>
-  <div class="w-full bg-priamry text-white p-4 font-medium">Games</div>
-  <div class="bg-priamry w-full h-[calc(100svh-9rem)]">
+  <div class="w-full bg-primary text-white p-4 font-medium">Games</div>
+  <div class="bg-primary w-full h-[calc(100svh-9rem)]">
     <ul class="flex w-full h-full overflow-hidden">
       <li
         id="game-list"
@@ -15,6 +15,7 @@
         :style="`background-image: url(${game.image});` "
         role="button"
         :class="this.$store.state.active === i ? 'active' : ''"
+        @mouseover="this.$store.commit('handleActive', i)"
         @click="this.$store.state.active === i ? handleRouterLink(i) : this.$store.commit('handleActive', i)"
       >
         <div :class="this.$store.state.active === i ? 'title-default' : 'select-title'">
@@ -32,20 +33,20 @@
     </ul>
   </div>
   <div class="pb-20 pt-20">
-    <div class="flex text-lightPurple font-semibold text-4xl justify-center pb-8">How can use?</div>
-    <div class="w-full text-priamry flex justify-evenly">
+    <div class="flex text-light-purple font-semibold text-4xl justify-center pb-8">How can use?</div>
+    <div class="w-full text-primary flex justify-evenly">
       <ul class="w-5/6 pt-8 flex justify-evenly items-start">
         <li
           v-for="(game, i) in this.$store.state.gameData"
           class="w-96 pr-4 pl-4"
         >
-          <h2 class="flex justify-center font-bold text-priamry text-2xl pb-7">{{ game.name }}</h2>
+          <h2 class="flex justify-center font-bold text-primary text-2xl pb-7">{{ game.name }}</h2>
           <p class="text-xl">{{ game.rule }}</p>
         </li>
       </ul>
     </div>
   </div>
-  <div class="bg-priamry h-64 p-10 flex flex-row justify-around items-center">
+  <div class="bg-primary h-64 p-10 flex flex-row justify-around items-center">
     <div v-for="(menu, i) in this.$store.state.footerMenu" class="w-48">
       <div class="text-white text-xl font-medium mb-3">{{ menu }}</div>
       <div class="text-white font-medium">{{ menu }}</div>
@@ -75,10 +76,10 @@
   
 <style>
 @font-face {
-     font-family: 'S-CoreDream-3Light';
-     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
-     font-weight: normal;
-     font-style: normal;
+  font-family: 'S-CoreDream-3Light';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
 .title-default {
   width: 100%;
@@ -127,10 +128,6 @@
     flex: 2;
     justify-content: center;
     cursor: pointer;
-
-    &:before {
-      background: linear-gradient(180deg, rgba(15, 15, 15, 0) 0%, #111111 100%);
-    }
   }
 }
 .section-content {
@@ -139,7 +136,6 @@
   opacity: 0;
   align-self: flex-end;
   width: 100%;
-  transition: all 0.35s 0.1s ease-out;
 
   .active & {
     opacity: 1;
@@ -153,20 +149,6 @@
     padding: 20px;
     opacity: 0;
     transition: opacity 0.25s ease-out;
-
-    @media only screen and (min-width: 768px) {
-      grid-auto-flow: column;
-      grid-template-columns: calc(100% - 340px) 300px;
-      grid-column-gap: 40px;
-      padding: 40px;
-    }
-
-    @media only screen and (min-width: 1280px) {
-      grid-auto-flow: column;
-      grid-template-columns: 460px 200px;
-      grid-column-gap: 40px;
-      padding: 40px;
-    }
 
     .active & {
       opacity: 1;
