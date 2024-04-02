@@ -16,10 +16,10 @@ module.exports = {
         'favorite-title': '#6A3ED2'
       },
       inset: {
-        '47%' : '47%',
+        'favorite-vs-right' : '47%',
         '50%' : '50%',
         '55%': '55%',
-        'vs-top': '31.5rem'
+        'favorite-vs-top': '31.5rem'
       },
       height: {
         'quiz-theme' : '#F113DC',
