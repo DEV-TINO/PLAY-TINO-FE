@@ -9,7 +9,7 @@
 					<div class="text-xl font-semibold text-primary">고급묘다냥 샴 고양이</div>
 				</div>
 				<div class="flex items-center justify-between">
-					<div class="bg-favorite-theme text-white border-favorite-theme border-2 pr-4 pl-4 pt-1 pb-1 rounded-lg flex justify-center font-bold text-lg">확인</div>
+					<div class="bg-favorite-theme text-white border-favorite-theme border-2 pr-5 pl-5 pt-1 pb-1 rounded-lg flex justify-center font-bold text-lg">확인</div>
 					<div class="bg-white border-favorite-theme border-2 pr-4 pl-4 pt-1 pb-1 mr-2 ml-2 rounded-lg text-favorite-theme font-bold text-xl">다시하기</div>
 					<div class="bg-white border-favorite-theme border-2 pr-4 pl-4 pt-1 pb-1 rounded-lg text-favorite-theme font-bold text-xl">메인으로</div>
 				</div>
