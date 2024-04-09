@@ -120,7 +120,6 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(180deg, rgba(15, 15, 15, 0) 0%, #111111 100%);
   }
 
   &.active {
