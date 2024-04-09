@@ -114,7 +114,6 @@
   color: white;
 
   &:before {
-    content: "";
     position: absolute;
     z-index: 20;
     top: 0;
