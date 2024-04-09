@@ -1,4 +1,7 @@
 <template>
+  <Transition>
+    <FinishModal v-if="this.round"></FinishModal>
+  </Transition>
   <div class="flex flex-col h-screen w-full bg-primary">
     <div class="w-full h-24 flex items-center">
       <div class="text-white text-xl pl-6 font-semibold hover:cursor-pointer">PLAY - TINO</div>
@@ -6,7 +9,7 @@
     <div class="w-full">
       <div class="w-full h-24 flex justify-center items-center">
         <div class="flex items-baseline">
-          <div class="text-4xl md:text-5xl lg:text-7xl text-favorite-title font-extrabold text-outline">고냥이</div>
+          <div class="text-4xl md:text-5xl lg:text-7xl text-favorite-theme font-extrabold text-outline">고냥이</div>
           <div class="text-xl md:text-2xl lg:text-4xl text-white font-bold">월드컵!</div>
         </div>
       </div>
@@ -29,8 +32,22 @@
 </template>
 
 <script>
+import FinishModal from './FavoriteFinishModal.vue'
 export default {
-  
+  components: {
+    FinishModal
+  },
+  mounted() {
+    this.$store.dispatch('getFavoriteData')
+  },
+  data () {
+    return {
+      round: true
+    }
+  },
+  methods: {
+    
+  },
 }
 </script>
 
