@@ -13,7 +13,7 @@
           <div class="text-xl md:text-2xl lg:text-4xl text-white font-bold">월드컵!</div>
         </div>
       </div>
-      <div class="w-full text-white text-xl flex justify-center items-center">16강</div>
+      <div class="w-full text-white text-xl flex justify-center items-center">{{ this.$store.state.gameRound }}강</div>
     </div>
     <div class="w-full h-full mt-2 flex justify-center relative min-w-min">
       <div @click="this.$store.commit('selectImg', 1)" :class="{ 'selected-left': this.$store.state.selectedImg === 1, 'unselected-left': this.$store.state.selectedImg === 2 }" class="w-1/3 flex flex-col justify-center items-end cursor-pointer">
