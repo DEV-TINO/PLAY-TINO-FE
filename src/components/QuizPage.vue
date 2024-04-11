@@ -1,8 +1,11 @@
 <template>
   <Transition name="modalFadeEffect">
-    <ModalCard v-if="openModal"
-      @closeModal="openModal = $event">
-    </ModalCard>
+    <component :is="modalComponent" v-if="openModal" 
+               :correctAnswer="currentQuiz.answer" 
+               :quizIndex="quizCount" 
+               @confirm="loadNextQuiz"
+               @progressBarStart="progressBarStart"
+               @closeModal="openModal = false" />
   </Transition>
   <div class="flex flex-col h-screen w-full bg-primary">
     <div class="w-full h-24 min-h-20 flex items-center">
@@ -49,15 +52,19 @@
 </template>
   
 <script>
-import ModalCard from '../components/QuizWrongModal.vue'
-  export default {
-    components:{
-      ModalCard,
+import WrongModalCard from '../components/QuizWrongModal.vue'
+import CorrectModalCard from '../components/QuizCorrectModal.vue'
 import axios from 'axios'
+
+export default {
+  components:{
+    WrongModalCard,
+    CorrectModalCard
   },
     data() { 
       return {
         openModal: false,
+        modalComponent: null,
         progressbarHandler: null,
         timeBegan: null,
         quizNumber: 10,
@@ -82,6 +89,13 @@ import axios from 'axios'
         this.quizCount++
         this.currentQuiz = this.quizzes[this.quizCount - 1]
         this.answer=''
+      }
+    },
+    handleOpenModal(){
+      if (!this.openModal) {
+        this.openModal = true
+        this.isCorrect()
+        this.progressBarStop()
       }
     },
     isCorrect() {
