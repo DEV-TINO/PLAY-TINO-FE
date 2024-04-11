@@ -1,6 +1,6 @@
 <template>
   <Transition>
-    <FinishModal v-if="round"></FinishModal>
+    <FinishModal v-if="this.$store.state.roundFinish"></FinishModal>
   </Transition>
   <div class="flex flex-col h-screen w-full bg-primary">
     <div class="w-full h-24 flex items-center">
@@ -43,7 +43,6 @@ export default {
   },
   data () {
     return {
-      round: false
     }
   },
   mounted() {
