@@ -10,7 +10,7 @@
 				</div>
 				<div class="flex items-center justify-between">
 					<div @click="handleRouterRank()" class="bg-favorite-theme text-white border-favorite-theme border-2 pr-5 pl-5 pt-1 pb-1 rounded-lg flex justify-center font-bold text-lg cursor-pointer">확인</div>
-					<div class="bg-white border-favorite-theme border-2 pr-4 pl-4 pt-1 pb-1 mr-2 ml-2 rounded-lg text-favorite-theme font-bold text-xl cursor-pointer">다시하기</div>
+					<div @click="reloadPage()" class="bg-white border-favorite-theme border-2 pr-4 pl-4 pt-1 pb-1 mr-2 ml-2 rounded-lg text-favorite-theme font-bold text-xl cursor-pointer">다시하기</div>
 					<div @click="handleRouterMain()" class="bg-white border-favorite-theme border-2 pr-4 pl-4 pt-1 pb-1 rounded-lg text-favorite-theme font-bold text-xl cursor-pointer">메인으로</div>
 				</div>
 			</div>
@@ -26,6 +26,10 @@ export default {
 		},
 		handleRouterRank() {
 			this.$router.push(`/favorite-statistic`)
+		},
+		reloadPage() {
+			this.$store.state.roundFinish = false
+			this.$router.go(0)
 		}
 	}
 }
