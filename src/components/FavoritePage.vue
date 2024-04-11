@@ -1,6 +1,6 @@
 <template>
   <Transition>
-    <FinishModal v-if="this.$store.state.roundFinish"></FinishModal>
+    <FinishModal v-if="this.$store.state.favoriteRoundFinish"></FinishModal>
   </Transition>
   <div class="flex flex-col h-screen w-full bg-primary">
     <div class="w-full h-24 flex items-center">
@@ -13,23 +13,23 @@
           <div class="text-xl md:text-2xl lg:text-4xl text-white font-bold">월드컵!</div>
         </div>
       </div>
-      <div class="w-full text-white text-xl flex justify-center items-center">{{ this.$store.state.gameRound }}강</div>
+      <div class="w-full text-white text-xl flex justify-center items-center">{{ this.$store.state.favoriteGameRound }}강</div>
     </div>
     <div class="w-full h-full mt-2 flex justify-center relative min-w-min">
-      <div @click="this.$store.commit('selectImg', 1)" :class="{ 'selected-left': this.$store.state.selectedImg === 1, 'unselected-left': this.$store.state.selectedImg === 2 }" class="flex flex-col justify-center items-end cursor-pointer">
-        <div :class="{ 'selected-left': this.$store.state.selectedImg === 1 }" class="w-favorite-content-width h-favorite-content-height aspect-w-1 aspect-h-1 border-8 cursor-pointer sm:min-w-72 min-h-72 overflow-hidden">
+      <div @click="this.$store.commit('selectImg', 1)" :class="{ 'selected-left': this.$store.state.favoriteSelectedImg === 1, 'unselected-left': this.$store.state.favoriteSelectedImg === 2 }" class="flex flex-col justify-center items-end cursor-pointer">
+        <div :class="{ 'selected-left': this.$store.state.favoriteSelectedImg === 1 }" class="w-favorite-content-width h-favorite-content-height aspect-w-1 aspect-h-1 border-8 cursor-pointer sm:min-w-72 min-h-72 overflow-hidden">
           <img class="object-cover w-full h-full" :src="this.$store.state.favoriteList[0]?.favoriteImage" />
         </div>
-        <div :class="{ 'selected-left-text': this.$store.state.selectedImg === 1, 'hidden': this.$store.state.selectedImg === 2 }" class="flex items-center justify-center w-favorite-content-width text-white text-2xl mt-3 min-w-72 sm:text-2xl">{{ this.$store.state.favoriteList[0]?.favoriteTitle }}</div>
+        <div :class="{ 'selected-left-text': this.$store.state.favoriteSelectedImg === 1, 'hidden': this.$store.state.favoriteSelectedImg === 2 }" class="flex items-center justify-center w-favorite-content-width text-white text-2xl mt-3 min-w-72 sm:text-2xl">{{ this.$store.state.favoriteList[0]?.favoriteTitle }}</div>
       </div>
-      <div @click="this.$store.commit('selectImg', 2)" :class="{ 'selected-right': this.$store.state.selectedImg === 2, 'unselected-right': this.$store.state.selectedImg === 1 }" class="flex flex-col justify-center cursor-pointer">
-        <div :class="{ 'selected-right': this.$store.state.selectedImg === 2 }" class="w-favorite-content-width h-favorite-content-height aspect-w-1 aspect-h-1 border-8 cursor-pointer sm:min-w-72 min-h-72 overflow-hidden">
+      <div @click="this.$store.commit('selectImg', 2)" :class="{ 'selected-right': this.$store.state.favoriteSelectedImg === 2, 'unselected-right': this.$store.state.favoriteSelectedImg === 1 }" class="flex flex-col justify-center cursor-pointer">
+        <div :class="{ 'selected-right': this.$store.state.favoriteSelectedImg === 2 }" class="w-favorite-content-width h-favorite-content-height aspect-w-1 aspect-h-1 border-8 cursor-pointer sm:min-w-72 min-h-72 overflow-hidden">
           <img class="object-cover w-full h-full" :src="this.$store.state.favoriteList[1]?.favoriteImage" />
         </div>
-        <div :class="{ 'selected-right-text': this.$store.state.selectedImg === 2, 'hidden': this.$store.state.selectedImg === 1 }" class="flex items-center justify-center w-favorite-content-width text-white text-2xl mt-3 min-w-72 sm:text-2xl">{{ this.$store.state.favoriteList[1]?.favoriteTitle }}</div>
+        <div :class="{ 'selected-right-text': this.$store.state.favoriteSelectedImg === 2, 'hidden': this.$store.state.favoriteSelectedImg === 1 }" class="flex items-center justify-center w-favorite-content-width text-white text-2xl mt-3 min-w-72 sm:text-2xl">{{ this.$store.state.favoriteList[1]?.favoriteTitle }}</div>
       </div>
-      <div v-if="this.$store.state.selectedImg == 0" class="h-24 absolute top-72 inset-0 flex items-center justify-center">
-        <img v-show="this.$store.state.selectedImg == 0" class="w-24 h-24 absolute sm:-translate-y-18" src="/image/vs.png" />
+      <div v-if="this.$store.state.favoriteSelectedImg == 0" class="h-24 absolute top-72 inset-0 flex items-center justify-center">
+        <img v-show="this.$store.state.favoriteSelectedImg == 0" class="w-24 h-24 absolute sm:-translate-y-18" src="/image/vs.png" />
       </div>
     </div>
   </div>
