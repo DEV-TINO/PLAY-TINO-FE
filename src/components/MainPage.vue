@@ -15,14 +15,14 @@
         :style="`background-image: url(${game.image});` "
         role="button"
         :class="this.$store.state.MainActive === i ? 'active' : ''"
-        @mouseover="this.$store.commit('handleActive', i)"
-        @click="this.$store.state.MainActive === i ? handleRouterLink(i) : this.$store.commit('handleActive', i)"
+        @mouseover="this.$store.commit('handleMainActive', i)"
+        @click="this.$store.state.MainActive === i ? handleRouterLink(i) : this.$store.commit('handleMainActive', i)"
       >
         <div :class="this.$store.state.MainActive === i ? 'title-default' : 'select-title'">
           <h3 class="text-3xl font-bold">{{ game.name }}</h3>
           <div
             :class="this.$store.state.MainActive === i ? '' : 'section-content'"
-            @click="this.$store.commit('handleActive', i)"
+            @click="this.$store.commit('handleMainActive', i)"
             >
             <p>
               {{ game.subtitle }}

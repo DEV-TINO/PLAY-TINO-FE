@@ -16,13 +16,13 @@
       <div class="w-full text-white text-xl flex justify-center items-center">{{ this.$store.state.favoriteGameRound }}강</div>
     </div>
     <div class="w-full h-full mt-2 flex justify-center relative min-w-min">
-      <div @click="this.$store.commit('selectImg', 1)" :class="{ 'selected-left': this.$store.state.favoriteSelectedImg === 1, 'unselected-left': this.$store.state.favoriteSelectedImg === 2 }" class="flex flex-col justify-center items-end cursor-pointer">
+      <div @click="this.$store.commit('selectFavoriteImg', 1)" :class="{ 'selected-left': this.$store.state.favoriteSelectedImg === 1, 'unselected-left': this.$store.state.favoriteSelectedImg === 2 }" class="flex flex-col justify-center items-end cursor-pointer">
         <div :class="{ 'selected-left': this.$store.state.favoriteSelectedImg === 1 }" class="w-favorite-content-width h-favorite-content-height aspect-w-1 aspect-h-1 border-8 cursor-pointer sm:min-w-72 min-h-72 overflow-hidden">
           <img class="object-cover w-full h-full" :src="this.$store.state.favoriteList[0]?.favoriteImage" />
         </div>
         <div :class="{ 'selected-left-text': this.$store.state.favoriteSelectedImg === 1, 'hidden': this.$store.state.favoriteSelectedImg === 2 }" class="flex items-center justify-center w-favorite-content-width text-white text-2xl mt-3 min-w-72 sm:text-2xl">{{ this.$store.state.favoriteList[0]?.favoriteTitle }}</div>
       </div>
-      <div @click="this.$store.commit('selectImg', 2)" :class="{ 'selected-right': this.$store.state.favoriteSelectedImg === 2, 'unselected-right': this.$store.state.favoriteSelectedImg === 1 }" class="flex flex-col justify-center cursor-pointer">
+      <div @click="this.$store.commit('selectFavoriteImg', 2)" :class="{ 'selected-right': this.$store.state.favoriteSelectedImg === 2, 'unselected-right': this.$store.state.favoriteSelectedImg === 1 }" class="flex flex-col justify-center cursor-pointer">
         <div :class="{ 'selected-right': this.$store.state.favoriteSelectedImg === 2 }" class="w-favorite-content-width h-favorite-content-height aspect-w-1 aspect-h-1 border-8 cursor-pointer sm:min-w-72 min-h-72 overflow-hidden">
           <img class="object-cover w-full h-full" :src="this.$store.state.favoriteList[1]?.favoriteImage" />
         </div>
