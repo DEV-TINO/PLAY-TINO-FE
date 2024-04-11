@@ -5,6 +5,7 @@ module.exports = {
     "./src/**/*.{html,js,vue}"
   ],
   theme: {
+    
     extend: {
       colors: {
         'primary': '#1C0F38',
@@ -16,11 +17,14 @@ module.exports = {
         'quiz-box' : '#D875FF',
         'progress-bar-dark' : '#6A3ED1',
         'progress-bar-light' : '#EAE1FF',
-        'light-purple' : '#8F73CF',
         'modal-background' : '#00000080',
         'correct-modal' : '#58AFF9',
-        'wrong-modal' : '#D875FF',
-      }
+        'wrong-modal' : '#F113DC',
+      },
+      borderWidth: {
+        '3': '3px',
+        '5': '5px',
+      },
     },
   },
   plugins: [
