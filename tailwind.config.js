@@ -1,4 +1,4 @@
-/** @type {import('tailwindcss').Config} */
+/* @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     "./index.html",
@@ -14,9 +14,7 @@ module.exports = {
         'timer-start': '#58AFF9',
         'timer-number': '#E4C7C7',
         'light-purple' : '#8F73CF',
-        'favorite-title': '#6A3ED2'
-      },
-      height: {
+        'favorite-title': '#6A3ED2',
         'quiz-theme' : '#F113DC',
         'quiz-box' : '#D875FF',
         'progress-bar-dark' : '#6A3ED1',

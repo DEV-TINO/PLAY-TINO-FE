@@ -83,14 +83,25 @@ export default {
         nonsenseCorrect: 0,
         commonCorrect: 0,
         MAX_TIME: 15000, // 15s
+        gameId: '',
       }
   },
   methods: {
     async getQuiz() {
         const response = await axios.get(`${this.$store.state.quizPort}/quiz/start/user/3978099b-419d-46cb-a2ca-258b7f7ee535`)
         const obj = response.data.responseQuizList
+        this.gameId = response.data.gameId
         this.quizzes = JSON.parse(obj)
         this.currentQuiz = this.quizzes[this.quizCount - 1]
+    },
+    async saveRank() {
+      const rankData = {
+        gameId: this.gameId,
+        userId: "3978099b-419d-46cb-a2ca-258b7f7ee535",
+        nonsenseCorrect: this.nonsenseCorrect,
+        commonsenseCorrect: this.commonCorrect
+      }
+      const response = await axios.post(`${this.$store.state.quizPort}/quiz/rank`, rankData)
     },
     loadNextQuiz() {
       if(this.quizCount < this.quizNumber) {

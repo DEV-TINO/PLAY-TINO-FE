@@ -15,4 +15,4 @@ library.add(fas)
 library.add(far)
 
 app.component('font-awesome-icon', FontAwesomeIcon)
-app.use(store).use(router).mount('#app')
+app.use(router).use(store).mount('#app')
