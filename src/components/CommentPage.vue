@@ -5,8 +5,8 @@
     </div>
     <hr class="w-full h-px bg-white">
     <div class="w-full h-10 min-h-10 flex justify-end items-center gap-3 lg:gap-5 px-4 lg:px-6 pt-0 md:pt-2 lg:pt-4 min-w-36 text-base md:text-lg lg:text-xl">
-      <div class="text-white font-semibold">추천순</div>
-      <div class="text-quiz-box">최신순</div>
+      <div :class="this.sortType == 'heartCount' ? 'text-quiz-box' : 'text-white font-semibold'" @click="this.sortType = 'heartCount'; getComment(currentPage - 1)">추천순</div>
+      <div :class="this.sortType == 'uploadTime' ? 'text-quiz-box' : 'text-white font-semibold'" @click="this.sortType = 'uploadTime'; getComment(currentPage - 1)">최신순</div>
     </div>
     <div class="w-full h-30 flex justify-center items-start bg-primary py-2 md:py-5">
       <div class="w-10/12">
@@ -28,8 +28,7 @@
           <div class="text-lg text-primary md:text-2xl pt-0 md:pt-1">{{ comment.content }}</div>
           <div class="flex justify-end items-center gap-1 text-quiz-theme">
           <div class="text-sm md:text-lg">{{ comment.heartCount }}</div>
-          <font-awesome-icon class="text-base md:text-xl" :icon="heartIcon" @click="addHeart(index)"/>
-          <!-- <font-awesome-icon class="text-base md:text-xl" :icon="heartIcon" @mouseenter="heartIcon = ['fas', 'heart']" @mouseleave="heartIcon = (isHeart == false) ? ['far', 'heart'] : heartIcon" @click="addHeart(index)"/> -->
+          <font-awesome-icon class="text-base md:text-xl" :icon="comment.checkMyHeart ? checkedheartIcon : uncheckedHeartIcon" @click="toggleHeart(comment)" />
           </div>
         </div>
         <div class="flex items-center justify-center gap-2 md:gap-3 lg:gap-4 text-sm md:text-lg lg:text-xl">
@@ -46,20 +45,22 @@
 </template>
   
 <script>
+const USER_ID = '3978099b-419d-46cb-a2ca-258b7f7ee535'
 import axios from 'axios'
 export default {
   data() {
     return {
       host: '',
       gameType: '',
-      heartIcon: ['far', 'heart'],
+      checkedheartIcon: ['fas', 'heart'],
+      uncheckedHeartIcon: ['far', 'heart'],
       isHeart: false,
       comments: [],
       currentComment: '',
       totalComment: 0,
       currentPage: 1,
       itemsPerPage: 10,
-
+      sortType: 'heartCount',
     }
   },
   computed: {
@@ -74,35 +75,34 @@ export default {
   },
   methods: {
     async getComment(pageNumber) {
-      const commentResponse = await axios.get(`${this.host}/${this.gameType}/comment/all/user/3978099b-419d-46cb-a2ca-258b7f7ee535/heartCount?page=${pageNumber ?? 0}`)
+      const commentResponse = await axios.get(`${this.host}/${this.gameType}/comment/all/user/${USER_ID}/${this.sortType}?page=${pageNumber ?? 0}`)
       this.comments = commentResponse.data.commentList
       this.totalComment = commentResponse.data.commentTotal
-      for (let i=0; i<this.comments.length; i++) {
-        this.comments[i].uploadTime = new Date(this.comments[i].uploadTime)
-        this.comments[i].uploadTime = `${this.comments[i].uploadTime.getFullYear()}.${(this.comments[i].uploadTime.getMonth() + 1).toString().padStart(2, '0')}.${this.comments[i].uploadTime.getDate().toString().padStart(2, '0')} ${this.comments[i].uploadTime.getHours().toString().padStart(2, '0')}:${this.comments[i].uploadTime.getMinutes().toString().padStart(2, '0')}`
-      }
+      
+      const newComments = this.comments.map((comment) =>{
+        const uploadTime = new Date(comment.uploadTime)
+        comment.uploadTime = `${uploadTime.getFullYear()}.${(uploadTime.getMonth() + 1).toString().padStart(2, '0')}.${uploadTime.getDate().toString().padStart(2, '0')} ${uploadTime.getHours().toString().padStart(2, '0')}:${uploadTime.getMinutes().toString().padStart(2, '0')}`
+        return comment
+      }).filter((comment) => comment)
+
+      this.comments = newComments
     },
-    async addHeart(index) {
-      console.log("[addHeart] comment :", this.comments)
-      console.log(this.comment[index].content)
+    async toggleHeart(comment) {
+      // console.log("[toggleHeart] comment :", comment)
+      if (!comment) throw 'Comment is null or undefined'
       const formData = {
-        commentId: this.comments[index].commentId,
+        commentId: comment.commentId,
         userId: "3978099b-419d-46cb-a2ca-258b7f7ee535"
       }
-      const response = await axios.post(`${this.host}/${this.gameType}/comment-heart`, formData)
-      if(!response.data.success) {
-        this.removeHeart(index)
+
+      if (comment.checkMyHeart) { 
+        const response = await axios.delete(`${this.host}/${this.gameType}/comment-heart`, {data: formData })
+      } else{
+        const response = await axios.post(`${this.host}/${this.gameType}/comment-heart`, formData)
       }
-    },
-    async removeHeart(index) {
-      const formData = {
-        commentId: this.comments[index].commentId,
-        userId: "3978099b-419d-46cb-a2ca-258b7f7ee535"
-      }
-      const response = await axios.delete(`${this.host}/${this.gameType}/comment-heart`, formData)
-      if(!response.data.success) {
-        alert("하트를 취소하는 중 에러가 발생했습니다")
-      }
+      // console.log('[toggleHeart] success')
+      comment.checkMyHeart = !comment.checkMyHeart
+      comment.heartCount += comment.checkMyHeart ? 1 : -1
     },
     async handleClickCommentSubmit() {
       const formData = {
@@ -113,7 +113,7 @@ export default {
       if (!submitCommentResponse.data) {
         throw "Save comment error"
       }
-      console.log("[Save comment] success")
+      // console.log("[Save comment] success")
       this.currentComment = ''
       this.getComment()
     },
