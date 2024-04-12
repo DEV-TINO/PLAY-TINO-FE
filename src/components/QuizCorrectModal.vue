@@ -31,6 +31,10 @@
         this.$emit('confirm')
         this.$emit('closeModal', false)
         this.$emit('progressBarStart')
+        if (this.quizIndex == 10) {
+          this.$emit('openModal', true)
+          this.$emit('progressBarStop')
+        }
       }
     }
   }
