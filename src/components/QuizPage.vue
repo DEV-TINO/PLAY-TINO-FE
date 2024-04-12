@@ -5,7 +5,12 @@
                :quizIndex="quizCount" 
                @confirm="loadNextQuiz"
                @progressBarStart="progressBarStart"
-               @closeModal="openModal = false" />
+               @progressBarStop="progressBarStop"
+               @closeModal="openModal = false"
+               @openModal="openResultModal = true" />
+  </Transition>
+  <Transition name="modalFadeEffect">
+    <ResultModalCard v-if="openResultModal"></ResultModalCard>
   </Transition>
   <div class="flex flex-col h-screen w-full bg-primary">
     <div class="w-full h-24 min-h-20 flex items-center">
@@ -54,16 +59,19 @@
 <script>
 import WrongModalCard from '../components/QuizWrongModal.vue'
 import CorrectModalCard from '../components/QuizCorrectModal.vue'
+import ResultModalCard from '../components/QuizResultModal.vue'
 import axios from 'axios'
 
 export default {
   components:{
     WrongModalCard,
-    CorrectModalCard
+    CorrectModalCard,
+    ResultModalCard
   },
     data() { 
       return {
         openModal: false,
+        openResultModal: false,
         modalComponent: null,
         progressbarHandler: null,
         timeBegan: null,
@@ -89,6 +97,11 @@ export default {
         this.quizCount++
         this.currentQuiz = this.quizzes[this.quizCount - 1]
         this.answer=''
+      }
+      else {
+        this.saveRank()
+        this.openModal = true
+        this.modalComponent = 'ResultModalCard'
       }
     },
     handleOpenModal(){
