@@ -105,6 +105,8 @@ export default {
       comment.heartCount += comment.checkMyHeart ? 1 : -1
     },
     async handleClickCommentSubmit() {
+      if (this.currentComment == '') return 
+
       const formData = {
         userId: "3978099b-419d-46cb-a2ca-258b7f7ee535",
         content: String(this.currentComment)
