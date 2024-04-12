@@ -5,8 +5,10 @@
 				<div class="text-5xl font-extrabold text-favorite-theme mb-5">고냥이 월드컵!</div>
 				<div class="text-2xl font-bold text-favorite-theme mb-2">당신의 1등 고양이는</div>
 				<div class="flex flex-col items-center mb-5">
-					<img class="w-56 border-4 border-favorite-theme mb-2" src="/image/cat1.png" />
-					<div class="text-xl font-semibold text-primary">고급묘다냥 샴 고양이</div>
+					<div class="w-72 h-72 overflow-hidden border-4 border-favorite-theme mb-2">
+						<img class="w-full h-auto object-cover" :src="`${this.$store.state.favortieFinalImage}`" />
+					</div>
+					<div class="text-xl font-semibold text-primary">{{ this.$store.state.favoriteFinalTitle }}</div>
 				</div>
 				<div class="flex items-center justify-between">
 					<div @click="handleRouterRank()" class="bg-favorite-theme text-white border-favorite-theme border-2 pr-5 pl-5 pt-1 pb-1 rounded-lg flex justify-center font-bold text-lg cursor-pointer">확인</div>
