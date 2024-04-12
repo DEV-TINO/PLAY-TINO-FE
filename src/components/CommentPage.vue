@@ -92,7 +92,7 @@ export default {
       if (!comment) throw 'Comment is null or undefined'
       const formData = {
         commentId: comment.commentId,
-        userId: "3978099b-419d-46cb-a2ca-258b7f7ee535"
+        userId: USER_ID
       }
 
       if (comment.checkMyHeart) { 
@@ -108,7 +108,7 @@ export default {
       if (this.currentComment == '') return 
 
       const formData = {
-        userId: "3978099b-419d-46cb-a2ca-258b7f7ee535",
+        userId: USER_ID,
         content: String(this.currentComment)
       }
       const submitCommentResponse = await axios.post(`${this.host}/${this.gameType}/comment`, formData)
