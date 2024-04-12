@@ -6,7 +6,7 @@
 				<div class="text-2xl font-bold text-favorite-theme mb-2">당신의 1등 고양이는</div>
 				<div class="flex flex-col items-center mb-5">
 					<div class="w-72 h-72 overflow-hidden border-4 border-favorite-theme mb-2">
-						<img class="w-full h-auto object-cover" :src="`${this.$store.state.favortieFinalImage}`" />
+						<img class="w-full h-full aspect-w-1 aspect-h-1 object-cover" :src="`${this.$store.state.favortieFinalImage}`" />
 					</div>
 					<div class="text-xl font-semibold text-primary">{{ this.$store.state.favoriteFinalTitle }}</div>
 				</div>
@@ -32,6 +32,8 @@ export default {
 		reloadPage() {
 			this.$store.state.roundFinish = false
 			this.$router.go(0)
+			this.$store.commit('resetFavoriteRoundFinish')
+    	this.$store.dispatch('getFavoriteData')
 		}
 	}
 }
