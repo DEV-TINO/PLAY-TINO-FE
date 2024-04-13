@@ -67,11 +67,6 @@ export default {
     pageCount() {
       return Math.ceil(this.totalComment / this.itemsPerPage)
     },
-    currentPageData() {
-      const startIndex = (this.currentPage - 1) * this.itemsPerPage
-      const endIndex = startIndex + this.itemsPerPage
-      return this.rankData.slice(startIndex, endIndex)
-    }
   },
   methods: {
     async getComment(pageNumber) {
