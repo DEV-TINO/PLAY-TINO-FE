@@ -17,9 +17,9 @@
         <div class="text-light-purple text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold w-4/12 flex justify-center items-center min-w-48">맞춘 문제</div>
         <div class="text-light-purple text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold w-2/12 flex justify-center items-center min-w-16">총점</div>
       </div>
-      <div v-for="(user, index) in currentPageData" :key="user.quizRankId">
+      <div v-for="(user, index) in this.rankData" :key="user.quizRankId">
         <div class="flex pb-4 md:pb-7">
-          <div class="w-2/12 min-w-10 flex justify-end px-4 sm:px-8 md:px-10 lg:px-14 xl:px-20 text-light-purple text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold items-center">{{ startIndex + index + 1 }}</div>
+          <div class="w-2/12 min-w-10 flex justify-end px-4 sm:px-8 md:px-10 lg:px-14 xl:px-20 text-light-purple text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold items-center">{{ this.getRank(index) }}</div>
           <div class="w-3/12 min-w-40 items-center pl-1 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">alswlfjddl</div>
           <div class="w-4/12 min-w-48 flex gap-2 justify-center text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl items-center">
             <div class="flex gap-2">
@@ -46,12 +46,12 @@
         </div>
       </div>
       <div class="flex items-center justify-center gap-2 md:gap-3 lg:gap-4 text-sm md:text-lg lg:text-xl">
-        <font-awesome-icon class="text-primary text-base" :icon="['fas', 'angle-left']" />
+        <font-awesome-icon class="text-primary text-base" :icon="['fas', 'angle-left']" @click="decressePageNumber()"/>
         <div v-for="(page, pageNumber) in pageCount" :key="pageNumber" :class="{ 'font-bold text-primary': currentPage == pageNumber + 1, 'font-bold text-gray-200': currentPage != pageNumber + 1 }" @click="changePage(pageNumber + 1)">
           <div v-if="currentPage != pageNumber + 1">{{ pageNumber + 1 }}</div>
           <u v-if="currentPage == pageNumber + 1">{{ pageNumber + 1 }}</u>
         </div>
-        <font-awesome-icon class="text-primary text-base":icon="['fas', 'angle-right']" />
+        <font-awesome-icon class="text-primary text-base":icon="['fas', 'angle-right']" @click="increasePageNumber()"/>
       </div>
     </div>
   </div>
@@ -70,43 +70,40 @@
           rankData: [],
           currentPage: 1,
           itemsPerPage: 5,
-          startIndex: 0,
-          totalComment: 0,
+          totalRank: 0,
         }
       },
       computed: {
         pageCount() {
-          return Math.ceil(this.totalComment / this.itemsPerPage)
+          return Math.ceil(this.totalRank / this.itemsPerPage)
         },
-        currentPageData() {
-          this.startIndex = (this.currentPage - 1) * this.itemsPerPage
-          const endIndex = this.startIndex + this.itemsPerPage
-          return this.rankData.slice(this.startIndex, endIndex)
-        }
       },
       methods: {
         async getRankData(pageNumber) {
           const response = await axios.get(`${this.$store.state.quizPort}/quiz/rank/all?page=${pageNumber ?? 0}`)
           this.rankData = response.data.quizRankList
-          this.totalComment = response.data.quizTotal
+          this.totalRank = response.data.quizTotal
+        },
         handleRouterMain() {
           this.$router.push(`/`)
         },
+        getRank(index){
+          return (this.currentPage - 1) * 5 + index + 1
         },
         changePage(pageNumber) {
           this.currentPage = pageNumber
-          this.getComment(this.currentPage - 1)
+          this.getRankData(this.currentPage - 1)
         },
         decressePageNumber() {
           if (this.currentPage > 1) {
             this.currentPage -= 1
-            this.getComment(this.currentPage - 1)
+            this.getRankData(this.currentPage - 1)
           }
         },
         increasePageNumber() {
           if (this.currentPage < this.pageCount) {
             this.currentPage += 1
-            this.getComment(this.currentPage - 1)
+            this.getRankData(this.currentPage - 1)
           }
         }
       },
