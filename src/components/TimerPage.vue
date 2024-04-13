@@ -1,6 +1,8 @@
 <template>
   <Transition name="modalFadeEffect">
     <ModalCard v-if="openModal"
+      :targetTime="this.targetTime"
+      :stopTime="this.time"
       @closeModal="openModal = $event">
     </ModalCard>
   </Transition>
@@ -51,6 +53,7 @@ import axios from 'axios'
       running: false,
       targetTime: '',
       gameId: '',
+      userId: "3978099b-419d-46cb-a2ca-258b7f7ee535",
     }
   },
   methods: {
