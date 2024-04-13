@@ -31,7 +31,7 @@
           <font-awesome-icon class="text-base md:text-xl" :icon="comment.checkMyHeart ? checkedheartIcon : uncheckedHeartIcon" @click="toggleHeart(comment)" />
           </div>
         </div>
-        <div class="flex items-center justify-center gap-2 md:gap-3 lg:gap-4 text-sm md:text-lg lg:text-xl">
+        <div class="flex items-center pb-4 justify-center gap-2 md:gap-3 lg:gap-4 text-sm md:text-lg lg:text-xl">
           <font-awesome-icon class="text-white text-base" :icon="['fas', 'angle-left']" @click="decressePageNumber()"/>
           <div v-for="(page, pageNumber) in pageCount" :key="pageNumber" :class="{ 'font-bold text-white': currentPage == pageNumber + 1, 'font-bold text-gray-400': currentPage != pageNumber + 1 }" @click="changePage(pageNumber + 1)">
             <div v-if="currentPage != pageNumber + 1">{{ pageNumber + 1 }}</div>
