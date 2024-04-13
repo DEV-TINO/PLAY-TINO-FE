@@ -2,7 +2,7 @@
   <Transition name="modalFadeEffect">
     <component :is="modalComponent" v-if="openModal" 
                :correctAnswer="currentQuiz.answer" 
-               :quizIndex="quizCount" 
+               :quizIndex="quizCount"
                @confirm="loadNextQuiz"
                @progressBarStart="progressBarStart"
                @progressBarStop="progressBarStop"
@@ -10,7 +10,10 @@
                @openModal="openResultModal = true" />
   </Transition>
   <Transition name="modalFadeEffect">
-    <ResultModalCard v-if="openResultModal"></ResultModalCard>
+    <ResultModalCard v-if="openResultModal"
+      :nonsenseCorrect="this.nonsenseCorrect"
+      :commonCorrect="this.commonCorrect">
+    </ResultModalCard>
   </Transition>
   <div class="flex flex-col h-screen w-full bg-primary">
     <div class="w-full h-24 min-h-20 flex items-center">
