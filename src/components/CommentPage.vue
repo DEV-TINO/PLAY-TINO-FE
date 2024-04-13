@@ -98,6 +98,8 @@ export default {
       // console.log('[toggleHeart] success')
       comment.checkMyHeart = !comment.checkMyHeart
       comment.heartCount += comment.checkMyHeart ? 1 : -1
+
+      this.getComment()
     },
     async handleClickCommentSubmit() {
       if (this.currentComment == '') return 
