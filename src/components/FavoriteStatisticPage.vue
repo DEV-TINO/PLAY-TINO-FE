@@ -22,9 +22,9 @@
         </div>
       </div>
       <div class="flex justify-center w-full">
-        <div class="flex items-center justify-between w-1/3 text-2xl">
+        <div class="flex items-center justify-between w-1/2 text-2xl">
           <font-awesome-icon @click="this.$store.dispatch('getFavoriteRank', 'prev')" class="text-gray-200 cursor-pointer active:text-gray-200 hover:text-primary" :icon="['fas', 'angle-left']" />
-          <div v-for="i in this.$store.state.favoriteRankMaxPage" :key="i" @click="this.$store.dispatch('getFavoriteRank', i)" :class="this.$store.state.favoriteRankPage == i ? 'selected-rank-page' : 'unselected-rank-page'" class="font-bold cursor-pointer active:text-primary hover:text-primary">{{ i }}</div>
+          <div v-for="i in 9" :key="i" @click="this.$store.dispatch('getFavoriteRank', i)" :class="this.$store.state.favoriteRankPage == i ? 'selected-rank-page' : 'unselected-rank-page'" class="font-bold cursor-pointer active:text-primary hover:text-primary">{{ i }}</div>
           <font-awesome-icon @click="this.$store.dispatch('getFavoriteRank', 'next')" class="text-gray-200 cursor-pointer active:text-gray-200 hover:text-primary" :icon="['fas', 'angle-right']" />    
         </div>
       </div>
