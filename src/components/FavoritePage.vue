@@ -5,7 +5,7 @@
     </Transition>
     <div class="flex flex-col h-screen w-full bg-primary">
       <div class="w-full h-24 flex items-center">
-        <div class="text-white text-xl pl-6 font-semibold hover:cursor-pointer min-w-40">PLAY - TINO</div>
+        <div @click="handleRouterMain()" class="text-white text-xl pl-6 font-semibold hover:cursor-pointer min-w-40">PLAY - TINO</div>
       </div>
       <div class="w-full sm:min-h-32 flex flex-col justify-end">
         <div class="w-full h-24 flex justify-center items-center">
@@ -52,7 +52,10 @@ export default {
   methods: {
     selectedImg(index) {
       this.$store.dispatch('selectFavoriteImgIndex', index);
-    }
+    },
+    handleRouterMain() {
+			this.$router.push(`/`)
+		},
   },
   computed: {
     currentPair() {
