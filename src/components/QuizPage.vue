@@ -16,7 +16,7 @@
     </ResultModalCard>
   </Transition>
   <div class="flex flex-col h-screen w-full bg-primary">
-    <div class="w-full h-24 min-h-20 flex items-center">
+    <div class="w-full h-24 min-h-20 flex items-center" @click="handleRouterMain()">
       <div class="text-white text-xl pl-4 font-semibold hover:cursor-pointer min-w-40">PLAY - TINO</div>
     </div>
     <div class="w-full min-h-40 flex justify-center items-center bg-primary">
@@ -169,6 +169,9 @@ export default {
         this.handleOpenModal()
       }
     },
+    handleRouterMain() {
+			this.$router.push(`/`)
+		},
   },
   mounted() {
     this.progressBarStart()
