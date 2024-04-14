@@ -21,9 +21,15 @@
     <div class="w-full h-full items-start bg-primary flex justify-center">
       <div class="w-10/12">
         <div v-for="(comment, index) in this.comments" :key="index" class="bg-white w-full h-auto rounded-xl py-3 my-3 items-center px-7 min-w-72">
-          <div class="px-0.5 flex gap-3 items-end">
-            <div class="text-primary font-extrabold text-lg md:text-2xl">alswlfjddl</div>
-            <div class="text-quiz-box text-base md:text-lg">{{ comment.uploadTime }}</div>
+          <div class="flex justify-between">
+            <div class="px-0.5 flex gap-2 items-end">
+              <div class="text-primary font-extrabold text-lg md:text-2xl">alswlfjddl</div>
+              <div class="text-quiz-box text-base md:text-lg">{{ comment.uploadTime }}</div>
+            </div>
+            <div v-if="myComment" class="flex gap-2">
+              <div class="text-primary text-base md:text-lg">수정</div>
+              <div class="text-quiz-box text-base md:text-lg">삭제</div>
+            </div>
           </div>
           <div class="text-lg text-primary md:text-2xl pt-0 md:pt-1">{{ comment.content }}</div>
           <div class="flex justify-end items-center gap-1 text-quiz-theme">
@@ -61,6 +67,7 @@ export default {
       currentPage: 1,
       itemsPerPage: 10,
       sortType: 'heartCount',
+      myComment: true,
     }
   },
   computed: {
