@@ -72,30 +72,30 @@ export default {
     CorrectModalCard,
     ResultModalCard
   },
-    data() { 
-      return {
-        openModal: false,
-        openResultModal: false,
-        modalComponent: null,
-        progressbarHandler: null,
-        timeBegan: null,
-        quizNumber: 10,
-        quizCount: 1,
-        quizzes: [],
-        currentQuiz: [],
-        answer: '', 
-        nonsenseCorrect: 0,
-        commonCorrect: 0,
-        gameId: '',
-      }
+  data() { 
+    return {
+      openModal: false,
+      openResultModal: false,
+      modalComponent: null,
+      progressbarHandler: null,
+      timeBegan: null,
+      quizNumber: 10,
+      quizCount: 1,
+      quizzes: [],
+      currentQuiz: [],
+      answer: '', 
+      nonsenseCorrect: 0,
+      commonCorrect: 0,
+      gameId: '',
+    }
   },
   methods: {
     async getQuiz() {
-        const response = await axios.get(`${this.$store.state.quizPort}/quiz/start/user/${this.$store.state.userId}`)
-        const obj = response.data.responseQuizList
-        this.gameId = response.data.gameId
-        this.quizzes = JSON.parse(obj)
-        this.currentQuiz = this.quizzes[this.quizCount - 1]
+      const response = await axios.get(`${this.$store.state.quizPort}/quiz/start/user/${this.$store.state.userId}`)
+      const obj = response.data.responseQuizList
+      this.gameId = response.data.gameId
+      this.quizzes = JSON.parse(obj)
+      this.currentQuiz = this.quizzes[this.quizCount - 1]
     },
     async saveRank() {
       const rankData = {
