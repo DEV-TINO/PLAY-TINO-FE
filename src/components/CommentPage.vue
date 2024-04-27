@@ -34,7 +34,7 @@
           <div class="text-lg text-primary md:text-2xl pt-0 md:pt-1">{{ comment.content }}</div>
           <div class="flex justify-end items-center gap-1 text-quiz-theme">
           <div class="text-sm md:text-lg">{{ comment.heartCount }}</div>
-          <font-awesome-icon class="text-base md:text-xl" :icon="comment.checkMyHeart ? checkedheartIcon : uncheckedHeartIcon" @click="toggleHeart(comment)" />
+          <font-awesome-icon class="text-base md:text-xl" :icon="comment.userHeart ? checkedheartIcon : uncheckedHeartIcon" @click="toggleHeart(comment)" />
           </div>
         </div>
         <div class="flex items-center pb-4 justify-center gap-2 md:gap-3 lg:gap-4 text-sm md:text-lg lg:text-xl">
@@ -95,14 +95,13 @@ export default {
         userId: this.$store.state.userId
       }
 
-      if (comment.checkMyHeart) { 
+      if (comment.userHeart) { 
         const response = await axios.delete(`${this.host}/${this.gameType}/comment-heart`, {data: formData })
       } else{
         const response = await axios.post(`${this.host}/${this.gameType}/comment-heart`, formData)
       }
-      comment.checkMyHeart = !comment.checkMyHeart
-      comment.heartCount += comment.checkMyHeart ? 1 : -1
-
+      comment.userHeart = !comment.userHeart
+      comment.heartCount += comment.userHeart ? 1 : -1
       this.getComment()
     },
     async handleClickCommentSubmit() {
