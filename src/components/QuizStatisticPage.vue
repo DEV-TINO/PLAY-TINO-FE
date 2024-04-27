@@ -58,60 +58,67 @@
   <CommentPage></CommentPage>
 </template>
     
-  <script>
-    import CommentPage from '../components/CommentPage.vue'
-    import axios from 'axios'
-    export default {
-      components:{
-          CommentPage,
+<script>
+  import CommentPage from '../components/CommentPage.vue'
+  import axios from 'axios'
+  export default {
+    components:{
+      CommentPage,
+    },
+    data() { 
+      return {
+        rankData: [],
+        currentPage: 1,
+        itemsPerPage: 5,
+        totalRank: 0,
+      }
+    },
+    computed: {
+      pageCount() {
+        return Math.ceil(this.totalRank / this.itemsPerPage)
       },
-      data() { 
-        return {
-          rankData: [],
-          currentPage: 1,
-          itemsPerPage: 5,
-          totalRank: 0,
-        }
+    },
+    methods: {
+      async getRankData(pageNumber) {
+        const response = await axios.get(`${this.$store.state.quizPort}/quiz/rank/all?page=${pageNumber ?? 0}`)
+        this.rankData = response.data.quizRankList
+        this.totalRank = response.data.quizTotal
       },
-      computed: {
-        pageCount() {
-          return Math.ceil(this.totalRank / this.itemsPerPage)
-        },
+      rankColor(index) {
+        if (index == 0) {
+          return "worng-modal"
+        } else if (index == 1) {
+          return "quiz-box"
+        } else return "light-purple"
       },
-      methods: {
-        async getRankData(pageNumber) {
-          const response = await axios.get(`${this.$store.state.quizPort}/quiz/rank/all?page=${pageNumber ?? 0}`)
-          this.rankData = response.data.quizRankList
-          this.totalRank = response.data.quizTotal
-        },
-        handleRouterMain() {
-          this.$router.push(`/`)
-        },
-        getRank(index){
-          return (this.currentPage - 1) * 5 + index + 1
-        },
-        changePage(pageNumber) {
-          this.currentPage = pageNumber
+      handleRouterMain() {
+        this.$router.push(`/`)
+      },
+      getRank(index){
+        return (this.currentPage - 1) * 5 + index + 1
+      },
+      changePage(pageNumber) {
+        this.currentPage = pageNumber
+        this.getRankData(this.currentPage - 1)
+      },
+      decressePageNumber() {
+        if (this.currentPage > 1) {
+          this.currentPage -= 1
           this.getRankData(this.currentPage - 1)
-        },
-        decressePageNumber() {
-          if (this.currentPage > 1) {
-            this.currentPage -= 1
-            this.getRankData(this.currentPage - 1)
-          }
-        },
-        increasePageNumber() {
-          if (this.currentPage < this.pageCount) {
-            this.currentPage += 1
-            this.getRankData(this.currentPage - 1)
-          }
         }
       },
-      mounted() {
-        this.getRankData()
-      },
-    }
-  </script>
+      increasePageNumber() {
+        if (this.currentPage < this.pageCount) {
+          this.currentPage += 1
+          this.getRankData(this.currentPage - 1)
+        }
+      }
+    },
+    mounted() {
+      this.getRankData()
+    },
+  }
+</script>
   
-  <style>
-  </style>
+<style>
+</style>
