@@ -51,7 +51,6 @@
 </template>
   
 <script>
-const USER_ID = '3978099b-419d-46cb-a2ca-258b7f7ee535'
 import axios from 'axios'
 export default {
   data() {
@@ -77,7 +76,7 @@ export default {
   },
   methods: {
     async getComment(pageNumber) {
-      const commentResponse = await axios.get(`${this.host}/${this.gameType}/comment/all/user/${USER_ID}/${this.sortType}?page=${pageNumber ?? 0}`)
+      const commentResponse = await axios.get(`${this.host}/${this.gameType}/comment/all/user/${this.$store.state.userId}/${this.sortType}?page=${pageNumber ?? 0}`)
       this.comments = commentResponse.data.commentList
       this.totalComment = commentResponse.data.commentTotal
       
@@ -94,7 +93,7 @@ export default {
       if (!comment) throw 'Comment is null or undefined'
       const formData = {
         commentId: comment.commentId,
-        userId: USER_ID
+        userId: this.$store.state.userId
       }
 
       if (comment.checkMyHeart) { 
@@ -112,7 +111,7 @@ export default {
       if (this.currentComment == '') return 
 
       const formData = {
-        userId: USER_ID,
+        userId: this.$store.state.userId,
         content: String(this.currentComment)
       }
       const submitCommentResponse = await axios.post(`${this.host}/${this.gameType}/comment`, formData)
