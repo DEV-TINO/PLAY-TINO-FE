@@ -103,8 +103,8 @@ import axios from 'axios'
       return (zero + num).slice(-digit)
     },
     handleRouterMain() {
-			this.$router.push(`/`)
-		},
+      this.$router.push(`/`)
+    },
   },
   mounted() {
     this.getTargetTime()
