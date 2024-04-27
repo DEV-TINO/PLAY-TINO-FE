@@ -54,7 +54,7 @@
       </div>
     </div>
     <div class="bg-progress-bar-light w-full h-full min-h-1 max-h-2">
-      <div id="bar" class="text-right h-full bg-progress-bar-dark min-h-1 max-h-2"></div>
+      <div ref="progressBar" class="text-right h-full bg-progress-bar-dark min-h-1 max-h-2"></div>
     </div>
   </div>
 </template>
@@ -138,7 +138,7 @@ export default {
     },
     progressBarStart() {
       this.timeBegan = new Date()
-      const el = document.getElementById("bar")
+      const el = this.$refs.progressBar
       el.style.width = "0%"
 
       if (this.progressbarHandler == null) {
@@ -157,7 +157,7 @@ export default {
           this.countDownTime - (currentTime - this.timeBegan)
         )
       const time = currentTime - this.timeBegan
-      const el = document.getElementById("bar")
+      const el = this.$refs.progressBar
       let width = (time / MAX_TIME) * 100 + "%"
       width = parseFloat((time / MAX_TIME) * 100 + "%").toFixed(2)
       if (width > 100) width = 100
