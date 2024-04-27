@@ -60,6 +60,7 @@
 </template>
   
 <script>
+const MAX_TIME = 15000 // 15s
 import WrongModalCard from '../components/QuizWrongModal.vue'
 import CorrectModalCard from '../components/QuizCorrectModal.vue'
 import ResultModalCard from '../components/QuizResultModal.vue'
@@ -85,7 +86,6 @@ export default {
         answer: '', 
         nonsenseCorrect: 0,
         commonCorrect: 0,
-        MAX_TIME: 15000, // 15s
         gameId: '',
       }
   },
@@ -158,14 +158,14 @@ export default {
         )
       const time = currentTime - this.timeBegan
       const el = document.getElementById("bar")
-      let width = (time / this.MAX_TIME) * 100 + "%"
-      width = parseFloat((time / this.MAX_TIME) * 100 + "%").toFixed(2)
+      let width = (time / MAX_TIME) * 100 + "%"
+      width = parseFloat((time / MAX_TIME) * 100 + "%").toFixed(2)
       if (width > 100) width = 100
 
       let widthStr = width + "%"
       el.style.width = widthStr
 
-      if (time >= this.MAX_TIME) {
+      if (time >= MAX_TIME) {
         this.handleOpenModal()
       }
     },
