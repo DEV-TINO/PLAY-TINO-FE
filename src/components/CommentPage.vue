@@ -89,7 +89,6 @@ export default {
       this.comments = newComments
     },
     async toggleHeart(comment) {
-      // console.log("[toggleHeart] comment :", comment)
       if (!comment) throw 'Comment is null or undefined'
       const formData = {
         commentId: comment.commentId,
@@ -101,7 +100,6 @@ export default {
       } else{
         const response = await axios.post(`${this.host}/${this.gameType}/comment-heart`, formData)
       }
-      // console.log('[toggleHeart] success')
       comment.checkMyHeart = !comment.checkMyHeart
       comment.heartCount += comment.checkMyHeart ? 1 : -1
 
@@ -118,7 +116,6 @@ export default {
       if (!submitCommentResponse.data) {
         throw "Save comment error"
       }
-      // console.log("[Save comment] success")
       this.currentComment = ''
       this.getComment()
     },
