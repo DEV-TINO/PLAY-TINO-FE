@@ -53,19 +53,18 @@ import axios from 'axios'
       running: false,
       targetTime: '',
       gameId: '',
-      userId: "3978099b-419d-46cb-a2ca-258b7f7ee535",
     }
   },
   methods: {
     async getTargetTime() {
-        const response = await axios.get(`${this.$store.state.timerPort}/timer/start/user/3978099b-419d-46cb-a2ca-258b7f7ee535`)
+        const response = await axios.get(`${this.$store.state.timerPort}/timer/start/user/${this.$store.state.userId}`)
         this.gameId = response.data.gameId
         this.targetTime = response.data.targetTime
     },
     async saveRank() {
       const rankData = {
         gameId: this.gameId,
-        userId: "3978099b-419d-46cb-a2ca-258b7f7ee535",
+        userId: this.$store.state.userId,
         stopTime: this.time,
         targetTime: this.targetTime
       }

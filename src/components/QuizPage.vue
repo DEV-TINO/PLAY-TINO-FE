@@ -91,7 +91,7 @@ export default {
   },
   methods: {
     async getQuiz() {
-        const response = await axios.get(`${this.$store.state.quizPort}/quiz/start/user/3978099b-419d-46cb-a2ca-258b7f7ee535`)
+        const response = await axios.get(`${this.$store.state.quizPort}/quiz/start/user/${this.$store.state.userId}`)
         const obj = response.data.responseQuizList
         this.gameId = response.data.gameId
         this.quizzes = JSON.parse(obj)
@@ -100,7 +100,7 @@ export default {
     async saveRank() {
       const rankData = {
         gameId: this.gameId,
-        userId: "3978099b-419d-46cb-a2ca-258b7f7ee535",
+        userId: this.$store.state.userId,
         nonsenseCorrect: this.nonsenseCorrect,
         commonsenseCorrect: this.commonCorrect
       }
