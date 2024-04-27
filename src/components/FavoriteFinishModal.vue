@@ -30,7 +30,7 @@ export default {
 			this.$router.push(`/favorite-statistic`)
 		},
 		reloadPage() {
-			this.$store.state.roundFinish = false
+			this.$store.commit('resetFavoriteRoundFinish')
 			this.$router.go(0)
 			this.$store.commit('resetFavoriteRoundFinish')
     	this.$store.dispatch('getFavoriteData')
