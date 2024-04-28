@@ -22,6 +22,7 @@ module.exports = {
         'modal-background' : '#00000080',
         'correct-modal' : '#58AFF9',
         'wrong-modal' : '#F113DC',
+        'second-price' : '#340C94'
       },
       borderWidth: {
         '3': '3px',
