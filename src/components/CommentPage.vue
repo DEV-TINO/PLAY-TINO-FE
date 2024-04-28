@@ -26,18 +26,22 @@
               <div class="text-primary font-extrabold text-lg md:text-2xl">alswlfjddl</div>
               <div class="text-quiz-box text-base md:text-lg">{{ comment.uploadTime }}</div>
             </div>
-            <div v-if="myComment" class="flex gap-2">
-              <div class="text-primary text-base md:text-lg">수정</div>
-              <div class="text-quiz-box text-base md:text-lg">삭제</div>
+            <div v-if="myComment && editTextIndex == index" class="text-primary text-base md:text-lg" @click="submitComment(index)">완료</div>
+            <div v-else class="flex gap-2">
+              <div class="text-primary text-base md:text-lg" @click="updateComment(index)">수정</div>
+              <div class="text-quiz-box text-base md:text-lg" @click="deleteComment(index)">삭제</div>
             </div>
           </div>
-          <div class="text-lg text-primary md:text-2xl pt-0 md:pt-1">{{ comment.content }}</div>
-          <div class="flex justify-end items-center gap-1 text-quiz-theme">
-          <div class="text-sm md:text-lg">{{ comment.heartCount }}</div>
-          <font-awesome-icon class="text-base md:text-xl" :icon="comment.userHeart ? checkedheartIcon : uncheckedHeartIcon" @click="toggleHeart(comment)" />
+          <div class="flex place-content-between pb-2 items-end">
+            <input v-if="editTextIndex == index" type="text" v-model="editComment" class="bg-gray-100 mt-1 rounded-lg w-full resize-none text-lg md:text-2xl" @keyup.enter="handleClickCommentSubmit()" />
+            <div v-else class="text-lg text-primary md:text-2xl pt-0 md:pt-1">{{ comment.content }}</div>
+            <div class="flex justify-end items-center pl-4 gap-1 text-quiz-theme">
+              <div class="text-sm md:text-lg">{{ comment.heartCount }}</div>
+              <font-awesome-icon class="text-base md:text-xl" :icon="comment.userHeart ? checkedheartIcon : uncheckedHeartIcon" @click="toggleHeart(comment)" />
+            </div>
           </div>
         </div>
-        <div class="flex items-center pb-4 justify-center gap-2 md:gap-3 lg:gap-4 text-sm md:text-lg lg:text-xl">
+        <div v-if="showPagination" class="flex items-center pb-4 justify-center gap-2 md:gap-3 lg:gap-4 text-sm md:text-lg lg:text-xl">
           <font-awesome-icon class="text-white text-base" :icon="['fas', 'angle-double-left']" @click="changeFirstPage()"/>
           <font-awesome-icon class="text-white text-base" :icon="['fas', 'angle-left']" @click="decressePageNumber()"/>
           <div v-if="showStartEllipsis" class="text-gray-400" @click="changeFirstPage()">1</div>
@@ -59,6 +63,7 @@
 </template>
   
 <script>
+const FIRST_PAGE = 0
 import axios from 'axios'
 export default {
   data() {
@@ -78,6 +83,9 @@ export default {
       pages: [],
       showStartEllipsis: false,
       showEndEllipsis: false,
+      showPagination: true,
+      editTextIndex: -1,
+      editComment: '',
     }
   },
   computed: {
@@ -96,23 +104,26 @@ export default {
         return comment
       }).filter((comment) => comment)
       this.comments = newComments
-      if (this.pageCount < 6) {
+      if(this.pageCount == 1) {
+        this.showPagination = false
+      } else if (this.pageCount < 6) {
         this.pages = []
         for(let i = 1; i < this.pageCount + 1; i++) {
           this.pages.push(i)
           this.showStartEllipsis = false
           this.showEndEllipsis = false
+          this.showPagination = true
         }
         return
-      }
-      else if(this.currentPage == 1) {
+      } else if(this.currentPage == 1) {
         this.pages = [1, 2, 3]
-      }
-      else if(this.currentPage == this.pageCount) {
+        this.showPagination = true
+      } else if(this.currentPage == this.pageCount) {
         this.pages = [this.pageCount - 2, this.pageCount - 1, this.pageCount]
-      }
-      else if(this.currentPage > 3 || this.pageCount - 2) {
+        this.showPagination = true
+      } else if(this.currentPage > 3 || this.pageCount - 2) {
         this.pages = [this.currentPage - 1, this.currentPage, this.currentPage + 1]
+        this.showPagination = true
       }
       this.showStartEllipsis = this.currentPage > 2
       this.showEndEllipsis = this.currentPage < this.pageCount - 1
@@ -123,19 +134,20 @@ export default {
         commentId: comment.commentId,
         userId: this.$store.state.userId
       }
-
       if (comment.userHeart) { 
-        const response = await axios.delete(`${this.host}/${this.gameType}/comment-heart`, {data: formData })
+        const response = await axios.delete(`${this.host}/${this.gameType}/comment-heart`, {data: formData})
       } else{
         const response = await axios.post(`${this.host}/${this.gameType}/comment-heart`, formData)
       }
       comment.userHeart = !comment.userHeart
       comment.heartCount += comment.userHeart ? 1 : -1
-      this.getComment()
+      this.getComment(this.currentPage - 1)
     },
     async handleClickCommentSubmit() {
-      if (this.currentComment == '') return 
-
+      if (this.currentComment == '') {
+        alert("댓글을 입력해주세요.")
+        return
+      }
       const formData = {
         userId: this.$store.state.userId,
         content: String(this.currentComment)
@@ -145,7 +157,8 @@ export default {
         throw "Save comment error"
       }
       this.currentComment = ''
-      this.getComment()
+      this.currentPage = FIRST_PAGE + 1
+      this.getComment(FIRST_PAGE)
     },
     changePage(pageNumber) {
       this.currentPage = pageNumber
@@ -171,6 +184,33 @@ export default {
       this.currentPage = this.pageCount
       this.getComment(this.currentPage - 1)
     },
+    async deleteComment(index) {
+      const formData = {
+        commentId: this.comments[index].commentId,
+        userId: this.$store.state.userId
+      }
+      const response = await axios.delete(`${this.host}/${this.gameType}/comment`, {data: formData})
+      this.currentPage = FIRST_PAGE + 1
+      this.getComment(FIRST_PAGE)
+    },
+    async updateComment(index) {
+      this.editComment = this.comments[index].content
+      this.editTextIndex = index
+    },
+    async submitComment(index) {
+      if (this.editComment == '') {
+        alert("댓글을 입력해주세요.")
+        return
+      }
+      const formData = {
+        commentId: this.comments[index].commentId,
+        userId: this.$store.state.userId,
+        content: this.editComment
+      }
+      const response = await axios.put(`${this.host}/${this.gameType}/comment`, formData)
+      this.editTextIndex = -1
+      this.getComment(this.currentPage - 1)
+    }
   },
   mounted() {
     if (this.$route.path.includes("quiz")) {
@@ -180,7 +220,7 @@ export default {
       this.host = this.$store.state.timerPort
       this.gameType = 'timer'
     }
-    this.getComment()
+    this.getComment(FIRST_PAGE)
   }
 }
 </script>
