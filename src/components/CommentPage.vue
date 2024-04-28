@@ -5,8 +5,8 @@
     </div>
     <hr class="w-full h-px bg-white">
     <div class="w-full h-10 min-h-10 flex justify-end items-center gap-3 lg:gap-5 px-4 lg:px-6 pt-0 md:pt-2 lg:pt-4 min-w-36 text-base md:text-lg lg:text-xl">
-      <div :class="this.sortType == 'heartCount' ? 'text-white font-semibold' : 'text-quiz-box'" @click="this.sortType = 'heartCount'; getComment(currentPage - 1)">추천순</div>
-      <div :class="this.sortType == 'uploadTime' ? 'text-white font-semibold' : 'text-quiz-box'" @click="this.sortType = 'uploadTime'; getComment(currentPage - 1)">최신순</div>
+      <div :class="this.sortType == 'heart' ? 'text-white font-semibold' : 'text-quiz-box'" @click="this.sortType = 'heart'; getComment(currentPage - 1)">추천순</div>
+      <div :class="this.sortType == 'time' ? 'text-white font-semibold' : 'text-quiz-box'" @click="this.sortType = 'time'; getComment(currentPage - 1)">최신순</div>
     </div>
     <div class="w-full h-30 flex justify-center items-start bg-primary py-2 md:py-5">
       <div class="w-10/12">
@@ -73,7 +73,7 @@ export default {
       totalComment: 0,
       currentPage: 1,
       itemsPerPage: 10,
-      sortType: 'heartCount',
+      sortType: 'heart',
       myComment: true,
       pages: [],
       showStartEllipsis: false,
