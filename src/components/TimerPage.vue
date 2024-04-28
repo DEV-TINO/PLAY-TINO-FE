@@ -1,11 +1,13 @@
 <template>
   <Transition name="modalFadeEffect">
     <ModalCard v-if="openModal"
+      :targetTime="this.targetTime"
+      :stopTime="this.time"
       @closeModal="openModal = $event">
     </ModalCard>
   </Transition>
   <div class="flex flex-col h-screen w-full bg-primary">
-    <div class="w-full h-24 min-h-20 flex items-center bg-primary">
+    <div class="w-full h-24 min-h-20 flex items-center bg-primary" @click="handleRouterMain()">
       <div class="text-white text-xl pl-4 font-semibold hover:cursor-pointer min-w-40">PLAY - TINO</div>
     </div>
     <div class="w-full min-h-40 flex justify-center items-center bg-primary">
@@ -16,8 +18,8 @@
     </div>
     <div class="w-full h-full flex items-start justify-center bg-primary">
       <div class="bg-white min-h-60 min-w-96 max-w-6xl py-5 md:py-6 lg:py-7 h-auto w-7/12 rounded-2xl flex flex-col justify-center items-center gap-3 sm:gap-4 md:gap-5">
-        <div class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-timer-stop font-['Share-Tech-Mono']">06.00</div>
-        <div class="w-8/12 h-auto py-4 sm:py-5 md:py-6 lg:py-7 bg-timer-bg rounded-2xl border-primary border-4 md:border-[5px] flex items-center justify-center">
+        <div class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-timer-stop font-['Share-Tech-Mono']">{{ this.targetTime }}</div>
+        <div class="w-8/12 h-auto py-4 sm:py-5 md:py-6 lg:py-7 bg-timer-bg rounded-2xl border-primary border-4 md:border-5 flex items-center justify-center">
           <span class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-primary font-['Share-Tech-Mono']">{{ time }}</span>
         </div>
         <div class="flex justify-center gap-4">
@@ -35,6 +37,7 @@
 
 <script>
 import ModalCard from '../components/TimerResultModal.vue'
+import axios from 'axios'
   export default {
     components:{
       ModalCard,
@@ -47,20 +50,31 @@ import ModalCard from '../components/TimerResultModal.vue'
       timeStopped: null,
       stoppedDuration: 0,
       started: null,
-      running: false
+      running: false,
+      targetTime: '',
+      gameId: '',
     }
   },
   methods: {
-    handleClickTitle(index){
+    async getTargetTime() {
+        const response = await axios.get(`${this.$store.state.timerPort}/timer/start/user/${this.$store.state.userId}`)
+        this.gameId = response.data.gameId
+        this.targetTime = response.data.targetTime
+    },
+    async saveRank() {
+      const rankData = {
+        gameId: this.gameId,
+        userId: this.$store.state.userId,
+        stopTime: this.time,
+        targetTime: this.targetTime
+      }
+      const response = await axios.post(`${this.$store.state.timerPort}/timer/rank`, rankData)
       this.openModal = true
     },
     start() {
       if (this.running) return
-      if (this.timeBegan === null) {
+      if (this.timeBegan == null) {
         this.timeBegan = new Date()
-      }
-      if (this.timeStopped !== null) {
-        this.stoppedDuration += new Date() - this.timeStopped
       }
       this.started = setInterval(this.clockRunning, 10)
       this.running = true
@@ -69,6 +83,7 @@ import ModalCard from '../components/TimerResultModal.vue'
       this.running = false
       this.timeStopped = new Date()
       clearInterval(this.started)
+      this.saveRank()
     },
     clockRunning() {
       var currentTime = new Date(),
@@ -86,8 +101,14 @@ import ModalCard from '../components/TimerResultModal.vue'
         zero += '0'
       }
       return (zero + num).slice(-digit)
-    }
-  }
+    },
+    handleRouterMain() {
+      this.$router.push(`/`)
+    },
+  },
+  mounted() {
+    this.getTargetTime()
+  },
 }
 </script>
 
