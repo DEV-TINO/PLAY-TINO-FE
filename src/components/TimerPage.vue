@@ -94,6 +94,10 @@ import axios from 'axios'
       this.time =
         this.zeroPrefix(sec, 2) + '.' +
         this.zeroPrefix(ms, 2)
+
+      if (this.time >= "59.90") {
+        this.stop()
+      }
     },
     zeroPrefix(num, digit) {
       var zero = ''
