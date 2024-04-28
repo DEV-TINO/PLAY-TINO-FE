@@ -38,12 +38,20 @@
           </div>
         </div>
         <div class="flex items-center pb-4 justify-center gap-2 md:gap-3 lg:gap-4 text-sm md:text-lg lg:text-xl">
+          <font-awesome-icon class="text-white text-base" :icon="['fas', 'angle-double-left']" @click="changeFirstPage()"/>
           <font-awesome-icon class="text-white text-base" :icon="['fas', 'angle-left']" @click="decressePageNumber()"/>
-          <div v-for="(page, pageNumber) in pageCount" :key="pageNumber" :class="{ 'font-bold text-white': currentPage == pageNumber + 1, 'font-bold text-gray-400': currentPage != pageNumber + 1 }" @click="changePage(pageNumber + 1)">
-            <div v-if="currentPage != pageNumber + 1">{{ pageNumber + 1 }}</div>
-            <u v-if="currentPage == pageNumber + 1">{{ pageNumber + 1 }}</u>
+          <div v-if="showStartEllipsis" class="text-gray-400" @click="changeFirstPage()">1</div>
+          <div v-if="showStartEllipsis" class="text-gray-400">...</div>
+          <div v-for="(page, index) in pages" :key="index">
+            <div class="font-bold text-white" @click="changePage(page)">
+              <div class="text-gray-400 font-normal" v-if="currentPage != page">{{ page }}</div>
+              <u v-else>{{ page }}</u>
+            </div>
           </div>
-          <font-awesome-icon class="text-white text-base":icon="['fas', 'angle-right']" @click="increasePageNumber()"/>
+          <div v-if="showEndEllipsis" class="text-gray-400">...</div>
+          <div v-if="showEndEllipsis" class="text-gray-400" @click="changeLastPage()">{{ this.pageCount }}</div>
+          <font-awesome-icon class="text-white text-base" :icon="['fas', 'angle-right']" @click="increasePageNumber()"/>
+          <font-awesome-icon class="text-white text-base" :icon="['fas', 'angle-double-right']" @click="changeLastPage()"/>
         </div>
       </div>
     </div>
@@ -67,6 +75,9 @@ export default {
       itemsPerPage: 10,
       sortType: 'heartCount',
       myComment: true,
+      pages: [],
+      showStartEllipsis: false,
+      showEndEllipsis: false,
     }
   },
   computed: {
@@ -79,14 +90,32 @@ export default {
       const commentResponse = await axios.get(`${this.host}/${this.gameType}/comment/all/user/${this.$store.state.userId}/${this.sortType}?page=${pageNumber ?? 0}`)
       this.comments = commentResponse.data.commentList
       this.totalComment = commentResponse.data.commentTotal
-      
       const newComments = this.comments.map((comment) =>{
         const uploadTime = new Date(comment.uploadTime)
         comment.uploadTime = `${uploadTime.getFullYear()}.${(uploadTime.getMonth() + 1).toString().padStart(2, '0')}.${uploadTime.getDate().toString().padStart(2, '0')} ${uploadTime.getHours().toString().padStart(2, '0')}:${uploadTime.getMinutes().toString().padStart(2, '0')}`
         return comment
       }).filter((comment) => comment)
-
       this.comments = newComments
+      if (this.pageCount < 6) {
+        this.pages = []
+        for(let i = 1; i < this.pageCount + 1; i++) {
+          this.pages.push(i)
+          this.showStartEllipsis = false
+          this.showEndEllipsis = false
+        }
+        return
+      }
+      else if(this.currentPage == 1) {
+        this.pages = [1, 2, 3]
+      }
+      else if(this.currentPage == this.pageCount) {
+        this.pages = [this.pageCount - 2, this.pageCount - 1, this.pageCount]
+      }
+      else if(this.currentPage > 3 || this.pageCount - 2) {
+        this.pages = [this.currentPage - 1, this.currentPage, this.currentPage + 1]
+      }
+      this.showStartEllipsis = this.currentPage > 2
+      this.showEndEllipsis = this.currentPage < this.pageCount - 1
     },
     async toggleHeart(comment) {
       if (!comment) throw 'Comment is null or undefined'
@@ -133,7 +162,15 @@ export default {
         this.currentPage += 1
         this.getComment(this.currentPage - 1)
       }
-    }
+    },
+    changeFirstPage() {
+      this.currentPage = 1
+      this.getComment(this.currentPage - 1)
+    },
+    changeLastPage() {
+      this.currentPage = this.pageCount
+      this.getComment(this.currentPage - 1)
+    },
   },
   mounted() {
     if (this.$route.path.includes("quiz")) {
