@@ -30,12 +30,20 @@
           </div>
         </div>
         <div class="flex items-center justify-center gap-2 md:gap-3 lg:gap-4 text-sm md:text-lg lg:text-xl">
+          <font-awesome-icon class="text-primary text-base" :icon="['fas', 'angle-double-left']" @click="changeFirstPage()"/>
           <font-awesome-icon class="text-primary text-base" :icon="['fas', 'angle-left']" @click="decressePageNumber()"/>
-          <div v-for="(page, pageNumber) in pageCount" :key="pageNumber" :class="{ 'font-bold text-primary': currentPage == pageNumber + 1, 'font-bold text-gray-200': currentPage != pageNumber + 1 }" @click="changePage(pageNumber + 1)">
-            <div v-if="currentPage != pageNumber + 1">{{ pageNumber + 1 }}</div>
-            <u v-if="currentPage == pageNumber + 1">{{ pageNumber + 1 }}</u>
+          <div v-if="showStartEllipsis" class="text-light-purple" @click="changeFirstPage()">1</div>
+          <div v-if="showStartEllipsis" class="text-light-purple">...</div>
+          <div v-for="(page, index) in pages" :key="index">
+            <div class="font-bold text-primary" @click="changePage(page)">
+              <div class="text-light-purple font-normal" v-if="currentPage != page">{{ page }}</div>
+              <u v-else>{{ page }}</u>
+            </div>
           </div>
+          <div v-if="showEndEllipsis" class="text-light-purple">...</div>
+          <div v-if="showEndEllipsis" class="text-light-purple" @click="changeLastPage()">{{ this.pageCount }}</div>
           <font-awesome-icon class="text-primary text-base":icon="['fas', 'angle-right']" @click="increasePageNumber()"/>
+          <font-awesome-icon class="text-primary text-base" :icon="['fas', 'angle-double-right']" @click="changeLastPage()"/>
         </div>
       </div>
     </div>
@@ -48,6 +56,9 @@
   export default {
     components:{
         CommentPage,
+      pages: [],
+      showStartEllipsis: false,
+      showEndEllipsis: false,
     },
     data() { 
       return {
@@ -55,7 +66,26 @@
         currentPage: 1,
         itemsPerPage: 5,
         totalRank: 0,
+      if (this.pageCount < 6) {
+        this.pages = []
+        for(let i = 1; i < this.pageCount + 1; i++) {
+          this.pages.push(i)
+          this.showStartEllipsis = false
+          this.showEndEllipsis = false
+        }
+        return
       }
+      else if(this.currentPage == 1) {
+        this.pages = [1, 2, 3]
+      }
+      else if(this.currentPage == this.pageCount) {
+        this.pages = [this.pageCount - 2, this.pageCount - 1, this.pageCount]
+      }
+      else if(this.currentPage > 3 || this.pageCount - 2) {
+        this.pages = [this.currentPage - 1, this.currentPage, this.currentPage + 1]
+      }
+      this.showStartEllipsis = this.currentPage > 2
+      this.showEndEllipsis = this.currentPage < this.pageCount - 1
     },
     computed: {
       pageCount() {
@@ -95,6 +125,14 @@
       this.getRankData()
     },
   }
+    changeFirstPage() {
+      this.currentPage = 1
+      this.getRankData(this.currentPage - 1)
+    },
+    changeLastPage() {
+      this.currentPage = this.pageCount
+      this.getRankData(this.currentPage - 1)
+    },
 </script>
 
 <style>
