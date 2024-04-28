@@ -13,17 +13,21 @@ module.exports = {
         'timer-start': '#58AFF9',
         'timer-number': '#E4C7C7',
         'light-purple' : '#8F73CF',
-        'favorite-title': '#6A3ED2'
-      },
-      height: {
         'quiz-theme' : '#F113DC',
         'quiz-box' : '#D875FF',
         'progress-bar-dark' : '#6A3ED1',
         'progress-bar-light' : '#EAE1FF',
         'light-purple' : '#8F73CF',
-        'modal-background' : '#00000080',
+        'modal-background' : '#000000',
         'correct-modal' : '#58AFF9',
         'wrong-modal' : '#D875FF',
+        'favorite-theme': '#6A3ED2'
+      },
+      width: {
+        'favorite-content-width' : '600px'
+      },
+      height: {
+        'favorite-content-height' : '600px'
       }
     },
   },
