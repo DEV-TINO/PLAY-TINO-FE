@@ -53,21 +53,36 @@
 </template>
   
 <script>
-  import CommentPage from '../components/CommentPage.vue'
-  import axios from 'axios'
-  export default {
-    components:{
-        CommentPage,
+import CommentPage from '../components/CommentPage.vue'
+import axios from 'axios'
+export default {
+  components:{
+    CommentPage,
+  },
+  data() { 
+    return {
+      rankData: [],
+      currentPage: 1,
+      itemsPerPage: 5,
+      totalRank: 0,
       pages: [],
       showStartEllipsis: false,
       showEndEllipsis: false,
+    }
+  },
+  computed: {
+    pageCount() {
+      return Math.ceil(this.totalRank / this.itemsPerPage)
     },
-    data() { 
-      return {
-        rankData: [],
-        currentPage: 1,
-        itemsPerPage: 5,
-        totalRank: 0,
+  },
+  methods: {
+    handleRouterMain() {
+      this.$router.push(`/`)
+    },
+    async getRankData(pageNumber) {
+      const response = await axios.get(`${this.$store.state.timerPort}/timer/rank/all?page=${pageNumber ?? 0}`)
+      this.rankData = response.data.timerList
+      this.totalRank = response.data.timerTotal - 1
       if (this.pageCount < 6) {
         this.pages = []
         for(let i = 1; i < this.pageCount + 1; i++) {
@@ -89,44 +104,25 @@
       this.showStartEllipsis = this.currentPage > 2
       this.showEndEllipsis = this.currentPage < this.pageCount - 1
     },
-    computed: {
-      pageCount() {
-        return Math.ceil(this.totalRank / this.itemsPerPage)
-      },
+    getRank(index){
+      return (this.currentPage - 1) * 5 + index + 1
     },
-    methods: {
-      handleRouterMain() {
-        this.$router.push(`/`)
-      },
-      async getRankData(pageNumber) {
-        const response = await axios.get(`${this.$store.state.timerPort}/timer/rank/all?page=${pageNumber ?? 0}`)
-        this.rankData = response.data.timerList
-        this.totalRank = response.data.timerTotal - 1
-      },
-      getRank(index){
-        return (this.currentPage - 1) * 5 + index + 1
-      },
-      changePage(pageNumber) {
-        this.currentPage = pageNumber
+    changePage(pageNumber) {
+      this.currentPage = pageNumber
+      this.getRankData(this.currentPage - 1)
+    },
+    decressePageNumber() {
+      if (this.currentPage > 1) {
+        this.currentPage -= 1
         this.getRankData(this.currentPage - 1)
-      },
-      decressePageNumber() {
-        if (this.currentPage > 1) {
-          this.currentPage -= 1
-          this.getRankData(this.currentPage - 1)
-        }
-      },
-      increasePageNumber() {
-        if (this.currentPage < this.pageCount) {
-          this.currentPage += 1
-          this.getRankData(this.currentPage - 1)
-        }
       }
     },
-    mounted() {
-      this.getRankData()
+    increasePageNumber() {
+      if (this.currentPage < this.pageCount) {
+        this.currentPage += 1
+        this.getRankData(this.currentPage - 1)
+      }
     },
-  }
     changeFirstPage() {
       this.currentPage = 1
       this.getRankData(this.currentPage - 1)
@@ -145,6 +141,12 @@
       } else {
         return "text-light-purple"
       }
+    }
+  },
+  mounted() {
+    this.getRankData()
+  },
+}
 </script>
 
 <style>
