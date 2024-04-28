@@ -19,7 +19,9 @@
         </div>
         <div v-for="(user, index) in this.rankData" key="user.quizRankId">
           <div class="flex pb-4 md:pb-7">
-            <div class="w-3/12 min-w-10 flex justify-end px-4 sm:px-8 md:px-10 lg:px-14 xl:px-20 text-light-purple text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold items-center">{{ this.getRank(index) }}</div>
+            <div class="w-3/12 min-w-10 flex justify-end px-4 sm:px-8 md:px-10 lg:px-14 xl:px-20 items-center text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold">
+              <div :class=this.rankColor(this.getRank(index))>{{ this.getRank(index) }}</div>
+            </div>
             <div class="w-3/12 min-w-40 items-center pl-1 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">alswlfjddl</div>
             <div class="w-3/12 min-w-40 flex gap-3 justify-center text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl items-center">
               <div>{{ user.stopTime }}</div>
@@ -133,6 +135,16 @@
       this.currentPage = this.pageCount
       this.getRankData(this.currentPage - 1)
     },
+    rankColor(rank) {
+      if (rank == 1) {
+        return "text-primary"
+      } else if (rank == 2) {
+        return "text-second-price"
+      } else if (rank == 3) {
+        return "text-favorite-title"
+      } else {
+        return "text-light-purple"
+      }
 </script>
 
 <style>
