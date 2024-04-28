@@ -1,6 +1,5 @@
 import { createStore } from 'vuex';
 import game from './data/gameData.js';
-import axios from 'axios'
 
 const TIMER_PORT  = 'http://13.124.245.152:8080'
 const QUIZ_PORT = 'http://54.180.115.118:8080'
