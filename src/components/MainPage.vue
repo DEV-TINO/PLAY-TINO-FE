@@ -1,6 +1,6 @@
 <template>
   <div class="flex w-full h-24 bg-white justify-between items-center">
-    <div class="w-30 h-20"></div>
+    <div class="w-30 h-20 ml-10"></div>
     <div class="flex justify-center">
       <img src="/image/logo.png" class="w-30 h-20" />
     </div>
@@ -11,18 +11,18 @@
     <ul class="flex w-full h-full overflow-hidden">
       <li
         id="game-list"
-        v-for="(game, i) in this.$store.state.gameData"
+        v-for="(game, i) in this.$store.state.MainGameData"
         :style="`background-image: url(${game.image});` "
         role="button"
-        :class="this.$store.state.active === i ? 'active' : ''"
-        @mouseover="this.$store.commit('handleActive', i)"
-        @click="this.$store.state.active === i ? handleRouterLink(i) : this.$store.commit('handleActive', i)"
+        :class="this.$store.state.MainActive === i ? 'active' : ''"
+        @mouseover="this.$store.commit('handleMainActive', i)"
+        @click="this.$store.state.MainActive === i ? handleRouterLink(i) : this.$store.commit('handleMainActive', i)"
       >
-        <div :class="this.$store.state.active === i ? 'title-default' : 'select-title'">
+        <div :class="this.$store.state.MainActive === i ? 'title-default' : 'select-title'">
           <h3 class="text-3xl font-bold">{{ game.name }}</h3>
           <div
-            :class="this.$store.state.active === i ? '' : 'section-content'"
-            @click="this.$store.commit('handleActive', i)"
+            :class="this.$store.state.MainActive === i ? '' : 'section-content'"
+            @click="this.$store.commit('handleMainActive', i)"
             >
             <p>
               {{ game.subtitle }}
@@ -37,7 +37,7 @@
     <div class="w-full text-primary flex justify-evenly">
       <ul class="w-5/6 pt-8 flex justify-evenly items-start">
         <li
-          v-for="(game, i) in this.$store.state.gameData"
+          v-for="(game, i) in this.$store.state.MainGameData"
           class="w-96 pr-4 pl-4"
         >
           <h2 class="flex justify-center font-bold text-primary text-2xl pb-7">{{ game.name }}</h2>
@@ -114,14 +114,12 @@
   color: white;
 
   &:before {
-    content: "";
     position: absolute;
     z-index: 20;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(180deg, rgba(15, 15, 15, 0) 0%, #111111 100%);
   }
 
   &.active {
