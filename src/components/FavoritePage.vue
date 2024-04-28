@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     selectedImg(index) {
-      this.$store.dispatch('selectFavoriteImgIndex', index);
+      this.$store.dispatch('selectFavoriteImgIndex', index)
     },
     handleRouterMain() {
 			this.$router.push(`/`)
