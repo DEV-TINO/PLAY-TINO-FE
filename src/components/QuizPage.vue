@@ -170,6 +170,7 @@ export default {
       }
     },
     handleRouterMain() {
+      this.progressBarStop()
       this.$router.push(`/`)
     },
   },
