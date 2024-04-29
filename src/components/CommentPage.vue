@@ -95,6 +95,7 @@ export default {
   },
   methods: {
     async getComment(pageNumber) {
+      this.editTextIndex = -1
       const commentResponse = await axios.get(`${this.host}/${this.gameType}/comment/all/user/${this.$store.state.userId}/${this.sortType}?page=${pageNumber ?? 0}`)
       this.comments = commentResponse.data.commentList
       this.totalComment = commentResponse.data.commentTotal
@@ -208,7 +209,6 @@ export default {
         content: this.editComment
       }
       const response = await axios.put(`${this.host}/${this.gameType}/comment`, formData)
-      this.editTextIndex = -1
       this.getComment(this.currentPage - 1)
     }
   },
