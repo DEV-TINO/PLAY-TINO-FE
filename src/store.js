@@ -1,13 +1,28 @@
-import axios from 'axios';
 import { createStore } from 'vuex';
 import game from './data/gameData.js';
+import axios from 'axios'
 
+const TIMER_PORT  = 'http://13.124.245.152:8080'
+const QUIZ_PORT = 'http://54.180.115.118:8080'
 const FOOTERMENU = ['Contact', 'Our Team', 'Social']
 const FAVORITE = 'http://43.201.78.161:8080'
 const USERID = '3978099b-419d-46cb-a2ca-258b7f7ee535'
+const USER_ID = '3978099b-419d-46cb-a2ca-258b7f7ee535'
 
 export default createStore({
   state: {
+    //
+    // Jungyun
+    //
+    timerPort: TIMER_PORT,
+    quizPort: QUIZ_PORT,
+    gameData: game,
+    footerMenu: FOOTERMENU,
+    userId: USER_ID,
+    active: 0,
+    //
+    // Minji
+    //
     MainGameData: game,
     footerMenu: FOOTERMENU,
     userId: USERID,
@@ -32,6 +47,15 @@ export default createStore({
     favoriteDisabled: false
   },
   mutations: {
+    //
+    // Jungyun
+    //
+    handleActive(state, i) {
+        state.active = i
+    },
+    //
+    // Minji
+    //
     handleMainActive(state, i) {
       state.MainActive = i
     },
@@ -256,3 +280,5 @@ export default createStore({
     },
   }
 })
+
+export default store
