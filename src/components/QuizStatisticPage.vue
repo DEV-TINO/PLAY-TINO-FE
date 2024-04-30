@@ -95,7 +95,7 @@
     },
     methods: {
       async getRankData(pageNumber) {
-        const response = await axios.get(`${this.$store.state.quizPort}/quiz/rank/all?page=${pageNumber ?? 0}`)
+        const response = await axios.get(`${this.$store.state.quizHost}/quiz/rank/all?page=${pageNumber ?? 0}`)
         this.rankData = response.data.quizRankList
         this.totalRank = response.data.quizTotal
         if (this.pageCount < 6) {
