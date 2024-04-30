@@ -80,7 +80,7 @@ export default {
       this.$router.push(`/`)
     },
     async getRankData(pageNumber) {
-      const response = await axios.get(`${this.$store.state.timerPort}/timer/rank/all?page=${pageNumber ?? 0}`)
+      const response = await axios.get(`${this.$store.state.timerHost}/timer/rank/all?page=${pageNumber ?? 0}`)
       this.rankData = response.data.timerList
       this.totalRank = response.data.timerTotal - 1
       if (this.pageCount < 6) {

@@ -91,7 +91,7 @@ export default {
   },
   methods: {
     async getQuiz() {
-      const response = await axios.get(`${this.$store.state.quizPort}/quiz/start/user/${this.$store.state.userId}`)
+      const response = await axios.get(`${this.$store.state.quizHost}/quiz/start/user/${this.$store.state.userId}`)
       const obj = response.data.responseQuizList
       this.gameId = response.data.gameId
       this.quizzes = JSON.parse(obj)
@@ -104,7 +104,7 @@ export default {
         nonsenseCorrect: this.nonsenseCorrect,
         commonsenseCorrect: this.commonCorrect
       }
-      const response = await axios.post(`${this.$store.state.quizPort}/quiz/rank`, rankData)
+      const response = await axios.post(`${this.$store.state.quizHost}/quiz/rank`, rankData)
     },
     loadNextQuiz() {
       if(this.quizCount < this.quizNumber) {

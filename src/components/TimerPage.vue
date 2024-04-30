@@ -57,7 +57,7 @@ import axios from 'axios'
   },
   methods: {
     async getTargetTime() {
-        const response = await axios.get(`${this.$store.state.timerPort}/timer/start/user/${this.$store.state.userId}`)
+        const response = await axios.get(`${this.$store.state.timerHost}/timer/start/user/${this.$store.state.userId}`)
         this.gameId = response.data.gameId
         this.targetTime = response.data.targetTime
     },
@@ -68,7 +68,7 @@ import axios from 'axios'
         stopTime: this.time,
         targetTime: this.targetTime
       }
-      const response = await axios.post(`${this.$store.state.timerPort}/timer/rank`, rankData)
+      const response = await axios.post(`${this.$store.state.timerHost}/timer/rank`, rankData)
       this.openModal = true
     },
     start() {

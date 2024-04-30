@@ -214,10 +214,10 @@ export default {
   },
   mounted() {
     if (this.$route.path.includes("quiz")) {
-      this.host = this.$store.state.quizPort
+      this.host = this.$store.state.quizHost
       this.gameType = 'quiz'
     } else if (this.$route.path.includes("timer")) {
-      this.host = this.$store.state.timerPort
+      this.host = this.$store.state.timerHost
       this.gameType = 'timer'
     }
     this.getComment(FIRST_PAGE)
