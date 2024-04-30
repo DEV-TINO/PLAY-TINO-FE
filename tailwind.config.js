@@ -5,6 +5,7 @@ module.exports = {
     "./src/**/*.{html,js,vue}"
   ],
   theme: {
+    
     extend: {
       colors: {
         'primary': '#1C0F38',
@@ -19,9 +20,9 @@ module.exports = {
         'progress-bar-dark' : '#6A3ED1',
         'progress-bar-light' : '#EAE1FF',
         'light-purple' : '#8F73CF',
-        'modal-background' : '#000000',
+        'modal-background' : '#00000080',
         'correct-modal' : '#58AFF9',
-        'wrong-modal' : '#D875FF',
+        'wrong-modal' : '#F113DC',
         'favorite-theme': '#6A3ED2'
       },
       width: {
@@ -30,9 +31,7 @@ module.exports = {
       height: {
         'favorite-content-height' : '600px'
       },
-        'modal-background' : '#00000080',
         'correct-modal' : '#58AFF9',
-        'wrong-modal' : '#F113DC',
       },
       borderWidth: {
         '2': '2px',
