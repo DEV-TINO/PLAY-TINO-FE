@@ -19,7 +19,11 @@
       </div>
       <div v-for="(user, index) in this.rankData" :key="user.quizRankId">
         <div class="flex pb-4 md:pb-7">
-          <div class="w-2/12 min-w-10 flex justify-end px-4 sm:px-8 md:px-10 lg:px-14 xl:px-20 text-light-purple text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold items-center">{{ this.getRank(index) }}</div>
+          <div class="w-2/12 min-w-10 flex justify-end px-4 sm:px-8 md:px-10 lg:px-14 xl:px-20 text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold items-center">
+            <div :class=this.rankColor(this.getRank(index))>
+              {{ this.getRank(index) }}
+            </div>
+          </div>
           <div class="w-3/12 min-w-40 items-center pl-1 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">alswlfjddl</div>
           <div class="w-4/12 min-w-48 flex gap-2 justify-center text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl items-center">
             <div class="flex gap-2">
@@ -46,12 +50,20 @@
         </div>
       </div>
       <div class="flex items-center justify-center gap-2 md:gap-3 lg:gap-4 text-sm md:text-lg lg:text-xl">
+        <font-awesome-icon class="text-primary text-base" :icon="['fas', 'angle-double-left']" @click="changeFirstPage()"/>
         <font-awesome-icon class="text-primary text-base" :icon="['fas', 'angle-left']" @click="decressePageNumber()"/>
-        <div v-for="(page, pageNumber) in pageCount" :key="pageNumber" :class="{ 'font-bold text-primary': currentPage == pageNumber + 1, 'font-bold text-gray-200': currentPage != pageNumber + 1 }" @click="changePage(pageNumber + 1)">
-          <div v-if="currentPage != pageNumber + 1">{{ pageNumber + 1 }}</div>
-          <u v-if="currentPage == pageNumber + 1">{{ pageNumber + 1 }}</u>
+        <div v-if="showStartEllipsis" class="text-light-purple" @click="changeFirstPage()">1</div>
+        <div v-if="showStartEllipsis" class="text-light-purple">...</div>
+        <div v-for="(page, index) in pages" :key="index">
+          <div class="font-bold text-primary" @click="changePage(page)">
+            <div class="text-light-purple font-normal" v-if="currentPage != page">{{ page }}</div>
+            <u v-else>{{ page }}</u>
+          </div>
         </div>
+        <div v-if="showEndEllipsis" class="text-light-purple">...</div>
+        <div v-if="showEndEllipsis" class="text-light-purple" @click="changeLastPage()">{{ this.pageCount }}</div>
         <font-awesome-icon class="text-primary text-base":icon="['fas', 'angle-right']" @click="increasePageNumber()"/>
+        <font-awesome-icon class="text-primary text-base" :icon="['fas', 'angle-double-right']" @click="changeLastPage()"/>
       </div>
     </div>
   </div>
@@ -71,6 +83,9 @@
         currentPage: 1,
         itemsPerPage: 5,
         totalRank: 0,
+        pages: [],
+        showStartEllipsis: false,
+        showEndEllipsis: false,
       }
     },
     computed: {
@@ -80,9 +95,29 @@
     },
     methods: {
       async getRankData(pageNumber) {
-        const response = await axios.get(`${this.$store.state.quizPort}/quiz/rank/all?page=${pageNumber ?? 0}`)
+        const response = await axios.get(`${this.$store.state.quizHost}/quiz/rank/all?page=${pageNumber ?? 0}`)
         this.rankData = response.data.quizRankList
         this.totalRank = response.data.quizTotal
+        if (this.pageCount < 6) {
+          this.pages = []
+          for(let i = 1; i < this.pageCount + 1; i++) {
+            this.pages.push(i)
+            this.showStartEllipsis = false
+            this.showEndEllipsis = false
+          }
+          return
+        }
+        else if(this.currentPage == 1) {
+          this.pages = [1, 2, 3]
+        }
+        else if(this.currentPage == this.pageCount) {
+          this.pages = [this.pageCount - 2, this.pageCount - 1, this.pageCount]
+        }
+        else if(this.currentPage > 3 || this.pageCount - 2) {
+          this.pages = [this.currentPage - 1, this.currentPage, this.currentPage + 1]
+        }
+        this.showStartEllipsis = this.currentPage > 2
+        this.showEndEllipsis = this.currentPage < this.pageCount - 1
       },
       rankColor(index) {
         if (index == 0) {
@@ -111,6 +146,25 @@
         if (this.currentPage < this.pageCount) {
           this.currentPage += 1
           this.getRankData(this.currentPage - 1)
+        }
+      },
+      changeFirstPage() {
+        this.currentPage = 1
+        this.getRankData(this.currentPage - 1)
+      },
+      changeLastPage() {
+        this.currentPage = this.pageCount
+        this.getRankData(this.currentPage - 1)
+      },
+      rankColor(rank) {
+        if (rank == 1) {
+          return "text-primary"
+        } else if (rank == 2) {
+          return "text-second-price"
+        } else if (rank == 3) {
+          return "text-favorite-title"
+        } else {
+          return "text-light-purple"
         }
       }
     },
