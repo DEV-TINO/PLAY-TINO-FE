@@ -219,8 +219,7 @@ export default {
     } else if (this.$route.path.includes("timer")) {
       this.host = this.$store.state.timerHost
       this.gameType = 'timer'
-    }
-    else if (this.$route.path.includes("favorite")) {
+    } else if (this.$route.path.includes("favorite")) {
       this.host = this.$store.state.favoriteHost
       this.gameType = 'favorite'
     }
