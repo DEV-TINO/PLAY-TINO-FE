@@ -2,24 +2,24 @@ import axios from 'axios';
 import { createStore } from 'vuex';
 import game from './data/gameData.js';
 
-const TIMER_PORT  = 'http://13.124.245.152:8080'
-const QUIZ_PORT = 'http://54.180.115.118:8080'
+const TIMER  = 'http://13.124.245.152:8080'
+const QUIZ = 'http://54.180.115.118:8080'
 const FOOTERMENU = ['Contact', 'Our Team', 'Social']
-const FAVORITE_PORT = 'http://43.201.78.161:8080'
-const USER_ID = '3978099b-419d-46cb-a2ca-258b7f7ee535'
+const FAVORITE = 'http://43.201.78.161:8080'
+const USERID = '3978099b-419d-46cb-a2ca-258b7f7ee535'
 
 export default createStore({
   state: {
-    timerPort: TIMER_PORT,
-    quizPort: QUIZ_PORT,
+    timerHost: TIMER,
+    quizHost: QUIZ,
     gameData: game,
     footerMenu: FOOTERMENU,
-    userId: USER_ID,
+    userId: USERID,
     active: 0,
     MainGameData: game,
     footerMenu: FOOTERMENU,
     MainActive: 0,
-    favoriteHost: FAVORITE_PORT,
+    favoriteHost: FAVORITE,
     favoriteList: [],
     favoriteGameId: '',
     favoriteSelectedImg: '',
