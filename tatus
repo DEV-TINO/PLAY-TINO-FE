@@ -1,0 +1,60 @@
+[33mf31b9f2[m[33m ([m[1;36mHEAD -> [m[1;32mshare[m[33m, [m[1;31morigin/share[m[33m)[m HEAD@{0}: reset: moving to HEAD^
+[33m830990a[m HEAD@{1}: commit (merge): style: change border line
+[33mf31b9f2[m[33m ([m[1;36mHEAD -> [m[1;32mshare[m[33m, [m[1;31morigin/share[m[33m)[m HEAD@{2}: reset: moving to HEAD
+[33mf31b9f2[m[33m ([m[1;36mHEAD -> [m[1;32mshare[m[33m, [m[1;31morigin/share[m[33m)[m HEAD@{3}: commit: feat: favorite page and main page
+[33m438b400[m HEAD@{4}: commit: style: remove semicol
+[33ma28c477[m[33m ([m[1;31morigin/feat/prototype-favorite[m[33m, [m[1;32mfeat/prototype-favorite[m[33m)[m HEAD@{5}: checkout: moving from feat/prototype-favorite to share
+[33ma28c477[m[33m ([m[1;31morigin/feat/prototype-favorite[m[33m, [m[1;32mfeat/prototype-favorite[m[33m)[m HEAD@{6}: commit: style: change text color
+[33md03dd54[m HEAD@{7}: commit: style: modify rank style
+[33m75dbb7a[m HEAD@{8}: commit: feat: use store commit
+[33mff7fbe9[m HEAD@{9}: commit: feat: add router
+[33mea03059[m HEAD@{10}: commit: feat: make statistic page use api, load data
+[33m3cdf14c[m HEAD@{11}: commit: fix: spelling error
+[33m5ad70b9[m HEAD@{12}: commit: feat: favorite game animation and make game
+[33ma010fa3[m HEAD@{13}: commit: fix: data logic and favorite game statistic
+[33m59de893[m HEAD@{14}: commit: style: modify favorite game result image size
+[33mca23df4[m HEAD@{15}: commit: fix: game result load
+[33m400283b[m HEAD@{16}: commit: style: rename function
+[33mf7dc257[m HEAD@{17}: commit: style: rename variable
+[33m04418b3[m HEAD@{18}: commit: style: rename variable
+[33m4f94aa2[m HEAD@{19}: commit: style: rename variable
+[33m912481a[m HEAD@{20}: commit: feat: handle favorite statistic page
+[33mb2fbe73[m HEAD@{21}: commit: style: roundFinish variable use store
+[33mf80e3bb[m HEAD@{22}: commit: feat: make again button
+[33mc56d031[m HEAD@{23}: commit: style: use api and load Data, fix image size
+[33m50df108[m HEAD@{24}: commit: feat: load rank data use api
+[33m70ccae4[m HEAD@{25}: commit: feat: round count use store
+[33me2904ee[m HEAD@{26}: commit: feat: image select animation
+[33mc49aceb[m HEAD@{27}: commit: style: remove unnecessary code
+[33m96531ee[m HEAD@{28}: commit: style: change main images
+[33mdef3d72[m[33m ([m[1;32mfeat/prototype-main[m[33m)[m HEAD@{29}: checkout: moving from feat/prototype-main to feat/prototype-favorite
+[33mdef3d72[m[33m ([m[1;32mfeat/prototype-main[m[33m)[m HEAD@{30}: commit: feat: push router
+[33m7c3313e[m HEAD@{31}: commit: feat: push router
+[33m26acce2[m HEAD@{32}: commit: test: favorite game finish modal test
+[33m042f0b8[m HEAD@{33}: commit: style: button padding
+[33mfdcd876[m HEAD@{34}: commit: feat: make favorite game finish modal page
+[33m4d8138f[m HEAD@{35}: commit: style: remove unnecessary code
+[33m95be951[m HEAD@{36}: commit: feat: make favorite game statistic page
+[33mc237287[m HEAD@{37}: commit: feat: add favorite statistic page router
+[33m57482ce[m HEAD@{38}: commit: style: header logo location
+[33m72c5705[m[33m ([m[1;31morigin/feat/prototype-main[m[33m)[m HEAD@{39}: commit: style: vs icon style
+[33mb9deecb[m HEAD@{40}: commit: style: remove unnecessary inset
+[33md969e22[m HEAD@{41}: commit: style: rename inset variable
+[33m5c8399c[m HEAD@{42}: commit (merge): style: change magic number
+[33mc14a5ab[m HEAD@{43}: commit: style: modify game list area
+[33m3043ae0[m HEAD@{44}: commit: style: change spacing
+[33m74bcf05[m HEAD@{45}: commit: feat: use store
+[33m15be571[m HEAD@{46}: commit: style: main page prototype
+[33mec39550[m HEAD@{47}: commit: feat: show game list
+[33m66d3b08[m HEAD@{48}: commit: style: change images
+[33m49fc356[m HEAD@{49}: commit: style: modify design
+[33mfccfcb8[m HEAD@{50}: commit: style: modify design
+[33mcf709a1[m HEAD@{51}: commit: style: modify design
+[33m2f3b78c[m HEAD@{52}: commit: style: add inset values
+[33m3297e7f[m HEAD@{53}: commit: style: change flex style
+[33me5b346b[m HEAD@{54}: commit: style: change page icon and title
+[33mad604b5[m HEAD@{55}: commit: feat: main page and favorite page
+[33m73d7a40[m[33m ([m[1;31morigin/feat/prototype[m[33m, [m[1;32mmain[m[33m)[m HEAD@{56}: checkout: moving from main to feat/prototype-main
+[33m73d7a40[m[33m ([m[1;31morigin/feat/prototype[m[33m, [m[1;32mmain[m[33m)[m HEAD@{57}: pull origin feat/prototype: Fast-forward
+[33me0fdcae[m HEAD@{58}: pull origin feat/prototype: Fast-forward
+[33m1d7e7c3[m HEAD@{59}: clone: from https://github.com/DEV-TINO/PLAY-TINO-FE
