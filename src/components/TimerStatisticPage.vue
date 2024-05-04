@@ -13,13 +13,13 @@
       <div class="w-full h-auto bg-white pt-10 pb-3">
         <div class="flex pb-2 sm:pb-4 md:pb-6 lg:pb-8 xl:pb-10">
           <div class="w-3/12 min-w-10 px-4 sm:px-8 md:px-10 lg:px-14 xl:px-20"></div>
-          <div class="text-light-purple text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold w-3/12 items-center min-w-40">닉네임</div>
-          <div class="text-light-purple text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold w-3/12 flex justify-center items-center min-w-40">기록 / 목표 시간</div>
-          <div class="text-light-purple text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold w-1/12 flex justify-center items-center min-w-14">오차</div>
+          <div class="text-light-purple text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold w-3/12 items-center min-w-40">닉네임</div>
+          <div class="text-light-purple text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold w-3/12 flex justify-center items-center min-w-40">기록 / 목표 시간</div>
+          <div class="text-light-purple text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold w-1/12 flex justify-center items-center min-w-14">오차</div>
         </div>
         <div v-for="(user, index) in this.rankData" key="user.quizRankId">
           <div class="flex pb-4 md:pb-7">
-            <div class="w-3/12 min-w-10 flex justify-end px-4 sm:px-8 md:px-10 lg:px-14 xl:px-20 items-center text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold">
+            <div class="w-3/12 min-w-10 flex justify-end px-4 sm:px-8 md:px-10 lg:px-14 xl:px-20 items-center text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold">
               <div :class=this.rankColor(this.getRank(index))>{{ this.getRank(index) }}</div>
             </div>
             <div class="w-3/12 min-w-40 items-center pl-1 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">alswlfjddl</div>
@@ -141,13 +141,13 @@ export default {
     },
     rankColor(rank) {
       if (rank == 1) {
-        return "text-primary"
+        return "bg-primary text-white w-9 h-9 flex justify-center items-center rounded-3xl"
       } else if (rank == 2) {
-        return "text-second-prize"
+        return "bg-second-prize text-white w-9 h-9 flex justify-center items-center rounded-3xl"
       } else if (rank == 3) {
-        return "text-favorite-title"
+        return "bg-favorite-title text-white w-9 h-9 flex justify-center items-center rounded-3xl"
       } else {
-        return "text-light-purple"
+        return "text-light-purple w-9 h-9 flex justify-center items-center"
       }
     }
   },
