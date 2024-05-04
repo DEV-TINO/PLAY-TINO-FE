@@ -33,7 +33,7 @@
             </div>
           </div>
           <div class="flex place-content-between pb-2 items-end">
-            <input v-if="editTextIndex == index" type="text" v-model="editComment" class="bg-gray-100 mt-1 rounded-lg w-full resize-none text-lg md:text-2xl" @keyup.enter="handleClickCommentSubmit()" />
+            <input v-if="editTextIndex == index" type="text" v-model="editComment" class="bg-gray-100 mt-1 rounded-lg w-full resize-none text-lg md:text-2xl" @keyup.enter="handleClickCommentSubmit(index)" />
             <div v-else class="text-lg text-primary md:text-2xl pt-0 md:pt-1">{{ comment.content }}</div>
             <div class="flex justify-end items-center pl-4 gap-1 text-quiz-theme">
               <div class="text-sm md:text-lg">{{ comment.heartCount }}</div>
@@ -144,22 +144,26 @@ export default {
       comment.heartCount += comment.userHeart ? 1 : -1
       this.getComment(this.currentPage - 1)
     },
-    async handleClickCommentSubmit() {
-      if (this.currentComment == '') {
-        alert("댓글을 입력해주세요.")
-        return
+    async handleClickCommentSubmit(index) {
+      if (this.editTextIndex == EDIT_FINISHED) {
+        if (this.currentComment == '') {
+          alert("댓글을 입력해주세요.")
+          return
+        }
+        const formData = {
+          userId: this.$store.state.userId,
+          content: String(this.currentComment)
+        }
+        const submitCommentResponse = await axios.post(`${this.host}/${this.gameType}/comment`, formData)
+        if (!submitCommentResponse.data) {
+          throw "Save comment error"
+        }
+        this.currentComment = ''
+        this.currentPage = FIRST_PAGE + 1
+        this.getComment(FIRST_PAGE)
       }
-      const formData = {
-        userId: this.$store.state.userId,
-        content: String(this.currentComment)
-      }
-      const submitCommentResponse = await axios.post(`${this.host}/${this.gameType}/comment`, formData)
-      if (!submitCommentResponse.data) {
-        throw "Save comment error"
-      }
-      this.currentComment = ''
-      this.currentPage = FIRST_PAGE + 1
-      this.getComment(FIRST_PAGE)
+      else this.submitComment(index)
+    },
     sortByLatest() {
       this.sortType = 'time'
       this.getComment(this.currentPage - 1)
