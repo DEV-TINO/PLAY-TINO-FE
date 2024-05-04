@@ -160,7 +160,7 @@
         if (rank == 1) {
           return "text-primary"
         } else if (rank == 2) {
-          return "text-second-price"
+          return "text-second-prize"
         } else if (rank == 3) {
           return "text-favorite-title"
         } else {
