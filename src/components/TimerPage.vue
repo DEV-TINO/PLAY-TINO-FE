@@ -95,7 +95,7 @@ import axios from 'axios'
         this.zeroPrefix(sec, 2) + '.' +
         this.zeroPrefix(ms, 2)
 
-      if (this.time >= "59.90") {
+      if (parseFloat(this.time) >= 59.90) {
         this.stop()
       }
     },
