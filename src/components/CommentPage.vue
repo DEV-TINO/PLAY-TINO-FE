@@ -100,7 +100,7 @@ export default {
       const commentResponse = await axios.get(`${this.host}/${this.gameType}/comment/all/user/${this.$store.state.userId}/${this.sortType}?page=${pageNumber ?? 0}`)
       this.comments = commentResponse.data.commentList
       this.totalComment = commentResponse.data.commentTotal
-      const newComments = this.comments.map((comment) =>{
+      const newComments = this.comments.map((comment) => {
         const uploadTime = new Date(comment.uploadTime)
         comment.uploadTime = `${uploadTime.getFullYear()}.${(uploadTime.getMonth() + 1).toString().padStart(2, '0')}.${uploadTime.getDate().toString().padStart(2, '0')} ${uploadTime.getHours().toString().padStart(2, '0')}:${uploadTime.getMinutes().toString().padStart(2, '0')}`
         return comment
