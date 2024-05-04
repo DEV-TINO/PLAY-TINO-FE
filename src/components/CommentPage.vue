@@ -5,8 +5,8 @@
     </div>
     <hr class="w-full h-px bg-white">
     <div class="w-full h-10 min-h-10 flex justify-end items-center gap-3 lg:gap-5 px-4 lg:px-6 pt-0 md:pt-2 lg:pt-4 min-w-36 text-base md:text-lg lg:text-xl">
-      <div :class="this.sortType == 'heart' ? 'text-white font-semibold' : 'text-quiz-box'" @click="this.sortType = 'heart'; getComment(currentPage - 1)">추천순</div>
-      <div :class="this.sortType == 'time' ? 'text-white font-semibold' : 'text-quiz-box'" @click="this.sortType = 'time'; getComment(currentPage - 1)">최신순</div>
+      <div :class="this.sortType == 'heart' ? 'text-sort-type font-semibold' : 'text-gray-400'" @click="sortByHeart()">추천순</div>
+      <div :class="this.sortType == 'time' ? 'text-sort-type font-semibold' : 'text-gray-400'" @click="sortByLatest()">최신순</div>
     </div>
     <div class="w-full h-30 flex justify-center items-start bg-primary py-2 md:py-5">
       <div class="w-10/12">
@@ -26,7 +26,7 @@
               <div class="text-primary font-extrabold text-lg md:text-2xl">alswlfjddl</div>
               <div class="text-quiz-box text-base md:text-lg">{{ comment.uploadTime }}</div>
             </div>
-            <div v-if="myComment && editTextIndex == index" class="text-primary text-base md:text-lg" @click="submitComment(index)">완료</div>
+            <div v-if="findEditComment(index)" class="text-primary text-base md:text-lg" @click="submitComment(index)">완료</div>
             <div v-else class="flex gap-2">
               <div class="text-primary text-base md:text-lg" @click="updateComment(index)">수정</div>
               <div class="text-quiz-box text-base md:text-lg" @click="deleteComment(index)">삭제</div>
@@ -160,6 +160,17 @@ export default {
       this.currentComment = ''
       this.currentPage = FIRST_PAGE + 1
       this.getComment(FIRST_PAGE)
+    sortByLatest() {
+      this.sortType = 'time'
+      this.getComment(this.currentPage - 1)
+    },
+    sortByHeart() {
+      this.sortType = 'heart'
+      this.getComment(this.currentPage - 1)
+    },
+    findEditComment(index) {
+      if (this.myComment && this.editTextIndex == index) return true
+      return false
     },
     changePage(pageNumber) {
       this.currentPage = pageNumber
