@@ -65,7 +65,7 @@ export default {
 <style>
 .selected-rank-page {
   color: '#1C0F38';
-  border-bottom: 3px solid #1C0F38;
+  border-bottom: 2px solid #1C0F38;
 }
 .unselected-rank-page {
   color: lightgray;
