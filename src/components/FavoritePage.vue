@@ -18,13 +18,13 @@
       </div>
       <div class="w-full h-full mt-2 flex justify-center relative min-w-min">
         <div @click="selectedImg(0)" :class="{ 'selected-left': $store.state.favoriteSelectedImg === 0 }" class="flex flex-col justify-center items-end cursor-pointer">
-          <div :class="{ 'selected-left': $store.state.favoriteSelectedImg === 0, 'unselected-left': $store.state.favoriteSelectedImg === 1 }" class="w-favorite-content-width h-favorite-content-height aspect-w-1 aspect-h-1 border-y-8 border-l-8 border-r-4 cursor-pointer sm:min-w-72 min-h-72 overflow-hidden">
+          <div :class="{ 'selected-left': $store.state.favoriteSelectedImg === 0, 'unselected-left': $store.state.favoriteSelectedImg === 1 }" class="w-favorite-content-width h-favorite-content-height aspect-w-1 aspect-h-1 border-y-16 border-l-16 border-r-8 cursor-pointer sm:min-w-72 min-h-72 overflow-hidden">
             <img class="object-cover w-full h-full" :src="currentPair.image1" />
           </div>
           <div :class="{ 'selected-left-text': $store.state.favoriteSelectedImg === 0, 'hidden':  $store.state.favoriteSelectedImg === 1 }" class="flex items-center justify-center w-favorite-content-width text-white text-2xl mt-3 min-w-72 sm:text-2xl">{{ currentPair.title1 }}</div>
         </div>
         <div @click="selectedImg(1)" :class="{ 'selected-right': $store.state.favoriteSelectedImg === 1 }" class="flex flex-col justify-center cursor-pointer">
-          <div :class="{ 'selected-right': $store.state.favoriteSelectedImg === 1, 'unselected-right': $store.state.favoriteSelectedImg === 0 }" class="w-favorite-content-width h-favorite-content-height aspect-w-1 aspect-h-1 border-y-8 border-r-8 border-l-4 cursor-pointer sm:min-w-72 min-h-72 overflow-hidden">
+          <div :class="{ 'selected-right': $store.state.favoriteSelectedImg === 1, 'unselected-right': $store.state.favoriteSelectedImg === 0 }" class="w-favorite-content-width h-favorite-content-height aspect-w-1 aspect-h-1 border-y-16 border-r-16 border-l-8 cursor-pointer sm:min-w-72 min-h-72 overflow-hidden">
             <img class="object-cover w-full h-full" :src="currentPair.image2" />
           </div>
           <div :class="{ 'selected-right-text': $store.state.favoriteSelectedImg === 1, 'hidden':  $store.state.favoriteSelectedImg === 0 }" class="flex items-center justify-center w-favorite-content-width text-white text-2xl mt-3 min-w-72 sm:text-2xl">{{ currentPair.title2 }}</div>
