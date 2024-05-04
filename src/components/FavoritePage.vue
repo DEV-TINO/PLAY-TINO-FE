@@ -7,16 +7,16 @@
       <div class="w-full h-24 flex items-center">
         <div @click="handleRouterMain()" class="text-white text-xl pl-6 font-semibold hover:cursor-pointer min-w-40">PLAY - TINO</div>
       </div>
-      <div class="w-full sm:min-h-32 flex flex-col justify-end">
+      <div class="w-full sm:min-h-32 flex flex-col justify-end p-8">
         <div class="w-full h-24 flex justify-center items-center">
           <div class="flex items-baseline min-w-52">
             <div class="text-4xl md:text-5xl lg:text-7xl text-favorite-theme font-extrabold text-outline">고냥이</div>
             <div class="text-xl md:text-2xl lg:text-4xl text-white font-bold">월드컵!</div>
           </div>
         </div>
-        <div class="w-full text-white text-xl flex justify-center items-center">{{ $store.state.favoriteGameRound }}</div>
+        <div class="w-full text-white text-xl flex justify-center items-center p-8">{{ $store.state.favoriteGameRound }}</div>
       </div>
-      <div class="w-full h-full mt-2 flex justify-center relative min-w-min">
+      <div class="w-full flex justify-center relative min-w-min">
         <div @click="selectedImg(0)" :class="{ 'selected-left': $store.state.favoriteSelectedImg === 0 }" class="flex flex-col justify-center items-end cursor-pointer">
           <div :class="{ 'selected-left': $store.state.favoriteSelectedImg === 0, 'unselected-left': $store.state.favoriteSelectedImg === 1 }" class="w-favorite-content-width h-favorite-content-height aspect-w-1 aspect-h-1 border-y-8 border-l-8 border-r-4 cursor-pointer sm:min-w-72 min-h-72 overflow-hidden">
             <img class="object-cover w-full h-full" :src="currentPair.image1" />
@@ -28,8 +28,8 @@
             <img class="object-cover w-full h-full" :src="currentPair.image2" />
           </div>
           <div :class="{ 'selected-right-text': $store.state.favoriteSelectedImg === 1, 'hidden':  $store.state.favoriteSelectedImg === 0 }" class="flex items-center justify-center w-favorite-content-width text-white text-2xl mt-3 min-w-72 sm:text-2xl">{{ currentPair.title2 }}</div>
-          <div v-if="this.$store.state.favoriteSelectedImg == 0" class="h-24 absolute top-72 inset-0 flex items-center justify-center">
-            <img v-show="this.$store.state.favoriteSelectedImg == 0" class="w-24 h-24 absolute sm:-translate-y-18" src="/image/vs.png" />
+          <div v-if="this.$store.state.favoriteSelectedImg == 0" class="absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center pointer-events-none">
+            <img v-show="this.$store.state.favoriteSelectedImg == 0" class="w-24 h-24 sm:-translate-y-18" src="/image/vs.png" />
           </div>
         </div>
       </div>
@@ -54,8 +54,8 @@ export default {
       this.$store.dispatch('selectFavoriteImgIndex', index)
     },
     handleRouterMain() {
-			this.$router.push(`/`)
-		},
+      this.$router.push(`/`)
+    },
   },
   computed: {
     currentPair() {
