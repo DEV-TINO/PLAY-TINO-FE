@@ -16,14 +16,14 @@
         </div>
         <div class="w-full text-white text-xl flex justify-center items-center p-8">{{ $store.state.favoriteGameRound }}</div>
       </div>
-      <div class="w-full flex justify-center relative min-w-min">
-        <div @click="selectedImg(0)" :class="{ 'selected-left': $store.state.favoriteSelectedImg === 0 }" class="flex flex-col justify-center items-end cursor-pointer">
+      <div :class="this.isDisabled() ? 'click-disabled' : 'click-abled'" class="w-full flex justify-center relative min-w-min">
+        <div @click="this.selectedImg(0)" :class="{ 'selected-left': $store.state.favoriteSelectedImg === 0 }" class="flex flex-col justify-center items-end cursor-pointer">
           <div :class="{ 'selected-left': $store.state.favoriteSelectedImg === 0, 'unselected-left': $store.state.favoriteSelectedImg === 1 }" class="w-favorite-content-width h-favorite-content-height aspect-w-1 aspect-h-1 border-y-8 border-l-8 border-r-4 cursor-pointer sm:min-w-72 min-h-72 overflow-hidden">
             <img class="object-cover w-full h-full bg-gray-300" :src="currentPair.image1" />
           </div>
           <div :class="{ 'selected-left-text': $store.state.favoriteSelectedImg === 0, 'hidden':  $store.state.favoriteSelectedImg === 1 }" class="flex items-center justify-center w-favorite-content-width text-white text-2xl mt-3 min-w-72 sm:text-2xl drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">{{ currentPair.title1 }}</div>
         </div>
-        <div @click="selectedImg(1)" :class="{ 'selected-right': $store.state.favoriteSelectedImg === 1 }" class="flex flex-col justify-center cursor-pointer">
+        <div @click="this.selectedImg(1)" :class="{ 'selected-right': $store.state.favoriteSelectedImg === 1 }" class="flex flex-col justify-center cursor-pointer">
           <div :class="{ 'selected-right': $store.state.favoriteSelectedImg === 1, 'unselected-right': $store.state.favoriteSelectedImg === 0 }" class="w-favorite-content-width h-favorite-content-height aspect-w-1 aspect-h-1 border-y-8 border-r-8 border-l-4 cursor-pointer sm:min-w-72 min-h-72 overflow-hidden">
             <img class="object-cover w-full h-full bg-gray-300" :src="currentPair.image2" />
           </div>
@@ -51,11 +51,18 @@ export default {
   },
   methods: {
     selectedImg(index) {
+      if (this.$store.state.favoriteSelectedImg !== '') {
+        return
+      }
+
       this.$store.dispatch('selectFavoriteImgIndex', index)
     },
     handleRouterMain() {
       this.$router.push(`/`)
     },
+    isDisabled() {
+      return this.$store.state.favoriteSelectedImg !== ''
+    }
   },
   computed: {
     currentPair() {
@@ -123,5 +130,11 @@ export default {
 .unselected-right {
   transition: transform 0.5s ease;
   transform: scale(0.5);
+}
+.click-disabled {
+  pointer-events: none;
+}
+.click-abled {
+  pointer-events: auto;
 }
 </style>
