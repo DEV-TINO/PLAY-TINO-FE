@@ -41,21 +41,21 @@
             </div>
           </div>
         </div>
-        <div v-if="showPagination" class="flex items-center pb-4 justify-center gap-2 md:gap-3 lg:gap-4 text-sm md:text-lg lg:text-xl">
-          <font-awesome-icon class="text-white text-base" :icon="['fas', 'angle-double-left']" @click="changeFirstPage()"/>
-          <font-awesome-icon class="text-white text-base" :icon="['fas', 'angle-left']" @click="decressePageNumber()"/>
-          <div v-if="showStartEllipsis" class="text-gray-400" @click="changeFirstPage()">1</div>
-          <div v-if="showStartEllipsis" class="text-gray-400">...</div>
+        <div v-if="showPagination" class="select-none flex items-center pb-4 justify-center gap-1 text-sm md:text-lg lg:text-xl">
+          <font-awesome-icon class="text-white text-base px-1 font-bold cursor-pointer" :icon="['fas', 'angle-double-left']" @click="changeFirstPage()"/>
+          <font-awesome-icon class="text-white text-base px-1 font-bold cursor-pointer" :icon="['fas', 'angle-left']" @click="decressePageNumber()"/>
+          <div v-if="showStartEllipsis" class="text-white px-1 font-bold text-base cursor-pointer" @click="changeFirstPage()">1</div>
+          <div v-if="showStartEllipsis" class="text-white px-1 font-bold text-base">...</div>
           <div v-for="(page, index) in pages" :key="index">
-            <div class="font-bold text-white" @click="changePage(page)">
-              <div class="text-gray-400 font-normal" v-if="currentPage != page">{{ page }}</div>
-              <u v-else>{{ page }}</u>
+            <div class="text-primary w-7 h-7 flex justify-center items-center font-bold bg-white rounded-2xl text-base cursor-pointer" @click="changePage(page)">
+              <div class="text-white font-bold bg-primary w-7 h-7 flex justify-center items-center" v-if="currentPage != page">{{ page }}</div>
+              <div v-else>{{ page }}</div>
             </div>
           </div>
-          <div v-if="showEndEllipsis" class="text-gray-400">...</div>
-          <div v-if="showEndEllipsis" class="text-gray-400" @click="changeLastPage()">{{ this.pageCount }}</div>
-          <font-awesome-icon class="text-white text-base" :icon="['fas', 'angle-right']" @click="increasePageNumber()"/>
-          <font-awesome-icon class="text-white text-base" :icon="['fas', 'angle-double-right']" @click="changeLastPage()"/>
+          <div v-if="showEndEllipsis" class="text-white font-bold px-1 text-base">...</div>
+          <div v-if="showEndEllipsis" class="text-white font-bold px-1 text-base cursor-pointer" @click="changeLastPage()">{{ this.pageCount }}</div>
+          <font-awesome-icon class="text-white font-bold text-base px-1 cursor-pointer" :icon="['fas', 'angle-right']" @click="increasePageNumber()"/>
+          <font-awesome-icon class="text-white font-bold text-base px-1 cursor-pointer" :icon="['fas', 'angle-double-right']" @click="changeLastPage()"/>
         </div>
       </div>
     </div>
@@ -63,7 +63,7 @@
 </template>
   
 <script>
-const FIRST_PAGE = 0
+const FIRST_PAGE = 1
 const EDIT_FINISHED = -1
 import axios from 'axios'
 export default {
@@ -106,19 +106,15 @@ export default {
         return comment
       }).filter((comment) => comment)
       this.comments = newComments
-      if(this.pageCount == 1) {
+      if(this.pageCount == FIRST_PAGE) {
         this.showPagination = false
       } else if (this.pageCount < 6) {
-        this.pages = []
-        for(let i = 1; i < this.pageCount + 1; i++) {
-          this.pages.push(i)
-          this.showStartEllipsis = false
-          this.showEndEllipsis = false
-          this.showPagination = true
-        }
+        this.pages = this.createArray(this.pageCount)
+        this.showStartEllipsis = false
+        this.showEndEllipsis = false
         return
       } else if(this.currentPage == 1) {
-        this.pages = [1, 2, 3]
+        this.pages = [FIRST_PAGE, FIRST_PAGE + 1, FIRST_PAGE + 2]
         this.showPagination = true
       } else if(this.currentPage == this.pageCount) {
         this.pages = [this.pageCount - 2, this.pageCount - 1, this.pageCount]
@@ -128,7 +124,10 @@ export default {
         this.showPagination = true
       }
       this.showStartEllipsis = this.currentPage > 2
-      this.showEndEllipsis = this.currentPage < this.pageCount - 1
+      this.showEndEllipsis = this.currentPage < (this.pageCount - 1)
+    },
+    createArray(n) {
+      return Array.from({ length: n }, (v, i) => i + 1)
     },
     async toggleHeart(comment) {
       if (!comment) throw 'Comment is null or undefined'
@@ -160,8 +159,8 @@ export default {
           throw "Save comment error"
         }
         this.currentComment = ''
-        this.currentPage = FIRST_PAGE + 1
-        this.getComment(FIRST_PAGE)
+        this.currentPage = FIRST_PAGE
+        this.getComment(FIRST_PAGE - 1)
       }
       else this.submitComment(index)
     },
@@ -207,8 +206,8 @@ export default {
         userId: this.$store.state.userId
       }
       const response = await axios.delete(`${this.host}/${this.gameType}/comment`, {data: formData})
-      this.currentPage = FIRST_PAGE + 1
-      this.getComment(FIRST_PAGE)
+      this.currentPage = FIRST_PAGE
+      this.getComment(FIRST_PAGE - 1)
     },
     async updateComment(index) {
       this.editComment = this.comments[index].content
@@ -239,7 +238,7 @@ export default {
       this.host = this.$store.state.favoriteHost
       this.gameType = 'favorite'
     }
-    this.getComment(FIRST_PAGE)
+    this.getComment(FIRST_PAGE - 1)
   }
 }
 </script>
