@@ -1,9 +1,9 @@
 <template>
 	<div class="w-full h-full bg-modal-background bg-opacity-50 fixed flex justify-center items-center z-50">
 		<div class="bg-white rounded-3xl">
-			<div class="flex flex-col items-center pt-10 pb-10 pr-32 pl-32 m-4 border-2 border-favorite-theme rounded-3xl">
-				<div class="text-5xl font-extrabold text-primary mb-5">고냥이 월드컵!</div>
-				<div class="text-2xl font-bold text-favorite-theme mb-2">당신의 1등 고양이는</div>
+			<div class="flex flex-col items-center pt-10 pb-10 pr-32 pl-32 m-4 border-3 border-favorite-theme rounded-3xl">
+				<div class="text-2xl font-bold text-primary mb-5">고냥이 월드컵!</div>
+				<div class="text-3xl font-bold text-favorite-theme mb-2">당신의 1등 고양이는</div>
 				<div class="flex flex-col items-center mb-5">
 					<div class="w-72 h-72 overflow-hidden border-4 border-favorite-theme mb-2">
 						<img class="w-full h-full aspect-w-1 aspect-h-1 object-cover" :src="`${this.$store.state.favoriteFinalImage}`" />
