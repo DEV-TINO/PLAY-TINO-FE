@@ -124,6 +124,15 @@ export default {
         this.isCorrect()
         this.progressBarStop()
       }
+      else {
+        this.loadNextQuiz()
+        this.openModal = false
+        this.progressBarStart()
+        if (this.quizCount == 10) {
+          this.openResultModal = true
+          this.progressBarStop()
+        }
+      }
     },
     isCorrect() {
       const strippedAnswer = this.answer.trim().replace(/\n|\r|\s*/g, "")
