@@ -64,6 +64,7 @@
   
 <script>
 const FIRST_PAGE = 0
+const EDIT_FINISHED = -1
 import axios from 'axios'
 export default {
   data() {
@@ -84,7 +85,7 @@ export default {
       showStartEllipsis: false,
       showEndEllipsis: false,
       showPagination: true,
-      editTextIndex: -1,
+      editTextIndex: EDIT_FINISHED,
       editComment: '',
     }
   },
@@ -95,7 +96,7 @@ export default {
   },
   methods: {
     async getComment(pageNumber) {
-      this.editTextIndex = -1
+      this.editTextIndex = EDIT_FINISHED
       const commentResponse = await axios.get(`${this.host}/${this.gameType}/comment/all/user/${this.$store.state.userId}/${this.sortType}?page=${pageNumber ?? 0}`)
       this.comments = commentResponse.data.commentList
       this.totalComment = commentResponse.data.commentTotal
