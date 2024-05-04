@@ -13,7 +13,7 @@
     <div class="w-full h-auto flex flex-col justify-center pt-8 pb-8 bg-white">
       <div v-for="rank, i in 3" :key="i"  class="flex justify-center pb-8">
         <div class="w-3/4 flex justify-around items-center">
-          <div class="w-16 h-16 flex justify-center items-center p-4 text-light-purple text-4xl font-bold">{{ this.getRank(i) }}</div>
+          <div :class="this.getRankColor(this.getRank(i))" class="w-16 h-16 flex justify-center items-center p-4 text-light-purple text-4xl font-bold">{{ this.getRank(i) }}</div>
           <img class="w-48 h-48 border-4 border-light-purple" :src="this.$store.state.favoriteRankData[i]?.favoriteImage" />
           <div class="w-80 flex justify-center text-primary text-2xl">{{ this.$store.state.favoriteRankData[i]?.favoriteTitle }}</div>
           <div class="w-1/3 flex justify-center">
@@ -55,6 +55,17 @@ export default {
     handleRouterMain() {
 			this.$router.push(`/`)
 		},
+    getRankColor(rank) {
+      if (rank == 1) {
+        return "text-primary"
+      } else if (rank == 2) {
+        return "text-second-price"
+      } else if (rank == 3) {
+        return "text-favorite-title"
+      } else {
+        return "text-light-purple"
+      }
+    },
     getRank(index) {
       return (this.$store.state.favoriteRankPage - 1) * this.favoriteRanksPerPage + index + 1
     },
