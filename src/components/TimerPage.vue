@@ -86,7 +86,7 @@ import axios from 'axios'
       this.saveRank()
     },
     clockRunning() {
-      var currentTime = new Date(),
+      let currentTime = new Date(),
         timeElapsed = new Date(currentTime - this.timeBegan - this.stoppedDuration),
         sec = timeElapsed.getUTCSeconds(),
         ms = timeElapsed.getUTCMilliseconds()
@@ -100,8 +100,8 @@ import axios from 'axios'
       }
     },
     zeroPrefix(num, digit) {
-      var zero = ''
-      for (var i = 0; i < digit; i++) {
+      let zero = ''
+      for (let i = 0; i < digit; i++) {
         zero += '0'
       }
       return (zero + num).slice(-digit)
