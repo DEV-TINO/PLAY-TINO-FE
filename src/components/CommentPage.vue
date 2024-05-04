@@ -33,7 +33,7 @@
             </div>
           </div>
           <div class="flex place-content-between pb-2 items-end">
-            <input v-if="editTextIndex == index" type="text" v-model="editComment" class="bg-gray-100 mt-1 rounded-lg w-full resize-none text-lg md:text-2xl" @keyup.enter="handleClickCommentSubmit(index)" />
+            <textarea v-if="editTextIndex == index" type="text" v-model="editComment" class="bg-gray-100 mt-1 rounded-lg w-full resize-none text-lg md:text-2xl" @keyup.enter="handleClickCommentSubmit(index)"></textarea>
             <div v-else class="text-lg text-primary md:text-2xl pt-0 md:pt-1">{{ comment.content }}</div>
             <div class="flex justify-end items-center pl-4 gap-1 text-quiz-theme select-none">
               <div class="text-sm md:text-lg">{{ comment.heartCount }}</div>
