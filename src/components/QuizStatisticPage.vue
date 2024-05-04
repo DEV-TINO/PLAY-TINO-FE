@@ -71,104 +71,91 @@
 </template>
     
 <script>
-  import CommentPage from '../components/CommentPage.vue'
-  import axios from 'axios'
-  const FIRST_PAGE = 1
-  const ELLIPSIS_NEED = 6
-  export default {
-    components:{
-      CommentPage,
+import CommentPage from '../components/CommentPage.vue'
+import axios from 'axios'
+const FIRST_PAGE = 1
+const ELLIPSIS_NEED = 6
+export default {
+  components:{
+    CommentPage,
+  },
+  data() { 
+    return {
+      rankData: [],
+      currentPage: 1,
+      itemsPerPage: 5,
+      totalRank: 0,
+      pages: [],
+      showStartEllipsis: false,
+      showEndEllipsis: false,
+    }
+  },
+  computed: {
+    pageCount() {
+      return Math.ceil(this.totalRank / this.itemsPerPage)
     },
-    data() { 
-      return {
-        rankData: [],
-        currentPage: 1,
-        itemsPerPage: 5,
-        totalRank: 0,
-        pages: [],
-        showStartEllipsis: false,
-        showEndEllipsis: false,
+  },
+  methods: {
+    async getRankData(pageNumber) {
+      const response = await axios.get(`${this.$store.state.quizHost}/quiz/rank/all?page=${pageNumber ?? 0}`)
+      this.rankData = response.data.quizRankList
+      this.totalRank = response.data.quizTotal
+        if(this.pageCount == FIRST_PAGE) {
+        this.showPagination = false
+      } else if (this.pageCount < ELLIPSIS_NEED) {
+        this.pages = this.createArray(this.pageCount)
+        this.showStartEllipsis = false
+        this.showEndEllipsis = false
+        return
+      }
+      else if(this.currentPage == FIRST_PAGE) {
+        this.pages = [FIRST_PAGE, FIRST_PAGE + 1, FIRST_PAGE + 2]
+        this.showPagination = true
+      }
+      else if(this.currentPage == this.pageCount) {
+        this.pages = [this.pageCount - 2, this.pageCount - 1, this.pageCount]
+        this.showPagination = true
+      }
+      else if(this.currentPage > 3 || this.pageCount - 2) {
+        this.pages = [this.currentPage - 1, this.currentPage, this.currentPage + 1]
+        this.showPagination = true
+      }
+      this.showStartEllipsis = this.currentPage > 2
+      this.showEndEllipsis = this.currentPage < (this.pageCount - 1)
+    },
+    createArray(n) {
+      return Array.from({ length: n }, (v, i) => i + 1)
+    },
+    handleRouterMain() {
+      this.$router.push(`/`)
+    },
+    getRank(index){
+      return (this.currentPage - 1) * 5 + index + 1
+    },
+    changePage(pageNumber) {
+      this.currentPage = pageNumber
+      this.getRankData(this.currentPage - 1)
+    },
+    decressePageNumber() {
+      if (this.currentPage > 1) {
+        this.currentPage -= 1
+        this.getRankData(this.currentPage - 1)
       }
     },
-    computed: {
-      pageCount() {
-        return Math.ceil(this.totalRank / this.itemsPerPage)
-      },
-    },
-    methods: {
-      async getRankData(pageNumber) {
-        const response = await axios.get(`${this.$store.state.quizHost}/quiz/rank/all?page=${pageNumber ?? 0}`)
-        this.rankData = response.data.quizRankList
-        this.totalRank = response.data.quizTotal
-          if(this.pageCount == FIRST_PAGE) {
-          this.showPagination = false
-        } else if (this.pageCount < ELLIPSIS_NEED) {
-          this.pages = this.createArray(this.pageCount)
-          this.showStartEllipsis = false
-          this.showEndEllipsis = false
-          return
-        }
-        else if(this.currentPage == FIRST_PAGE) {
-          this.pages = [FIRST_PAGE, FIRST_PAGE + 1, FIRST_PAGE + 2]
-          this.showPagination = true
-        }
-        else if(this.currentPage == this.pageCount) {
-          this.pages = [this.pageCount - 2, this.pageCount - 1, this.pageCount]
-          this.showPagination = true
-        }
-        else if(this.currentPage > 3 || this.pageCount - 2) {
-          this.pages = [this.currentPage - 1, this.currentPage, this.currentPage + 1]
-          this.showPagination = true
-        }
-        this.showStartEllipsis = this.currentPage > 2
-        this.showEndEllipsis = this.currentPage < (this.pageCount - 1)
-      },
-      createArray(n) {
-        return Array.from({ length: n }, (v, i) => i + 1)
-      },
-      rankColor(index) {
-        if (index == 0) {
-          return "worng-modal"
-        } else if (index == 1) {
-          return "quiz-box"
-        } else return "light-purple"
-      },
-      handleRouterMain() {
-        this.$router.push(`/`)
-      },
-      getRank(index){
-        return (this.currentPage - 1) * 5 + index + 1
-      },
-      changePage(pageNumber) {
-        this.currentPage = pageNumber
+    increasePageNumber() {
+      if (this.currentPage < this.pageCount) {
+        this.currentPage += 1
         this.getRankData(this.currentPage - 1)
-      },
-      decressePageNumber() {
-        if (this.currentPage > 1) {
-          this.currentPage -= 1
-          this.getRankData(this.currentPage - 1)
-        }
-      },
-      increasePageNumber() {
-        if (this.currentPage < this.pageCount) {
-          this.currentPage += 1
-          this.getRankData(this.currentPage - 1)
-        }
-      },
-      changeFirstPage() {
-        this.currentPage = 1
-        this.getRankData(this.currentPage - 1)
-      },
-      changeLastPage() {
-        this.currentPage = this.pageCount
-        this.getRankData(this.currentPage - 1)
-      },
       }
     },
-    mounted() {
-      this.getRankData()
+    changeFirstPage() {
+      this.currentPage = 1
+      this.getRankData(this.currentPage - 1)
     },
-  }
+    changeLastPage() {
+      this.currentPage = this.pageCount
+      this.getRankData(this.currentPage - 1)
+    },
     rankColor(rank) {
       if (rank == 1) {
         return "bg-primary text-white w-9 h-9 flex justify-center items-center rounded-3xl"
@@ -180,6 +167,11 @@
         return "text-light-purple w-9 h-9 flex justify-center items-center"
       }
     }
+  },
+  mounted() {
+    this.getRankData()
+  },
+}
 </script>
   
 <style>
