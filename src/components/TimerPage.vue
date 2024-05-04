@@ -72,6 +72,9 @@ import axios from 'axios'
       this.openModal = true
     },
     start() {
+      if (parseFloat(this.time) != 0) {
+        alert("멈춤 버튼을 눌러주세요")
+      }
       if (this.running) return
       if (this.timeBegan == null) {
         this.timeBegan = new Date()
@@ -80,6 +83,10 @@ import axios from 'axios'
       this.running = true
     },
     stop() {
+      if (parseFloat(this.time) == 0) {
+        alert("시작 버튼을 먼저 눌러주세요")
+        return
+      }
       this.running = false
       this.timeStopped = new Date()
       clearInterval(this.started)
