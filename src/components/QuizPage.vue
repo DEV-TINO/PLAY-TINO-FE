@@ -119,19 +119,21 @@ export default {
       }
     },
     handleOpenModal(){
+      if (this.openResultModal) return
       if (!this.openModal) {
         this.openModal = true
         this.isCorrect()
         this.progressBarStop()
       }
       else {
-        this.loadNextQuiz()
-        this.openModal = false
-        this.progressBarStart()
         if (this.quizCount == 10) {
           this.openResultModal = true
           this.progressBarStop()
+          return
         }
+        this.loadNextQuiz()
+        this.openModal = false
+        this.progressBarStart()
       }
     },
     isCorrect() {
