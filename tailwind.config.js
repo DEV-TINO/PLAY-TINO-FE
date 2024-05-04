@@ -24,7 +24,8 @@ module.exports = {
         'wrong-modal' : '#F113DC',
         'favorite-theme': '#6A3ED2',
         'correct-modal' : '#58AFF9',
-        'second-price' : '#340C94'
+        'second-prize' : '#340C94',
+        'sort-type' : '#ECBDFF',
       },
       width: {
         'favorite-content-width' : '600px'
