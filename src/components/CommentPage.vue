@@ -4,15 +4,15 @@
       <div class="text-white text-xl pl-4">Comment</div>
     </div>
     <hr class="w-full h-px bg-white">
-    <div class="w-full h-10 min-h-10 flex justify-end items-center gap-3 lg:gap-5 px-4 lg:px-6 pt-0 md:pt-2 lg:pt-4 min-w-36 text-base md:text-lg lg:text-xl">
-      <div :class="this.sortType == 'heart' ? 'text-sort-type font-semibold' : 'text-gray-400'" @click="sortByHeart()">추천순</div>
-      <div :class="this.sortType == 'time' ? 'text-sort-type font-semibold' : 'text-gray-400'" @click="sortByLatest()">최신순</div>
+    <div class="w-full h-10 min-h-10 flex justify-end items-center gap-3 lg:gap-5 px-4 lg:px-6 pt-0 md:pt-2 lg:pt-4 min-w-36 text-base md:text-lg lg:text-xl select-none">
+      <div :class="this.sortType == 'heart' ? 'text-sort-type font-semibold cursor-pointer' : 'text-gray-400 cursor-pointer'" @click="sortByHeart()">추천순</div>
+      <div :class="this.sortType == 'time' ? 'text-sort-type font-semibold cursor-pointer' : 'text-gray-400 cursor-pointer'" @click="sortByLatest()">최신순</div>
     </div>
     <div class="w-full h-30 flex justify-center items-start bg-primary py-2 md:py-5">
       <div class="w-10/12">
         <div class="bg-white w-full h-auto rounded-xl py-3 px-7 flex justify-center items-center min-w-72 gap-4">
-          <input type="text" v-model="currentComment" placeholder="댓글을 입력해주세요 (최대 300자)" class="w-full resize-none overflow-hidden text-lg md:text-2xl" @keyup.enter="handleClickCommentSubmit()" />
-          <div class="text-gray-300 text-3xl" @click="handleClickCommentSubmit()">
+          <input type="text" v-model="currentComment" placeholder="댓글을 입력해주세요 (최대 200자)" class="w-full resize-none overflow-hidden text-lg md:text-2xl" @keyup.enter="handleClickCommentSubmit()" />
+          <div class="text-gray-300 text-3xl cursor-pointer" @click="handleClickCommentSubmit()">
             <font-awesome-icon :icon="['fas', 'circle-chevron-up']" />
           </div>
         </div>
@@ -26,18 +26,18 @@
               <div class="text-primary font-extrabold text-lg md:text-2xl">alswlfjddl</div>
               <div class="text-quiz-box text-base md:text-lg">{{ comment.uploadTime }}</div>
             </div>
-            <div v-if="findEditComment(index)" class="text-primary text-base md:text-lg" @click="submitComment(index)">완료</div>
-            <div v-else class="flex gap-2">
-              <div class="text-primary text-base md:text-lg" @click="updateComment(index)">수정</div>
-              <div class="text-quiz-box text-base md:text-lg" @click="deleteComment(index)">삭제</div>
+            <div v-if="findEditComment(index)" class="text-primary text-base md:text-lg select-none cursor-pointer" @click="submitComment(index)">완료</div>
+            <div v-else class="flex gap-2 select-none">
+              <div class="text-primary text-base md:text-lg cursor-pointer" @click="updateComment(index)">수정</div>
+              <div class="text-quiz-box text-base md:text-lg cursor-pointer" @click="deleteComment(index)">삭제</div>
             </div>
           </div>
           <div class="flex place-content-between pb-2 items-end">
             <input v-if="editTextIndex == index" type="text" v-model="editComment" class="bg-gray-100 mt-1 rounded-lg w-full resize-none text-lg md:text-2xl" @keyup.enter="handleClickCommentSubmit(index)" />
             <div v-else class="text-lg text-primary md:text-2xl pt-0 md:pt-1">{{ comment.content }}</div>
-            <div class="flex justify-end items-center pl-4 gap-1 text-quiz-theme">
+            <div class="flex justify-end items-center pl-4 gap-1 text-quiz-theme select-none">
               <div class="text-sm md:text-lg">{{ comment.heartCount }}</div>
-              <font-awesome-icon class="text-base md:text-xl" :icon="comment.userHeart ? checkedheartIcon : uncheckedHeartIcon" @click="toggleHeart(comment)" />
+              <font-awesome-icon class="text-base md:text-xl cursor-pointer" :icon="comment.userHeart ? checkedheartIcon : uncheckedHeartIcon" @click="toggleHeart(comment)" />
             </div>
           </div>
         </div>
