@@ -2,7 +2,7 @@
   <div class="flex w-full h-24 bg-white justify-between items-center">
     <div class="w-30 h-20 ml-10"></div>
     <div class="flex justify-center">
-      <img src="/image/logo.png" class="w-30 h-20" @click="handleRouterMain()"/>
+      <img src="/image/logo.png" class="w-30 h-20 cursor-pointer" @click="handleRouterMain()"/>
     </div>
     <div class="text-light-purple order-last flex justify-center mr-10 font-medium cursor-pointer">Login</div>
   </div>

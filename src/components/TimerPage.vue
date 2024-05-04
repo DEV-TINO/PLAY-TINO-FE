@@ -7,7 +7,7 @@
     </ModalCard>
   </Transition>
   <div class="flex flex-col h-screen w-full bg-primary">
-    <div class="w-full h-24 min-h-20 flex items-center bg-primary" @click="handleRouterMain()">
+    <div class="w-full h-24 min-h-20 flex items-center bg-primary cursor-pointer" @click="handleRouterMain()">
       <div class="text-white text-xl pl-4 font-semibold hover:cursor-pointer min-w-40">PLAY - TINO</div>
     </div>
     <div class="w-full min-h-40 flex justify-center items-center bg-primary">
@@ -23,11 +23,11 @@
           <span class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-primary font-['Share-Tech-Mono']">{{ time }}</span>
         </div>
         <div class="flex justify-center gap-4">
-          <div @click="start" class="w-20 md:w-24 h-10 md:h-12 hover:bg-timer-start hover:text-white text-timer-start border-timer-start border-2 flex items-center justify-center rounded-md mx-4">
-            <div class="text-l md:text-2xl font-semibold hover:cursor-pointer">START</div>
+          <div @click="start()" class="cursor-pointer w-20 md:w-24 h-10 md:h-12 hover:bg-timer-start hover:text-white text-timer-start border-timer-start border-2 flex items-center justify-center rounded-md mx-4">
+            <div class="text-l md:text-2xl font-semibold">START</div>
           </div>
-          <div @click="stop" class="w-20 md:w-24 h-10 md:h-12 hover:bg-timer-stop hover:text-white text-timer-stop border-timer-stop border-2 flex items-center justify-center rounded-md mx-4">
-            <div class="text-l md:text-2xl font-semibold hover:cursor-pointer">STOP</div>
+          <div @click="stop()" class="cursor-pointer w-20 md:w-24 h-10 md:h-12 hover:bg-timer-stop hover:text-white text-timer-stop border-timer-stop border-2 flex items-center justify-center rounded-md mx-4">
+            <div class="text-l md:text-2xl font-semibold">STOP</div>
           </div>
         </div>
       </div>

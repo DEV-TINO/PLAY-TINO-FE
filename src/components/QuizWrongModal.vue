@@ -18,7 +18,7 @@
           </div>
         </div>
         <div class="flex justify-center py-0.5 md:py-1">
-          <div class="w-16 md:w-20 h-6 md:h-8 items-center rounded-lg bg-wrong-modal flex justify-center font-bold text-white" @click="confirm()">
+          <div class="w-16 md:w-20 h-6 md:h-8 items-center rounded-lg bg-wrong-modal flex justify-center font-bold text-white cursor-pointer" @click="confirm()">
             <div>확인</div>
           </div>
         </div>
