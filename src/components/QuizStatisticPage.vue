@@ -13,13 +13,13 @@
     <div class="w-full h-auto bg-white pt-10 pb-3">
       <div class="flex pb-2 sm:pb-4 md:pb-6 lg:pb-8 xl:pb-10">
         <div class="w-2/12 min-w-10 px-4 sm:px-8 md:px-10 lg:px-14 xl:px-20"></div>
-        <div class="text-light-purple text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold w-3/12 items-center min-w-40">닉네임</div>
-        <div class="text-light-purple text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold w-4/12 flex justify-center items-center min-w-48">맞춘 문제</div>
-        <div class="text-light-purple text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold w-2/12 flex justify-center items-center min-w-16">총점</div>
+        <div class="text-light-purple text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold w-3/12 items-center min-w-40">닉네임</div>
+        <div class="text-light-purple text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold w-4/12 flex justify-center items-center min-w-48">맞춘 문제</div>
+        <div class="text-light-purple text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold w-2/12 flex justify-center items-center min-w-16">총점</div>
       </div>
       <div v-for="(user, index) in this.rankData" :key="user.quizRankId">
         <div class="flex pb-4 md:pb-7">
-          <div class="w-2/12 min-w-10 flex justify-end px-4 sm:px-8 md:px-10 lg:px-14 xl:px-20 text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold items-center">
+          <div class="w-2/12 min-w-10 flex justify-end px-4 sm:px-8 md:px-10 lg:px-14 xl:px-20 text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold items-center">
             <div :class=this.rankColor(this.getRank(index))>
               {{ this.getRank(index) }}
             </div>
@@ -163,22 +163,23 @@
         this.currentPage = this.pageCount
         this.getRankData(this.currentPage - 1)
       },
-      rankColor(rank) {
-        if (rank == 1) {
-          return "text-primary"
-        } else if (rank == 2) {
-          return "text-second-prize"
-        } else if (rank == 3) {
-          return "text-favorite-title"
-        } else {
-          return "text-light-purple"
-        }
       }
     },
     mounted() {
       this.getRankData()
     },
   }
+    rankColor(rank) {
+      if (rank == 1) {
+        return "bg-primary text-white w-9 h-9 flex justify-center items-center rounded-3xl"
+      } else if (rank == 2) {
+        return "bg-second-prize text-white w-9 h-9 flex justify-center items-center rounded-3xl"
+      } else if (rank == 3) {
+        return "bg-favorite-title text-white w-9 h-9 flex justify-center items-center rounded-3xl"
+      } else {
+        return "text-light-purple w-9 h-9 flex justify-center items-center"
+      }
+    }
 </script>
   
 <style>
