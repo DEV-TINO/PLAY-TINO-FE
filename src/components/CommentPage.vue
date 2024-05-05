@@ -65,6 +65,7 @@
 <script>
 const FIRST_PAGE = 1
 const EDIT_FINISHED = -1
+const ELLIPSIS_NEED = 6
 import axios from 'axios'
 export default {
   data() {
@@ -108,12 +109,12 @@ export default {
       this.comments = newComments
       if(this.pageCount == FIRST_PAGE) {
         this.showPagination = false
-      } else if (this.pageCount < 6) {
+      } else if (this.pageCount < ELLIPSIS_NEED) {
         this.pages = this.createArray(this.pageCount)
         this.showStartEllipsis = false
         this.showEndEllipsis = false
         return
-      } else if(this.currentPage == 1) {
+      } else if(this.currentPage == FIRST_PAGE) {
         this.pages = [FIRST_PAGE, FIRST_PAGE + 1, FIRST_PAGE + 2]
         this.showPagination = true
       } else if(this.currentPage == this.pageCount) {
