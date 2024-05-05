@@ -24,7 +24,8 @@ module.exports = {
         'wrong-modal' : '#F113DC',
         'favorite-theme': '#6A3ED2',
         'correct-modal' : '#58AFF9',
-        'second-price' : '#340C94'
+        'second-prize' : '#340C94',
+        'sort-type' : '#ECBDFF',
       },
       width: {
         'favorite-content-width' : '600px'
@@ -36,9 +37,10 @@ module.exports = {
     borderWidth: {
       '2': '2px',
       '3': '3px',
+      '4': '4px',
       '5': '5px',
-      '4': '8px',
-      '8': '16px',
+      '8': '8px',
+      '16': '16px',
     },
   },
   plugins: [
