@@ -1,7 +1,7 @@
 <template>
   <div>
     <Transition>
-      <FinishModal v-if="$store.state.favoriteRoundFinish"></FinishModal>
+      <FinishModal v-if="this.$store.state.favoriteRoundFinish"></FinishModal>
     </Transition>
     <div class="flex flex-col h-screen w-full bg-primary">
       <div class="w-full h-24 flex items-center">
@@ -14,20 +14,20 @@
             <div class="text-xl md:text-2xl lg:text-4xl text-white font-bold">월드컵!</div>
           </div>
         </div>
-        <div class="w-full text-white text-xl flex justify-center items-center pt-5">{{ $store.state.favoriteGameRound }}</div>
+        <div class="w-full text-white text-xl flex justify-center items-center pt-5">{{ this.$store.state.favoriteGameRound }}</div>
       </div>
       <div class="w-full h-full mt-2 flex justify-center relative min-w-min">
-        <div @click="selectedImg(0)" :class="{ 'selected-left': $store.state.favoriteSelectedImg === 0 }" class="flex flex-col justify-center items-end cursor-pointer">
-          <div :class="{ 'selected-left': $store.state.favoriteSelectedImg === 0, 'unselected-left': $store.state.favoriteSelectedImg === 1 }" class="w-favorite-content-width h-favorite-content-height aspect-w-1 aspect-h-1 border-y-16 border-l-16 border-r-8 cursor-pointer sm:min-w-72 min-h-72 overflow-hidden">
+        <div @click="selectedImg(0)" :class="{ 'selected-left': this.$store.state.favoriteSelectedImg === 0 }" class="flex flex-col justify-center items-end cursor-pointer">
+          <div :class="{ 'selected-left': this.$store.state.favoriteSelectedImg === 0, 'unselected-left': this.$store.state.favoriteSelectedImg === 1 }" class="w-favorite-content-width h-favorite-content-height aspect-w-1 aspect-h-1 border-8 cursor-pointer sm:min-w-72 min-h-72 overflow-hidden">
             <img @error="handleImageError($event)" class="object-cover w-full h-full bg-gray-200" :src="currentPair.image1" />
           </div>
-          <div :class="{ 'selected-left-text': $store.state.favoriteSelectedImg === 0, 'hidden':  $store.state.favoriteSelectedImg === 1 }" class="flex items-center justify-center w-favorite-content-width text-white text-2xl mt-3 min-w-72 sm:text-2xl drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">{{ currentPair.title1 }}</div>
+          <div :class="{ 'selected-left-text': this.$store.state.favoriteSelectedImg === 0, 'hidden': this.$store.state.favoriteSelectedImg === 1 }" class="flex items-center justify-center w-favorite-content-width text-white text-2xl mt-3 min-w-72 sm:text-2xl selected-text-outline">{{ currentPair.title1 }}</div>
         </div>
-        <div @click="selectedImg(1)" :class="{ 'selected-right': $store.state.favoriteSelectedImg === 1 }" class="flex flex-col justify-center cursor-pointer">
-          <div :class="{ 'selected-right': $store.state.favoriteSelectedImg === 1, 'unselected-right': $store.state.favoriteSelectedImg === 0 }" class="w-favorite-content-width h-favorite-content-height aspect-w-1 aspect-h-1 border-y-16 border-r-16 border-l-8 cursor-pointer sm:min-w-72 min-h-72 overflow-hidden">
+        <div @click="selectedImg(1)" :class="{ 'selected-right': this.$store.state.favoriteSelectedImg === 1 }" class="flex flex-col justify-center cursor-pointer">
+          <div :class="{ 'selected-right': this.$store.state.favoriteSelectedImg === 1, 'unselected-right': this.$store.state.favoriteSelectedImg === 0 }" class="w-favorite-content-width h-favorite-content-height aspect-w-1 aspect-h-1 border-8 cursor-pointer sm:min-w-72 min-h-72 overflow-hidden">
             <img @error="handleImageError($event)" class="object-cover w-full h-full bg-gray-200" :src="currentPair.image2" />
           </div>
-          <div :class="{ 'selected-right-text': $store.state.favoriteSelectedImg === 1, 'hidden':  $store.state.favoriteSelectedImg === 0 }" class="flex items-center justify-center w-favorite-content-width text-white text-2xl mt-3 min-w-72 sm:text-2xl drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">{{ currentPair.title2 }}</div>
+          <div :class="{ 'selected-right-text': this.$store.state.favoriteSelectedImg === 1, 'hidden': this.$store.state.favoriteSelectedImg === 0 }" class="flex items-center justify-center w-favorite-content-width text-white text-2xl mt-3 min-w-72 sm:text-2xl selected-text-outline">{{ currentPair.title2 }}</div>
           <div v-if="this.$store.state.favoriteSelectedImg == 0" class="absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center pointer-events-none">
             <img v-show="this.$store.state.favoriteSelectedImg == 0" class="w-24 h-24 sm:-translate-y-18" src="/image/vs.png" />
           </div>
@@ -102,6 +102,19 @@ export default {
     -2px 3px 0 white, 2px 3px 0 white,
     -3px -2px 0 white, 3px -2px 0 white,
     -3px 2px 0 white, 3px 2px 0 white;
+}
+.selected-text-outline {
+  text-shadow:
+    -2px -2px 0 black, 2px -2px 0 black,
+    -2px 2px 0 black, 2px 2px 0 black,
+    0px -3px 0 black, 0px 3px 0 black,
+    -3px 0px 0 black, 3px 0px 0 black,
+    -3px -2px 0 black, 3px -3px 0 black,
+    -3px 3px 0 black, 3px 3px 0 black,
+    -2px -3px 0 black, 2px -3px 0 black,
+    -2px 3px 0 black, 2px 3px 0 black,
+    -3px -2px 0 black, 3px -2px 0 black,
+    -3px 2px 0 black, 3px 2px 0 black;
 }
 .selected-left {
   transition: transform 0.5s ease, left 0.5s ease;
