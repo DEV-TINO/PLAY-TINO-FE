@@ -36,6 +36,7 @@ export default createStore({
     favoriteImagePairs: [],
     favoriteCurrentPairIndex: 0,
     favoriteSelectedPairs: [],
+    favoriteRanksPerPage: 3
   },
   mutations: {
     handleMainActive(state, i) {
@@ -102,12 +103,12 @@ export default createStore({
       const res = await axios.get(`${context.state.favoriteHost}/favorite/rank/all?page=${context.state.favoriteRankPage}`)
       context.state.favoriteRankTotal = res.data.favoriteRankTotal
 
-      const result = context.state.favoriteRankTotal % 3
+      const result = context.state.favoriteRankTotal % context.state.favoriteRanksPerPage
 
       if(result != 0) {
-        context.state.favoriteRankMaxPage = parseInt(context.state.favoriteRankTotal / 3)
+        context.state.favoriteRankMaxPage = parseInt(context.state.favoriteRankTotal / context.state.favoriteRanksPerPage)
       } else {
-        context.state.favoriteRankMaxPage = parseInt(context.state.favoriteRankTotal / 3) - 1
+        context.state.favoriteRankMaxPage = parseInt(context.state.favoriteRankTotal / context.state.favoriteRanksPerPage) - 1
       }
     },
     async getFavoriteRank(context, pageNum) {
