@@ -5,8 +5,8 @@
     </div>
     <hr class="w-full h-px bg-white">
     <div class="w-full h-10 min-h-10 flex justify-end items-center gap-3 lg:gap-5 px-4 lg:px-6 pt-0 md:pt-2 lg:pt-4 min-w-36 text-base md:text-lg lg:text-xl select-none">
-      <div :class="this.sortType == 'heart' ? 'text-sort-type font-semibold cursor-pointer' : 'text-gray-400 cursor-pointer'" @click="sortByHeart()">추천순</div>
-      <div :class="this.sortType == 'time' ? 'text-sort-type font-semibold cursor-pointer' : 'text-gray-400 cursor-pointer'" @click="sortByLatest()">최신순</div>
+      <div :class="sortTypeHeart()" @click="sortByHeart()">추천순</div>
+      <div :class="sortTypeTime()" @click="sortByLatest()">최신순</div>
     </div>
     <div class="w-full h-30 flex justify-center items-start bg-primary py-2 md:py-5">
       <div class="w-10/12">
@@ -65,6 +65,7 @@
 <script>
 const FIRST_PAGE = 1
 const EDIT_FINISHED = -1
+const ELLIPSIS_NEED = 6
 import axios from 'axios'
 export default {
   data() {
@@ -108,12 +109,12 @@ export default {
       this.comments = newComments
       if(this.pageCount == FIRST_PAGE) {
         this.showPagination = false
-      } else if (this.pageCount < 6) {
+      } else if (this.pageCount < ELLIPSIS_NEED) {
         this.pages = this.createArray(this.pageCount)
         this.showStartEllipsis = false
         this.showEndEllipsis = false
         return
-      } else if(this.currentPage == 1) {
+      } else if(this.currentPage == FIRST_PAGE) {
         this.pages = [FIRST_PAGE, FIRST_PAGE + 1, FIRST_PAGE + 2]
         this.showPagination = true
       } else if(this.currentPage == this.pageCount) {
@@ -128,6 +129,18 @@ export default {
     },
     createArray(n) {
       return Array.from({ length: n }, (v, i) => i + 1)
+    },
+    sortTypeHeart() {
+      if (this.sortType == 'heart') {
+        return 'text-sort-type font-semibold cursor-pointer'
+      }
+      else return 'text-gray-400 cursor-pointer'
+    },
+    sortTypeTime() {
+      if (this.sortType == 'time') {
+        return 'text-sort-type font-semibold cursor-pointer'
+      }
+      else return 'text-gray-400 cursor-pointer'
     },
     async toggleHeart(comment) {
       if (!comment) throw 'Comment is null or undefined'
