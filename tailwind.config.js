@@ -5,7 +5,6 @@ module.exports = {
     "./src/**/*.{html,js,vue}"
   ],
   theme: {
-    
     extend: {
       colors: {
         'primary': '#1C0F38',
@@ -23,7 +22,10 @@ module.exports = {
         'modal-background' : '#00000080',
         'correct-modal' : '#58AFF9',
         'wrong-modal' : '#F113DC',
-        'favorite-theme': '#6A3ED2'
+        'favorite-theme': '#6A3ED2',
+        'correct-modal' : '#58AFF9',
+        'second-prize' : '#E854ED',
+        'sort-type' : '#ECBDFF',
       },
       width: {
         'favorite-content-width' : '600px'
@@ -31,16 +33,17 @@ module.exports = {
       height: {
         'favorite-content-height' : '600px'
       },
-        'correct-modal' : '#58AFF9',
-      },
-      borderWidth: {
-        '2': '2px',
-        '3': '3px',
-        '5': '5px',
-        '4': '8px',
-        '8': '16px',
-      },
     },
+    borderWidth: {
+      '2': '2px',
+      '3': '3px',
+      '4': '4px',
+      '5': '5px',
+      '8': '8px',
+      '16': '16px',
+      '24': '24px'
+    },
+  },
   plugins: [
   ],
 }
