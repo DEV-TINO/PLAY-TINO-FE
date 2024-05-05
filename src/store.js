@@ -206,6 +206,7 @@ export default createStore({
       } else {
         finalPair = context.state.favoriteSelectedPairs
       }
+      context.commit('resetFavoriteSelectedImg')
 
       context.commit('updateFavoriteImagePairs', newPairs)
       context.commit('calculateGameRound')
