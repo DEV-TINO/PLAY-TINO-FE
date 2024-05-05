@@ -278,7 +278,7 @@ export default createStore({
       nextImagePairs.forEach(pair => {
         imageUrlsToPreload.push(pair.image1)
         imageUrlsToPreload.push(pair.image2)
-      });
+      })
     
       const preloadPromises = []
       imageUrlsToPreload.forEach(imageUrl => {
