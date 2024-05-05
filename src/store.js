@@ -36,6 +36,8 @@ export default createStore({
     favoriteImagePairs: [],
     favoriteCurrentPairIndex: 0,
     favoriteSelectedPairs: [],
+    favoriteRanksPerPage: 3,
+    favoriteImagePair: 2
   },
   mutations: {
     handleMainActive(state, i) {
@@ -102,12 +104,12 @@ export default createStore({
       const res = await axios.get(`${context.state.favoriteHost}/favorite/rank/all?page=${context.state.favoriteRankPage}`)
       context.state.favoriteRankTotal = res.data.favoriteRankTotal
 
-      const result = context.state.favoriteRankTotal % 3
+      const result = context.state.favoriteRankTotal % context.state.favoriteRanksPerPage
 
       if(result != 0) {
-        context.state.favoriteRankMaxPage = parseInt(context.state.favoriteRankTotal / 3)
+        context.state.favoriteRankMaxPage = parseInt(context.state.favoriteRankTotal / context.state.favoriteRanksPerPage)
       } else {
-        context.state.favoriteRankMaxPage = parseInt(context.state.favoriteRankTotal / 3) - 1
+        context.state.favoriteRankMaxPage = parseInt(context.state.favoriteRankTotal / context.state.favoriteRanksPerPage) - 1
       }
     },
     async getFavoriteRank(context, pageNum) {
@@ -204,6 +206,7 @@ export default createStore({
       } else {
         finalPair = context.state.favoriteSelectedPairs
       }
+      context.commit('resetFavoriteSelectedImg')
 
       context.commit('updateFavoriteImagePairs', newPairs)
       context.commit('calculateGameRound')
@@ -223,17 +226,21 @@ export default createStore({
     },
     async generateImagePairs(context) {
       const imagePairs = [];
-      for (let i = 0; i < context.state.favoriteList.length; i += 2) {
-        const pair = {
-          id1: context.state.favoriteList[i]?.favoriteId,
-          id2: context.state.favoriteList[i + 1]?.favoriteId,
-          image1: context.state.favoriteList[i]?.favoriteImage,
-          image2: context.state.favoriteList[i + 1]?.favoriteImage,
-          title1: context.state.favoriteList[i]?.favoriteTitle,
-          title2: context.state.favoriteList[i + 1]?.favoriteTitle,
+      
+      context.state.favoriteList.forEach((item, index) => {
+        if (index % context.state.favoriteImagePair === 0) {
+          const pair = {
+            id1: item?.favoriteId,
+            id2: context.state.favoriteList[index + 1]?.favoriteId,
+            image1: item?.favoriteImage,
+            image2: context.state.favoriteList[index + 1]?.favoriteImage,
+            title1: item?.favoriteTitle,
+            title2: context.state.favoriteList[index + 1]?.favoriteTitle,
+          }
+          imagePairs.push(pair)
         }
-        imagePairs.push(pair)
-      }
+      })
+    
       context.commit('updateFavoriteImagePairs', imagePairs)
       context.commit('calculateGameRound')
     },
@@ -267,23 +274,24 @@ export default createStore({
         context.state.favoriteCurrentPairIndex + 1,
         context.state.favoriteCurrentPairIndex + 3
       )
-
+    
       const imageUrlsToPreload = []
       nextImagePairs.forEach(pair => {
         imageUrlsToPreload.push(pair.image1)
         imageUrlsToPreload.push(pair.image2)
       })
-
-      await Promise.all(
-        imageUrlsToPreload.map(imageUrl => {
-          return new Promise((resolve, reject) => {
-            const img = new Image()
+    
+      const preloadPromises = []
+      imageUrlsToPreload.forEach(imageUrl => {
+        preloadPromises.push(
+          new Promise((resolve, reject) => {
+            const img = new Image();
             img.onload = resolve
             img.onerror = reject
             img.src = imageUrl
           })
-        })
-      )
+        )
+      })
 
       context.dispatch('loadNextPairWithDelay')
     },
