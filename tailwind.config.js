@@ -41,6 +41,7 @@ module.exports = {
       '5': '5px',
       '8': '8px',
       '16': '16px',
+      '24': '24px'
     },
   },
   plugins: [
