@@ -24,11 +24,11 @@
         </div>
       </div>
       <div class="flex items-center justify-center gap-2 md:gap-3 lg:gap-4 text-sm md:text-lg lg:text-xl">
-        <font-awesome-icon @click="this.$store.dispatch('getFavoriteRank', 'first')" class="text-primary text-base cursor-pointer active:text-gray-200 hover:text-primary" :icon="['fas', 'angle-double-left']" />
-        <font-awesome-icon @click="this.$store.dispatch('getFavoriteRank', 'prev')" class="text-primary cursor-pointer active:text-gray-200 hover:text-primary" :icon="['fas', 'angle-left']" />
+        <font-awesome-icon @click="this.$store.dispatch('getFavoriteRank', 'first')" class="text-primary text-base cursor-pointer active:text-gray-200 hover:text-primary text-lg" :icon="['fas', 'angle-double-left']" />
+        <font-awesome-icon @click="this.$store.dispatch('getFavoriteRank', 'prev')" class="text-primary cursor-pointer active:text-gray-200 hover:text-primary text-lg" :icon="['fas', 'angle-left']" />
         <div v-for="i in this.$store.state.favoriteRankMaxPage" :key="i" @click="this.$store.dispatch('getFavoriteRank', i)" :class="this.$store.state.favoriteRankPage == i ? 'selected-rank-page' : 'unselected-rank-page'" class="font-bold cursor-pointer active:text-primary hover:text-primary">{{ i }}</div>
-        <font-awesome-icon @click="this.$store.dispatch('getFavoriteRank', 'next')" class="text-primary text-base cursor-pointer active:text-gray-200 hover:text-primary" :icon="['fas', 'angle-right']"/>
-        <font-awesome-icon @click="this.$store.dispatch('getFavoriteRank', 'last')" class="text-primary text-base cursor-pointer active:text-gray-200 hover:text-primary" :icon="['fas', 'angle-double-right']" />
+        <font-awesome-icon @click="this.$store.dispatch('getFavoriteRank', 'next')" class="text-primary text-base cursor-pointer active:text-gray-200 hover:text-primary text-lg" :icon="['fas', 'angle-right']"/>
+        <font-awesome-icon @click="this.$store.dispatch('getFavoriteRank', 'last')" class="text-primary text-base cursor-pointer active:text-gray-200 hover:text-primary text-lg" :icon="['fas', 'angle-double-right']" />
       </div>
     </div>
   </div>
@@ -56,11 +56,11 @@ export default {
 		},
     getRankColor(rank) {
       if (rank == 1) {
-        return "text-primary"
+        return "text-quiz-theme"
       } else if (rank == 2) {
         return "text-second-prize"
       } else if (rank == 3) {
-        return "text-favorite-title"
+        return "text-quiz-box"
       } else {
         return "text-light-purple"
       }
