@@ -23,12 +23,15 @@
           </div>
         </div>
       </div>
-      <div class="flex items-center justify-center gap-2 md:gap-3 lg:gap-4 text-sm md:text-lg lg:text-xl">
-        <font-awesome-icon @click="this.$store.dispatch('getFavoriteRank', 'first')" class="text-primary text-base cursor-pointer active:text-gray-200 hover:text-primary text-lg" :icon="['fas', 'angle-double-left']" />
-        <font-awesome-icon @click="this.$store.dispatch('getFavoriteRank', 'prev')" class="text-primary cursor-pointer active:text-gray-200 hover:text-primary text-lg" :icon="['fas', 'angle-left']" />
-        <div v-for="i in this.$store.state.favoriteRankMaxPage" :key="i" @click="this.$store.dispatch('getFavoriteRank', i)" :class="this.$store.state.favoriteRankPage == i ? 'selected-rank-page' : 'unselected-rank-page'" class="font-bold cursor-pointer active:text-primary hover:text-primary">{{ i }}</div>
-        <font-awesome-icon @click="this.$store.dispatch('getFavoriteRank', 'next')" class="text-primary text-base cursor-pointer active:text-gray-200 hover:text-primary text-lg" :icon="['fas', 'angle-right']"/>
-        <font-awesome-icon @click="this.$store.dispatch('getFavoriteRank', 'last')" class="text-primary text-base cursor-pointer active:text-gray-200 hover:text-primary text-lg" :icon="['fas', 'angle-double-right']" />
+      <div class="select-none flex items-center justify-center text-sm md:text-lg lg:text-xl">
+        <font-awesome-icon @click="this.$store.dispatch('getFavoriteRank', 'first')" class="text-primary text-base cursor-pointer active:text-gray-200 hover:text-primary text-base px-1" :icon="['fas', 'angle-double-left']" />
+        <font-awesome-icon @click="this.$store.dispatch('getFavoriteRank', 'prev')" class="text-primary cursor-pointer active:text-gray-200 hover:text-primary text-base pr-2 pl-1" :icon="['fas', 'angle-left']" />
+        <div v-for="i in this.$store.state.favoriteRankMaxPage" :key="i" @click="this.$store.dispatch('getFavoriteRank', i)" >
+          <div v-if="this.$store.state.favoriteRankPage == i" class="text-white w-7 h-7 flex justify-center items-center font-bold bg-light-purple rounded-2xl text-base cursor-pointer text-lg">{{ i }}</div>
+          <div v-else class="text-primary font-bold bg-white w-7 h-7 flex justify-center items-center text-lg">{{ i }}</div>
+        </div>
+        <font-awesome-icon @click="this.$store.dispatch('getFavoriteRank', 'next')" class="text-primary text-base cursor-pointer active:text-gray-200 hover:text-primary text-base pr-1 pl-2" :icon="['fas', 'angle-right']"/>
+        <font-awesome-icon @click="this.$store.dispatch('getFavoriteRank', 'last')" class="text-primary text-base cursor-pointer active:text-gray-200 hover:text-primary text-base px-1" :icon="['fas', 'angle-double-right']" />
       </div>
     </div>
   </div>
@@ -75,7 +78,6 @@ export default {
 <style>
 .selected-rank-page {
   color: '#1C0F38';
-  border-bottom: 2px solid #1C0F38;
 }
 .unselected-rank-page {
   color: lightgray;
