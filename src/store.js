@@ -36,7 +36,6 @@ export default createStore({
     favoriteImagePairs: [],
     favoriteCurrentPairIndex: 0,
     favoriteSelectedPairs: [],
-    favoriteDisabled: false
   },
   mutations: {
     handleMainActive(state, i) {
@@ -87,9 +86,6 @@ export default createStore({
     addToFavoriteSelectedPairs(state, selectedImageData) {
       state.favoriteSelectedPairs.push(selectedImageData)
     },
-    isDisabled(state, bool) {
-      state.favoriteDisabled = bool
-    }
   },
   actions: {
     handleActive(state, i) {
@@ -109,9 +105,9 @@ export default createStore({
       const result = context.state.favoriteRankTotal % 3
 
       if(result != 0) {
-        context.state.favoriteRankMaxPage = parseInt(context.state.favoriteRankTotal / 3) + 1
-      } else {
         context.state.favoriteRankMaxPage = parseInt(context.state.favoriteRankTotal / 3)
+      } else {
+        context.state.favoriteRankMaxPage = parseInt(context.state.favoriteRankTotal / 3) - 1
       }
     },
     async getFavoriteRank(context, pageNum) {
@@ -128,6 +124,22 @@ export default createStore({
           alert('마지막 페이지입니다.')
         } else {
           context.commit('selectFavoriteRankPage', context.state.favoriteRankPage + 1)
+          const res = await axios.get(`${context.state.favoriteHost}/favorite/rank/all?page=${context.state.favoriteRankPage}`)
+          context.state.favoriteRankData = res.data.rankList
+        }
+      } else if(pageNum == 'first') {
+        if(context.state.favoriteRankPage - 1 < 1) {
+          alert('첫 번째 페이지입니다.')
+        } else {
+          context.commit('selectFavoriteRankPage', 1)
+          const res = await axios.get(`${context.state.favoriteHost}/favorite/rank/all?page=${context.state.favoriteRankPage}`)
+          context.state.favoriteRankData = res.data.rankList
+        }
+      } else if(pageNum == 'last') {
+        if(context.state.favoriteRankPage + 1 > context.state.favoriteRankMaxPage) {
+          alert('마지막 페이지입니다.')
+        } else {
+          context.commit('selectFavoriteRankPage', context.state.favoriteRankMaxPage)
           const res = await axios.get(`${context.state.favoriteHost}/favorite/rank/all?page=${context.state.favoriteRankPage}`)
           context.state.favoriteRankData = res.data.rankList
         }
