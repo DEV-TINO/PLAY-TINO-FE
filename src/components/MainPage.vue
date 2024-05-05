@@ -12,6 +12,7 @@
       <li
         id="game-list"
         v-for="(game, i) in this.$store.state.MainGameData"
+        :key="i"
         :style="`background-image: url(${game.image});` "
         role="button"
         :class="this.$store.state.MainActive === i ? 'active' : ''"
@@ -38,6 +39,7 @@
       <ul class="w-5/6 pt-8 flex justify-evenly items-start">
         <li
           v-for="(game, i) in this.$store.state.MainGameData"
+          :key="i"
           class="w-96 pr-4 pl-4"
         >
           <h2 class="flex justify-center font-bold text-primary text-2xl pb-7">{{ game.name }}</h2>
@@ -47,7 +49,7 @@
     </div>
   </div>
   <div class="bg-primary h-64 p-10 flex flex-row justify-around items-center">
-    <div v-for="(menu, i) in this.$store.state.footerMenu" class="w-48">
+    <div v-for="(menu, i) in this.$store.state.footerMenu" :key=i class="w-48">
       <div class="text-white text-xl font-medium mb-3">{{ menu }}</div>
       <div class="text-white font-medium">{{ menu }}</div>
     </div>
@@ -81,21 +83,12 @@
   font-weight: normal;
   font-style: normal;
 }
-.title-default {
+.title-default, .select-title {
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: end;
   align-content: start;
-  z-index: 20;
-  padding: 4rem;
-}
-.select-title {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: end;
-  align-items: center;
   z-index: 20;
   padding: 4rem;
 }
@@ -105,28 +98,25 @@
   align-items: stretch;
   cursor: pointer;
   transition: all 0.35s ease;
-  cursor: pointer;
   position: relative;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: top center;
   overflow: hidden;
   color: white;
-
-  &:before {
-    position: absolute;
-    z-index: 20;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-
-  &.active {
-    flex: 2;
-    justify-content: center;
-    cursor: pointer;
-  }
+}
+#game-list:before {
+  content: '';
+  position: absolute;
+  z-index: 20;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+#game-list.active {
+  flex: 2;
+  justify-content: center;
 }
 .section-content {
   position: relative;
@@ -134,23 +124,20 @@
   opacity: 0;
   align-self: flex-end;
   width: 100%;
-
-  .active & {
-    opacity: 1;
-  }
-
-  .inner {
-    display: flex;
-    align-items: flex-end;
-    left: 0;
-    bottom: 0;
-    padding: 20px;
-    opacity: 0;
-    transition: opacity 0.25s ease-out;
-
-    .active & {
-      opacity: 1;
-    }
-  }
 }
-</style>  
+#game-list.active .section-content {
+  opacity: 1;
+}
+.section-content .inner {
+  display: flex;
+  align-items: flex-end;
+  left: 0;
+  bottom: 0;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.25s ease-out;
+}
+#game-list.active .section-content .inner {
+  opacity: 1;
+}
+</style>

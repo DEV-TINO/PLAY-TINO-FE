@@ -16,7 +16,7 @@
     </ResultModalCard>
   </Transition>
   <div class="flex flex-col h-screen w-full bg-primary">
-    <div class="w-full h-24 min-h-20 flex items-center" @click="handleRouterMain()">
+    <div class="w-full h-24 min-h-20 flex items-center cursor-pointer" @click="handleRouterMain()">
       <div class="text-white text-xl pl-4 font-semibold hover:cursor-pointer min-w-40">PLAY - TINO</div>
     </div>
     <div class="w-full min-h-40 flex justify-center items-center bg-primary">
@@ -40,7 +40,7 @@
         </div>
         <div class="flex w-11/12 gap-4">
           <input @keyup.enter="handleOpenModal($event)" v-model="answer" placeholder="정답을 작성해주세요" type="text" class="border-primary overflow-hidden rounded-xl border-2 w-full h-12 py-2 px-3 text-lg md:text-xl resize-none font-semibold"></input>
-          <div @click="handleOpenModal($event)" class="bg-quiz-theme text-white font-bold w-14 rounded-lg flex justify-center items-center text-2xl">
+          <div @click="handleOpenModal($event)" class="cursor-pointer bg-quiz-theme text-white font-bold w-14 rounded-lg flex justify-center items-center text-2xl">
             <font-awesome-icon :icon="['fas', 'angle-right']" />
           </div>
         </div>
@@ -72,30 +72,30 @@ export default {
     CorrectModalCard,
     ResultModalCard
   },
-    data() { 
-      return {
-        openModal: false,
-        openResultModal: false,
-        modalComponent: null,
-        progressbarHandler: null,
-        timeBegan: null,
-        quizNumber: 10,
-        quizCount: 1,
-        quizzes: [],
-        currentQuiz: [],
-        answer: '', 
-        nonsenseCorrect: 0,
-        commonCorrect: 0,
-        gameId: '',
-      }
+  data() { 
+    return {
+      openModal: false,
+      openResultModal: false,
+      modalComponent: null,
+      progressbarHandler: null,
+      timeBegan: null,
+      quizNumber: 10,
+      quizCount: 1,
+      quizzes: [],
+      currentQuiz: [],
+      answer: '', 
+      nonsenseCorrect: 0,
+      commonCorrect: 0,
+      gameId: '',
+    }
   },
   methods: {
     async getQuiz() {
-        const response = await axios.get(`${this.$store.state.quizPort}/quiz/start/user/${this.$store.state.userId}`)
-        const obj = response.data.responseQuizList
-        this.gameId = response.data.gameId
-        this.quizzes = JSON.parse(obj)
-        this.currentQuiz = this.quizzes[this.quizCount - 1]
+      const response = await axios.get(`${this.$store.state.quizHost}/quiz/start/user/${this.$store.state.userId}`)
+      const obj = response.data.responseQuizList
+      this.gameId = response.data.gameId
+      this.quizzes = JSON.parse(obj)
+      this.currentQuiz = this.quizzes[this.quizCount - 1]
     },
     async saveRank() {
       const rankData = {
@@ -104,7 +104,7 @@ export default {
         nonsenseCorrect: this.nonsenseCorrect,
         commonsenseCorrect: this.commonCorrect
       }
-      const response = await axios.post(`${this.$store.state.quizPort}/quiz/rank`, rankData)
+      const response = await axios.post(`${this.$store.state.quizHost}/quiz/rank`, rankData)
     },
     loadNextQuiz() {
       if(this.quizCount < this.quizNumber) {
@@ -119,10 +119,21 @@ export default {
       }
     },
     handleOpenModal(){
+      if (this.openResultModal) return
       if (!this.openModal) {
         this.openModal = true
         this.isCorrect()
         this.progressBarStop()
+      }
+      else {
+        if (this.quizCount == 10) {
+          this.openResultModal = true
+          this.progressBarStop()
+          return
+        }
+        this.loadNextQuiz()
+        this.openModal = false
+        this.progressBarStart()
       }
     },
     isCorrect() {
@@ -170,6 +181,7 @@ export default {
       }
     },
     handleRouterMain() {
+      this.progressBarStop()
       this.$router.push(`/`)
     },
   },

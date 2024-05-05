@@ -2,24 +2,24 @@ import axios from 'axios';
 import { createStore } from 'vuex';
 import game from './data/gameData.js';
 
-const TIMER_PORT  = 'http://13.124.245.152:8080'
-const QUIZ_PORT = 'http://54.180.115.118:8080'
+const TIMER  = 'http://13.124.245.152:8080'
+const QUIZ = 'http://54.180.115.118:8080'
 const FOOTERMENU = ['Contact', 'Our Team', 'Social']
-const FAVORITE_PORT = 'http://43.201.78.161:8080'
-const USER_ID = '3978099b-419d-46cb-a2ca-258b7f7ee535'
+const FAVORITE = 'http://43.201.78.161:8080'
+const USERID = '3978099b-419d-46cb-a2ca-258b7f7ee535'
 
 export default createStore({
   state: {
-    timerPort: TIMER_PORT,
-    quizPort: QUIZ_PORT,
+    timerHost: TIMER,
+    quizHost: QUIZ,
     gameData: game,
     footerMenu: FOOTERMENU,
-    userId: USER_ID,
+    userId: USERID,
     active: 0,
     MainGameData: game,
     footerMenu: FOOTERMENU,
     MainActive: 0,
-    favoriteHost: FAVORITE_PORT,
+    favoriteHost: FAVORITE,
     favoriteList: [],
     favoriteGameId: '',
     favoriteSelectedImg: '',
@@ -36,7 +36,6 @@ export default createStore({
     favoriteImagePairs: [],
     favoriteCurrentPairIndex: 0,
     favoriteSelectedPairs: [],
-    favoriteDisabled: false
   },
   mutations: {
     handleMainActive(state, i) {
@@ -87,9 +86,6 @@ export default createStore({
     addToFavoriteSelectedPairs(state, selectedImageData) {
       state.favoriteSelectedPairs.push(selectedImageData)
     },
-    isDisabled(state, bool) {
-      state.favoriteDisabled = bool
-    }
   },
   actions: {
     handleActive(state, i) {
@@ -109,9 +105,9 @@ export default createStore({
       const result = context.state.favoriteRankTotal % 3
 
       if(result != 0) {
-        context.state.favoriteRankMaxPage = parseInt(context.state.favoriteRankTotal / 3) + 1
-      } else {
         context.state.favoriteRankMaxPage = parseInt(context.state.favoriteRankTotal / 3)
+      } else {
+        context.state.favoriteRankMaxPage = parseInt(context.state.favoriteRankTotal / 3) - 1
       }
     },
     async getFavoriteRank(context, pageNum) {
@@ -128,6 +124,22 @@ export default createStore({
           alert('마지막 페이지입니다.')
         } else {
           context.commit('selectFavoriteRankPage', context.state.favoriteRankPage + 1)
+          const res = await axios.get(`${context.state.favoriteHost}/favorite/rank/all?page=${context.state.favoriteRankPage}`)
+          context.state.favoriteRankData = res.data.rankList
+        }
+      } else if(pageNum == 'first') {
+        if(context.state.favoriteRankPage - 1 < 1) {
+          alert('첫 번째 페이지입니다.')
+        } else {
+          context.commit('selectFavoriteRankPage', 1)
+          const res = await axios.get(`${context.state.favoriteHost}/favorite/rank/all?page=${context.state.favoriteRankPage}`)
+          context.state.favoriteRankData = res.data.rankList
+        }
+      } else if(pageNum == 'last') {
+        if(context.state.favoriteRankPage + 1 > context.state.favoriteRankMaxPage) {
+          alert('마지막 페이지입니다.')
+        } else {
+          context.commit('selectFavoriteRankPage', context.state.favoriteRankMaxPage)
           const res = await axios.get(`${context.state.favoriteHost}/favorite/rank/all?page=${context.state.favoriteRankPage}`)
           context.state.favoriteRankData = res.data.rankList
         }

@@ -7,7 +7,7 @@
     </ModalCard>
   </Transition>
   <div class="flex flex-col h-screen w-full bg-primary">
-    <div class="w-full h-24 min-h-20 flex items-center bg-primary" @click="handleRouterMain()">
+    <div class="w-full h-24 min-h-20 flex items-center bg-primary cursor-pointer" @click="handleRouterMain()">
       <div class="text-white text-xl pl-4 font-semibold hover:cursor-pointer min-w-40">PLAY - TINO</div>
     </div>
     <div class="w-full min-h-40 flex justify-center items-center bg-primary">
@@ -23,11 +23,11 @@
           <span class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-primary font-['Share-Tech-Mono']">{{ time }}</span>
         </div>
         <div class="flex justify-center gap-4">
-          <div @click="start" class="w-20 md:w-24 h-10 md:h-12 hover:bg-timer-start hover:text-white text-timer-start border-timer-start border-2 flex items-center justify-center rounded-md mx-4">
-            <div class="text-l md:text-2xl font-semibold hover:cursor-pointer">START</div>
+          <div @click="start()" class="cursor-pointer w-20 md:w-24 h-10 md:h-12 hover:bg-timer-start hover:text-white text-timer-start border-timer-start border-2 flex items-center justify-center rounded-md mx-4">
+            <div class="text-l md:text-2xl font-semibold">START</div>
           </div>
-          <div @click="stop" class="w-20 md:w-24 h-10 md:h-12 hover:bg-timer-stop hover:text-white text-timer-stop border-timer-stop border-2 flex items-center justify-center rounded-md mx-4">
-            <div class="text-l md:text-2xl font-semibold hover:cursor-pointer">STOP</div>
+          <div @click="stop()" class="cursor-pointer w-20 md:w-24 h-10 md:h-12 hover:bg-timer-stop hover:text-white text-timer-stop border-timer-stop border-2 flex items-center justify-center rounded-md mx-4">
+            <div class="text-l md:text-2xl font-semibold">STOP</div>
           </div>
         </div>
       </div>
@@ -57,7 +57,7 @@ import axios from 'axios'
   },
   methods: {
     async getTargetTime() {
-        const response = await axios.get(`${this.$store.state.timerPort}/timer/start/user/${this.$store.state.userId}`)
+        const response = await axios.get(`${this.$store.state.timerHost}/timer/start/user/${this.$store.state.userId}`)
         this.gameId = response.data.gameId
         this.targetTime = response.data.targetTime
     },
@@ -68,10 +68,13 @@ import axios from 'axios'
         stopTime: this.time,
         targetTime: this.targetTime
       }
-      const response = await axios.post(`${this.$store.state.timerPort}/timer/rank`, rankData)
+      const response = await axios.post(`${this.$store.state.timerHost}/timer/rank`, rankData)
       this.openModal = true
     },
     start() {
+      if (parseFloat(this.time) != 0) {
+        alert("멈춤 버튼을 눌러주세요")
+      }
       if (this.running) return
       if (this.timeBegan == null) {
         this.timeBegan = new Date()
@@ -80,13 +83,17 @@ import axios from 'axios'
       this.running = true
     },
     stop() {
+      if (parseFloat(this.time) == 0) {
+        alert("시작 버튼을 먼저 눌러주세요")
+        return
+      }
       this.running = false
       this.timeStopped = new Date()
       clearInterval(this.started)
       this.saveRank()
     },
     clockRunning() {
-      var currentTime = new Date(),
+      let currentTime = new Date(),
         timeElapsed = new Date(currentTime - this.timeBegan - this.stoppedDuration),
         sec = timeElapsed.getUTCSeconds(),
         ms = timeElapsed.getUTCMilliseconds()
@@ -94,10 +101,14 @@ import axios from 'axios'
       this.time =
         this.zeroPrefix(sec, 2) + '.' +
         this.zeroPrefix(ms, 2)
+
+      if (parseFloat(this.time) >= 59.90) {
+        this.stop()
+      }
     },
     zeroPrefix(num, digit) {
-      var zero = ''
-      for (var i = 0; i < digit; i++) {
+      let zero = ''
+      for (let i = 0; i < digit; i++) {
         zero += '0'
       }
       return (zero + num).slice(-digit)
