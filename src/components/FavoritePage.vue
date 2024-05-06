@@ -151,7 +151,4 @@ export default {
 .click-disabled {
   pointer-events: none;
 }
-.click-abled {
-  pointer-events: auto;
-}
 </style>
