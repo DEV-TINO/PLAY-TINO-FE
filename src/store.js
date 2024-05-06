@@ -37,7 +37,7 @@ export default createStore({
     favoriteCurrentPairIndex: 0,
     favoriteSelectedPairs: [],
     favoriteRanksPerPage: 3,
-    favoriteImagePair: 2
+    favoriteImagePair: 2,
   },
   mutations: {
     handleMainActive(state, i) {
@@ -206,8 +206,8 @@ export default createStore({
       } else {
         finalPair = context.state.favoriteSelectedPairs
       }
-      context.commit('resetFavoriteSelectedImg')
 
+      context.dispatch('selectFavoriteImgIndex', -1)
       context.commit('updateFavoriteImagePairs', newPairs)
       context.commit('calculateGameRound')
 
@@ -292,7 +292,7 @@ export default createStore({
           })
         )
       })
-
+      
       context.dispatch('loadNextPairWithDelay')
     },
   }
