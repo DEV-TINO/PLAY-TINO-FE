@@ -27,9 +27,11 @@
               <div class="text-quiz-box text-base md:text-lg">{{ comment.uploadTime }}</div>
             </div>
             <div v-if="findEditComment(index)" class="text-primary text-base md:text-lg select-none cursor-pointer" @click="submitComment(index)">완료</div>
-            <div v-else class="flex gap-2 select-none">
-              <div class="text-primary text-base md:text-lg cursor-pointer" @click="updateComment(index)">수정</div>
-              <div class="text-quiz-box text-base md:text-lg cursor-pointer" @click="deleteComment(index)">삭제</div>
+            <div v-else>
+              <div v-if="isMyComment[index]" class="flex gap-2 select-none">
+                <div class="text-primary text-base md:text-lg cursor-pointer" @click="updateComment(index)">수정</div>
+                <div class="text-quiz-box text-base md:text-lg cursor-pointer" @click="deleteComment(index)">삭제</div>
+              </div>
             </div>
           </div>
           <div class="flex place-content-between pb-2 items-end">
@@ -81,7 +83,7 @@ export default {
       currentPage: 1,
       itemsPerPage: 10,
       sortType: 'heart',
-      myComment: true,
+      isMyComment: [],
       pages: [],
       showStartEllipsis: false,
       showEndEllipsis: false,
@@ -107,6 +109,14 @@ export default {
         return comment
       }).filter((comment) => comment)
       this.comments = newComments
+      this.isMyComment = []
+      this.comments.forEach((comment, i) => {
+        if (this.$store.state.userId == comment.userId) {
+          this.isMyComment[i] = true
+        } else {
+          this.isMyComment[i] = false
+        }
+      });
       if(this.pageCount == FIRST_PAGE) {
         this.showPagination = false
       } else if (this.pageCount < ELLIPSIS_NEED) {
@@ -144,6 +154,10 @@ export default {
     },
     async toggleHeart(comment) {
       if (!comment) throw 'Comment is null or undefined'
+      if (this.$store.state.userId == comment.userId) {
+        alert("자신의 댓글에 좋아요를 누를 수 없습니다")
+        return
+      }
       const formData = {
         commentId: comment.commentId,
         userId: this.$store.state.userId
@@ -186,7 +200,7 @@ export default {
       this.getComment(this.currentPage - 1)
     },
     findEditComment(index) {
-      if (this.myComment && this.editTextIndex == index) return true
+      if (this.isMyComment[index] && (this.editTextIndex == index)) return true
       return false
     },
     changePage(pageNumber) {
