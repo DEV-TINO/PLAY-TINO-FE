@@ -33,7 +33,7 @@ export default createStore({
     favoriteGameRound: "16강",
     favoriteRoundFinish: false,
     favoriteRankData: [],
-    favoriteRankPage: 1,
+    favoriteRankPage: 0,
     favoriteRankMaxPage: 0,
     favoriteRankTotal: 0,
     favoriteCommentType: "uploadTime",
@@ -115,33 +115,17 @@ export default createStore({
       );
       context.state.favoriteRankTotal = res.data.favoriteRankTotal;
 
-      const result =
-        context.state.favoriteRankTotal % context.state.favoriteRanksPerPage;
-
-      if (result != 0) {
-        context.state.favoriteRankMaxPage = parseInt(
-          context.state.favoriteRankTotal / context.state.favoriteRanksPerPage
-        );
-      } else {
-        context.state.favoriteRankMaxPage =
-          parseInt(
-            context.state.favoriteRankTotal / context.state.favoriteRanksPerPage
-          ) - 1;
-      }
+      context.state.favoriteRankMaxPage = parseInt(context.state.favoriteRankTotal / context.state.favoriteRanksPerPage)
     },
-    async getFavoriteRank(context, pageNum) {
-      if (pageNum == "prev") {
-        if (context.state.favoriteRankPage - 1 < 1) {
-          alert("첫 번째 페이지입니다.");
+    async getFavoriteRank(context, page) {
+      const pageNum = page - 1
+      if(pageNum == 'prev') {
+        if(context.state.favoriteRankPage == 0) {
+          alert('첫 번째 페이지입니다.')
         } else {
-          context.commit(
-            "selectFavoriteRankPage",
-            context.state.favoriteRankPage - 1
-          );
-          const res = await axios.get(
-            `${context.state.favoriteHost}/favorite/rank/all?page=${context.state.favoriteRankPage}`
-          );
-          context.state.favoriteRankData = res.data.rankList;
+          context.commit('selectFavoriteRankPage', context.state.favoriteRankPage)
+          const res = await axios.get(`${context.state.favoriteHost}/favorite/rank/all?page=${context.state.favoriteRankPage}`)
+          context.state.favoriteRankData = res.data.rankList
         }
       } else if (pageNum == "next") {
         if (
@@ -150,24 +134,17 @@ export default createStore({
         ) {
           alert("마지막 페이지입니다.");
         } else {
-          context.commit(
-            "selectFavoriteRankPage",
-            context.state.favoriteRankPage + 1
-          );
-          const res = await axios.get(
-            `${context.state.favoriteHost}/favorite/rank/all?page=${context.state.favoriteRankPage}`
-          );
-          context.state.favoriteRankData = res.data.rankList;
+          context.commit('selectFavoriteRankPage', context.state.favoriteRankPage)
+          const res = await axios.get(`${context.state.favoriteHost}/favorite/rank/all?page=${context.state.favoriteRankPage}`)
+          context.state.favoriteRankData = res.data.rankList
         }
-      } else if (pageNum == "first") {
-        if (context.state.favoriteRankPage - 1 < 1) {
-          alert("첫 번째 페이지입니다.");
+      } else if(pageNum == 'first') {
+        if(context.state.favoriteRankPage < 1) {
+          alert('첫 번째 페이지입니다.')
         } else {
-          context.commit("selectFavoriteRankPage", 1);
-          const res = await axios.get(
-            `${context.state.favoriteHost}/favorite/rank/all?page=${context.state.favoriteRankPage}`
-          );
-          context.state.favoriteRankData = res.data.rankList;
+          context.commit('selectFavoriteRankPage', 0)
+          const res = await axios.get(`${context.state.favoriteHost}/favorite/rank/all?page=${context.state.favoriteRankPage}`)
+          context.state.favoriteRankData = res.data.rankList
         }
       } else if (pageNum == "last") {
         if (
