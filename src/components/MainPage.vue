@@ -113,7 +113,7 @@ export default {
         alert("User Logout")
       } else {
         window.location.href =
-          "https://accounts.google.com/o/oauth2/auth?client_id=461061717960-3qjph66sbpc88fte75el297ca14ht30t.apps.googleusercontent.com&redirect_uri=http://api.favorite.play-tino.com/login/oauth2/code/google&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
+          "https://accounts.google.com/o/oauth2/auth?client_id=461061717960-3qjph66sbpc88fte75el297ca14ht30t.apps.googleusercontent.com&redirect_uri=https://api.favorite.play-tino.com/login/oauth2/code/google&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
       }
     },
   },
