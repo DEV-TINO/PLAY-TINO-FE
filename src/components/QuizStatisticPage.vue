@@ -1,32 +1,32 @@
 <template>
   <div class="flex w-full h-24 bg-white justify-between items-center">
     <div class="w-30 h-20 ml-10"></div>
-    <div class="flex justify-center">
+    <div class="flex justify-center select-none">
       <img src="/image/logo.png" class="w-30 h-20 cursor-pointer" @click="handleRouterMain()"/>
     </div>
-    <div class="text-light-purple order-last flex justify-center mr-10 font-medium cursor-pointer">Login</div>
+    <div class="text-light-purple order-last flex justify-center mr-10 font-medium cursor-pointer select-none">Login</div>
   </div>
   <div class="flex flex-col h-auto w-full bg-primary">
-    <div class="w-full h-14 min-h-8 flex items-center">
+    <div class="w-full h-14 min-h-8 flex items-center select-none">
       <div class="text-white text-xl pl-4 min-w-36">문제를 맞춰라</div>
     </div>
     <div class="w-full h-auto bg-white pt-10 pb-3">
       <div class="flex pb-2 sm:pb-4 md:pb-6 lg:pb-8 xl:pb-10">
         <div class="w-2/12 min-w-10 px-4 sm:px-8 md:px-10 lg:px-14 xl:px-20"></div>
-        <div class="text-light-purple text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold w-3/12 items-center min-w-40 pl-2">닉네임</div>
-        <div class="text-light-purple text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold w-4/12 flex justify-center items-center min-w-48">맞춘 문제</div>
-        <div class="text-light-purple text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold w-2/12 flex justify-center items-center min-w-16">총점</div>
+        <div class="text-light-purple text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold w-3/12 items-center min-w-40 pl-2 select-none">닉네임</div>
+        <div class="text-light-purple text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold w-4/12 flex justify-center items-center min-w-48 select-none">맞춘 문제</div>
+        <div class="text-light-purple text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold w-2/12 flex justify-center items-center min-w-16 select-none">총점</div>
       </div>
       <div v-for="(user, index) in this.rankData" :key="user.quizRankId">
         <div class="flex pb-4 md:pb-7">
-          <div class="w-2/12 min-w-10 flex justify-end px-4 sm:px-8 md:px-10 lg:px-14 xl:px-20 text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold items-center">
+          <div class="w-2/12 min-w-10 flex justify-end px-4 sm:px-8 md:px-10 lg:px-14 xl:px-20 text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold items-center select-none">
             <div :class=this.rankColor(this.getRank(index))>
               {{ this.getRank(index) }}
             </div>
           </div>
-          <div class="w-3/12 min-w-40 items-center pl-1 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">alswlfjddl</div>
+          <div class="w-3/12 min-w-40 items-center pl-1 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl select-none">alswlfjddl</div>
           <div class="w-4/12 min-w-48 flex gap-2 justify-center text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl items-center">
-            <div class="flex gap-2">
+            <div class="flex gap-2 select-none">
               <div>넌센스</div>
               <div class="flex">
                 <div>{{ user.nonsenseCorrect }}</div>
@@ -34,7 +34,7 @@
               </div>
             </div>
             <div>/</div>
-            <div class="flex gap-2">
+            <div class="flex gap-2 select-none">
               <div>상식</div>
               <div class="flex">
                 <div>{{ user.commonsenseCorrect }}</div>
@@ -42,7 +42,7 @@
               </div>
             </div>
           </div>
-          <div class="w-2/12 flex justify-center items-center text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl min-w-16 gap-1">
+          <div class="w-2/12 flex justify-center items-center text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl min-w-16 gap-1 select-none">
             <div>{{ user.allCorrect }}</div>
             <div>/</div>
             <div>10</div>
