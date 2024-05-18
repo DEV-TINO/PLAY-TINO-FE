@@ -13,7 +13,7 @@ const QUIZ = "https://api.quiz.play-tino.com";
 const FAVORITE = "https://api.favorite.play-tino.com";
 
 const FOOTERMENU = ["Contact", "Our Team", "Social"];
-const USERID = "3978099b-419d-46cb-a2ca-258b7f7ee535";
+const USERID = "3978099b-419d-46cb-a2ca-258b7f7ee535"; // for Test
 
 export default createStore({
   state: {
@@ -21,7 +21,7 @@ export default createStore({
     quizHost: QUIZ,
     gameData: game,
     footerMenu: FOOTERMENU,
-    userId: USERID,
+    userId: "",
     active: 0,
     MainGameData: game,
     footerMenu: FOOTERMENU,
@@ -46,7 +46,20 @@ export default createStore({
     favoriteRanksPerPage: 3,
     favoriteImagePair: 2,
   },
+  getters: {
+    isLogin(state) {
+      return state.userId !== "";
+    },
+  },
   mutations: {
+    // ====== For Login ======
+    logout(state) {
+      state.userId = "";
+    },
+    setUserId(state, userId) {
+      state.userId = userId;
+    },
+    // ========================
     handleMainActive(state, i) {
       state.MainActive = i;
     },
@@ -115,17 +128,24 @@ export default createStore({
       );
       context.state.favoriteRankTotal = res.data.favoriteRankTotal;
 
-      context.state.favoriteRankMaxPage = parseInt(context.state.favoriteRankTotal / context.state.favoriteRanksPerPage)
+      context.state.favoriteRankMaxPage = parseInt(
+        context.state.favoriteRankTotal / context.state.favoriteRanksPerPage
+      );
     },
     async getFavoriteRank(context, page) {
-      const pageNum = page - 1
-      if(pageNum == 'prev') {
-        if(context.state.favoriteRankPage == 0) {
-          alert('첫 번째 페이지입니다.')
+      const pageNum = page - 1;
+      if (pageNum == "prev") {
+        if (context.state.favoriteRankPage == 0) {
+          alert("첫 번째 페이지입니다.");
         } else {
-          context.commit('selectFavoriteRankPage', context.state.favoriteRankPage)
-          const res = await axios.get(`${context.state.favoriteHost}/favorite/rank/all?page=${context.state.favoriteRankPage}`)
-          context.state.favoriteRankData = res.data.rankList
+          context.commit(
+            "selectFavoriteRankPage",
+            context.state.favoriteRankPage
+          );
+          const res = await axios.get(
+            `${context.state.favoriteHost}/favorite/rank/all?page=${context.state.favoriteRankPage}`
+          );
+          context.state.favoriteRankData = res.data.rankList;
         }
       } else if (pageNum == "next") {
         if (
@@ -134,17 +154,24 @@ export default createStore({
         ) {
           alert("마지막 페이지입니다.");
         } else {
-          context.commit('selectFavoriteRankPage', context.state.favoriteRankPage)
-          const res = await axios.get(`${context.state.favoriteHost}/favorite/rank/all?page=${context.state.favoriteRankPage}`)
-          context.state.favoriteRankData = res.data.rankList
+          context.commit(
+            "selectFavoriteRankPage",
+            context.state.favoriteRankPage
+          );
+          const res = await axios.get(
+            `${context.state.favoriteHost}/favorite/rank/all?page=${context.state.favoriteRankPage}`
+          );
+          context.state.favoriteRankData = res.data.rankList;
         }
-      } else if(pageNum == 'first') {
-        if(context.state.favoriteRankPage < 1) {
-          alert('첫 번째 페이지입니다.')
+      } else if (pageNum == "first") {
+        if (context.state.favoriteRankPage < 1) {
+          alert("첫 번째 페이지입니다.");
         } else {
-          context.commit('selectFavoriteRankPage', 0)
-          const res = await axios.get(`${context.state.favoriteHost}/favorite/rank/all?page=${context.state.favoriteRankPage}`)
-          context.state.favoriteRankData = res.data.rankList
+          context.commit("selectFavoriteRankPage", 0);
+          const res = await axios.get(
+            `${context.state.favoriteHost}/favorite/rank/all?page=${context.state.favoriteRankPage}`
+          );
+          context.state.favoriteRankData = res.data.rankList;
         }
       } else if (pageNum == "last") {
         if (

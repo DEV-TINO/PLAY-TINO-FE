@@ -1,30 +1,49 @@
 <template>
-  <div class="flex w-full h-24 bg-white justify-between items-center select-none">
+  <div
+    class="flex w-full h-24 bg-white justify-between items-center select-none"
+  >
     <div class="w-30 h-20 ml-10"></div>
     <div class="flex justify-center">
       <img src="/image/logo.png" class="w-30 h-20" />
     </div>
-    <div class="text-light-purple order-last flex justify-center mr-10 font-medium cursor-pointer">Login</div>
+    <div
+      class="text-light-purple order-last flex justify-center mr-10 font-medium cursor-pointer"
+      @click="handleClickLogin()"
+    >
+      {{ this.$store.getters.isLogin ? "Logout" : "Login" }}
+    </div>
   </div>
-  <div class="w-full bg-primary text-white p-4 font-medium select-none">Games</div>
+  <div class="w-full bg-primary text-white p-4 font-medium select-none">
+    Games
+  </div>
   <div class="bg-primary w-full h-[calc(100svh-9rem)] select-none">
     <ul class="flex w-full h-full overflow-hidden">
       <li
         id="game-list"
         v-for="(game, i) in this.$store.state.MainGameData"
         :key="i"
-        :style="`background-image: url(${game.image});` "
+        :style="`background-image: url(${game.image});`"
         role="button"
         :class="this.$store.state.MainActive === i ? 'active' : ''"
         @mouseover="this.$store.commit('handleMainActive', i)"
-        @click="this.$store.state.MainActive === i ? handleRouterLink(i) : this.$store.commit('handleMainActive', i)"
+        @click="
+          this.$store.state.MainActive === i
+            ? handleRouterLink(i)
+            : this.$store.commit('handleMainActive', i)
+        "
       >
-        <div :class="this.$store.state.MainActive === i ? 'title-default' : 'select-title'">
+        <div
+          :class="
+            this.$store.state.MainActive === i
+              ? 'title-default'
+              : 'select-title'
+          "
+        >
           <h3 class="text-3xl font-bold">{{ game.name }}</h3>
           <div
             :class="this.$store.state.MainActive === i ? '' : 'section-content'"
             @click="this.$store.commit('handleMainActive', i)"
-            >
+          >
             <p>
               {{ game.subtitle }}
             </p>
@@ -34,7 +53,11 @@
     </ul>
   </div>
   <div class="pb-20 pt-20 select-none">
-    <div class="flex text-light-purple font-semibold text-4xl justify-center pb-8">How can use?</div>
+    <div
+      class="flex text-light-purple font-semibold text-4xl justify-center pb-8"
+    >
+      How can use?
+    </div>
     <div class="w-full text-primary flex justify-evenly">
       <ul class="w-5/6 pt-8 flex justify-evenly items-start">
         <li
@@ -42,48 +65,81 @@
           :key="i"
           class="w-96 pr-4 pl-4"
         >
-          <h2 class="flex justify-center font-bold text-primary text-2xl pb-7">{{ game.name }}</h2>
+          <h2 class="flex justify-center font-bold text-primary text-2xl pb-7">
+            {{ game.name }}
+          </h2>
           <p class="text-xl">{{ game.rule }}</p>
         </li>
       </ul>
     </div>
   </div>
-  <div class="bg-primary h-64 p-10 flex flex-row justify-around items-center select-none">
-    <div v-for="(menu, i) in this.$store.state.footerMenu" :key=i class="w-48">
+  <div
+    class="bg-primary h-64 p-10 flex flex-row justify-around items-center select-none"
+  >
+    <div
+      v-for="(menu, i) in this.$store.state.footerMenu"
+      :key="i"
+      class="w-48"
+    >
       <div class="text-white text-xl font-medium mb-3">{{ menu }}</div>
       <div class="text-white font-medium">{{ menu }}</div>
     </div>
   </div>
 </template>
-  
+
 <script>
-  export default {
-    data() {
-      return {
-      }
-    },
-    methods: {
-      handleRouterLink(i) {
-        if(i === 0) {
+export default {
+  data() {
+    return {}
+  },
+  methods: {
+    handleRouterLink(i) {
+      if (this.$store.getters.isLogin) {
+        if (i === 0) {
           this.$router.push(`/favorite`)
-        } else if(i === 1) {
+        } else if (i === 1) {
           this.$router.push(`/timer`)
-        } else if(i === 2) {
+        } else if (i === 2) {
           this.$router.push(`/quiz`)
         }
+      } else {
+        alert("Please Login")
       }
+    },
+    handleClickLogin() {
+      if (this.$store.getters.isLogin) {
+        this.$store.commit("logout")
+        this.$router.push("/")
+        alert("User Logout")
+      } else {
+        window.location.href =
+          "https://accounts.google.com/o/oauth2/auth?client_id=461061717960-3qjph66sbpc88fte75el297ca14ht30t.apps.googleusercontent.com&redirect_uri=http://api.favorite.play-tino.com/login/oauth2/code/google&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
+      }
+    },
+  },
+  mounted() {
+    const user = this.$route.query.userId
+    if (!this.$store.getters.isLogin && user == "") {
+      console.warn("No Login User")
+    } else {
+      console.log("Login User")
+      this.$store.commit("setUserId", user)
+      this.$router.push("/")
     }
-  }
+  },
+}
 </script>
-  
+
 <style>
 @font-face {
-  font-family: 'S-CoreDream-3Light';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+  font-family: "S-CoreDream-3Light";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff")
+    format("woff");
   font-weight: normal;
   font-style: normal;
 }
-.title-default, .select-title {
+.title-default,
+.select-title {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -106,7 +162,7 @@
   color: white;
 }
 #game-list:before {
-  content: '';
+  content: "";
   position: absolute;
   z-index: 20;
   top: 0;
