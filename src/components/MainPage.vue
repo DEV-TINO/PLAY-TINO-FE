@@ -1,13 +1,13 @@
 <template>
-  <div class="flex w-full h-24 bg-white justify-between items-center">
+  <div class="flex w-full h-24 bg-white justify-between items-center select-none">
     <div class="w-30 h-20 ml-10"></div>
     <div class="flex justify-center">
       <img src="/image/logo.png" class="w-30 h-20" />
     </div>
     <div class="text-light-purple order-last flex justify-center mr-10 font-medium cursor-pointer">Login</div>
   </div>
-  <div class="w-full bg-primary text-white p-4 font-medium">Games</div>
-  <div class="bg-primary w-full h-[calc(100svh-9rem)]">
+  <div class="w-full bg-primary text-white p-4 font-medium select-none">Games</div>
+  <div class="bg-primary w-full h-[calc(100svh-9rem)] select-none">
     <ul class="flex w-full h-full overflow-hidden">
       <li
         id="game-list"
@@ -33,7 +33,7 @@
       </li>
     </ul>
   </div>
-  <div class="pb-20 pt-20">
+  <div class="pb-20 pt-20 select-none">
     <div class="flex text-light-purple font-semibold text-4xl justify-center pb-8">How can use?</div>
     <div class="w-full text-primary flex justify-evenly">
       <ul class="w-5/6 pt-8 flex justify-evenly items-start">
@@ -48,7 +48,7 @@
       </ul>
     </div>
   </div>
-  <div class="bg-primary h-64 p-10 flex flex-row justify-around items-center">
+  <div class="bg-primary h-64 p-10 flex flex-row justify-around items-center select-none">
     <div v-for="(menu, i) in this.$store.state.footerMenu" :key=i class="w-48">
       <div class="text-white text-xl font-medium mb-3">{{ menu }}</div>
       <div class="text-white font-medium">{{ menu }}</div>
@@ -87,8 +87,8 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: end;
-  align-content: start;
+  justify-content: flex-end;
+  align-content: flex-start;
   z-index: 20;
   padding: 4rem;
 }
