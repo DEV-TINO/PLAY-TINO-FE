@@ -46,11 +46,6 @@ export default createStore({
     favoriteRanksPerPage: 3,
     favoriteImagePair: 2,
   },
-  getters: {
-    isLogin(state) {
-      return state.userId !== "";
-    },
-  },
   mutations: {
     // ====== For Login ======
     logout(state) {
