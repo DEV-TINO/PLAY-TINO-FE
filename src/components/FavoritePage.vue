@@ -3,7 +3,7 @@
     <Transition>
       <FinishModal v-if="this.$store.state.favoriteRoundFinish"></FinishModal>
     </Transition>
-    <div class="flex flex-col h-screen w-full bg-primary">
+    <div class="flex flex-col h-screen w-full bg-primary select-none">
       <div class="w-full h-24 flex items-center">
         <div @click="handleRouterMain()" class="text-white text-xl pl-6 font-semibold hover:cursor-pointer min-w-40">PLAY - TINO</div>
       </div>
