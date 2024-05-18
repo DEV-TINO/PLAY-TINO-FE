@@ -48,15 +48,14 @@
 import CommentPage from './CommentPage.vue';
 import errorImage from '../assets/css/errorImage.png';
 
-const FIRST_PAGE = 1;
-const ELLIPSIS_NEED = 6;
-
 export default {
   components: {
     CommentPage,
   },
   data() {
     return {
+      firtstPage: 1,
+      ellipsisNeed: 6,
       currentPage: 1,
       itemsPerPage: 3,
       totalRank: 0,
@@ -126,15 +125,15 @@ export default {
       });
     },
     updatePagination() {
-      if (this.pageCount == FIRST_PAGE) {
+      if (this.pageCount == this.firtstPage) {
         this.showPagination = false;
-      } else if (this.pageCount < ELLIPSIS_NEED) {
+      } else if (this.pageCount < this.ellipsisNeed) {
         this.pages = this.createArray(this.pageCount);
         this.showStartEllipsis = false;
         this.showEndEllipsis = false;
         return;
-      } else if (this.currentPage == FIRST_PAGE) {
-        this.pages = [FIRST_PAGE, FIRST_PAGE + 1, FIRST_PAGE + 2];
+      } else if (this.currentPage == this.firtstPage) {
+        this.pages = [this.firtstPage, this.firtstPage + 1, this.firtstPage + 2];
         this.showPagination = true;
       } else if (this.currentPage == this.pageCount) {
         this.pages = [this.pageCount - 2, this.pageCount - 1, this.pageCount];
