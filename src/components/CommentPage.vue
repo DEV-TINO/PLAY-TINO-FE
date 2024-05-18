@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col min-h-screen w-full bg-primary">
     <div class="w-full h-14 min-h-8 flex items-center">
-      <div class="text-white text-xl pl-4">Comment</div>
+      <div class="text-white text-xl pl-4 select-none">Comment</div>
     </div>
     <hr class="w-full h-px bg-white">
     <div class="w-full h-10 min-h-10 flex justify-end items-center gap-3 lg:gap-5 px-4 lg:px-6 pt-0 md:pt-2 lg:pt-4 min-w-36 text-base md:text-lg lg:text-xl select-none">
@@ -12,7 +12,7 @@
       <div class="w-10/12">
         <div class="bg-white w-full h-auto rounded-xl py-3 px-7 flex justify-center items-center min-w-72 gap-4">
           <input type="text" v-model="currentComment" placeholder="댓글을 입력해주세요 (최대 200자)" class="w-full resize-none overflow-hidden text-lg md:text-2xl" @keyup.enter="handleClickCommentSubmit()" />
-          <div class="text-gray-300 text-3xl cursor-pointer" @click="handleClickCommentSubmit()">
+          <div class="text-gray-300 text-3xl cursor-pointer select-none" @click="handleClickCommentSubmit()">
             <font-awesome-icon :icon="['fas', 'circle-chevron-up']" />
           </div>
         </div>
@@ -22,7 +22,7 @@
       <div class="w-10/12">
         <div v-for="(comment, index) in this.comments" :key="index" class="bg-white w-full h-auto rounded-xl py-3 my-3 items-center px-7 min-w-72">
           <div class="flex justify-between">
-            <div class="px-0.5 flex gap-2 items-end">
+            <div class="px-0.5 flex gap-2 items-end select-none">
               <div class="text-primary font-extrabold text-lg md:text-2xl">alswlfjddl</div>
               <div class="text-quiz-box text-base md:text-lg">{{ comment.uploadTime }}</div>
             </div>
@@ -36,7 +36,7 @@
           </div>
           <div class="flex place-content-between pb-2 items-end">
             <textarea v-if="editTextIndex == index" type="text" v-model="editComment" class="bg-gray-100 mt-1 rounded-lg w-full resize-none text-lg md:text-2xl" @keyup.enter="handleClickCommentSubmit(index)"></textarea>
-            <div v-else class="text-lg text-primary md:text-2xl pt-0 md:pt-1">{{ comment.content }}</div>
+            <div v-else class="text-lg text-primary md:text-2xl pt-0 md:pt-1 select-none">{{ comment.content }}</div>
             <div class="flex justify-end items-center pl-4 gap-1 text-quiz-theme select-none">
               <div class="text-sm md:text-lg">{{ comment.heartCount }}</div>
               <font-awesome-icon class="text-base md:text-xl cursor-pointer" :icon="comment.userHeart ? checkedheartIcon : uncheckedHeartIcon" @click="toggleHeart(comment)" />
