@@ -119,6 +119,7 @@ export default {
   },
   mounted() {
     const user = this.$route.query.userId
+    if (!user) return
     if (!this.$store.state.userId !== "" && user == "") {
       console.warn("No Login User")
     } else {
