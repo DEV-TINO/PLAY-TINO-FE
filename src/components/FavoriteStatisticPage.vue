@@ -45,8 +45,8 @@
 </template>
 
 <script>
-import CommentPage from './CommentPage.vue';
-import errorImage from '../assets/css/errorImage.png';
+import CommentPage from './CommentPage.vue'
+import errorImage from '../assets/css/errorImage.png'
 
 export default {
   components: {
@@ -66,87 +66,87 @@ export default {
   },
   computed: {
     pageCount() {
-      return Math.ceil(this.totalRank / this.itemsPerPage);
+      return Math.ceil(this.totalRank / this.itemsPerPage)
     },
   },
   mounted() {
-    this.$store.dispatch('setFavoriteRankMax');
-    this.getRankData(this.currentPage);
+    this.$store.dispatch('setFavoriteRankMax')
+    this.getRankData(this.currentPage)
   },
   methods: {
     handleImageError(event) {
-      event.target.src = errorImage;
+      event.target.src = errorImage
     },
     handleRouterMain() {
-      this.$router.push(`/`);
+      this.$router.push(`/`)
     },
     getRankColor(rank) {
       if (rank == 1) {
-        return "text-quiz-theme";
+        return "text-quiz-theme"
       } else if (rank == 2) {
-        return "text-second-prize";
+        return "text-second-prize"
       } else if (rank == 3) {
-        return "text-quiz-box";
+        return "text-quiz-box"
       } else {
-        return "text-light-purple";
+        return "text-light-purple"
       }
     },
     getRank(index) {
-      return (this.currentPage - 1) * this.itemsPerPage + index + 1;
+      return (this.currentPage - 1) * this.itemsPerPage + index + 1
     },
     changePage(pageNumber) {
-      this.currentPage = pageNumber;
-      this.getRankData(this.currentPage);
+      this.currentPage = pageNumber
+      this.getRankData(this.currentPage)
     },
     decressePageNumber() {
       if (this.currentPage > 1) {
-        this.currentPage -= 1;
-        this.getRankData(this.currentPage);
+        this.currentPage -= 1
+        this.getRankData(this.currentPage)
       }
     },
     increasePageNumber() {
       if (this.currentPage < this.pageCount) {
-        this.currentPage += 1;
-        this.getRankData(this.currentPage);
+        this.currentPage += 1
+        this.getRankData(this.currentPage)
       }
     },
     changeFirstPage() {
-      this.currentPage = 1;
-      this.getRankData(this.currentPage);
+      this.currentPage = 1
+      this.getRankData(this.currentPage)
     },
     changeLastPage() {
-      this.currentPage = this.pageCount;
-      this.getRankData(this.currentPage);
+      this.currentPage = this.pageCount
+      this.getRankData(this.currentPage)
     },
     getRankData(pageNumber) {
-      this.$store.dispatch('getFavoriteRank', pageNumber).then(response => {
-        this.totalRank = this.$store.state.favoriteRankMaxPage * this.itemsPerPage;
-        this.updatePagination();
-      });
+      this.$store.dispatch('getFavoriteRank', pageNumber).then((res) => {
+        this.totalRank = this.$store.state.favoriteRankMaxPage * this.itemsPerPage
+        this.updatePagination()
+      })
     },
     updatePagination() {
       if (this.pageCount == this.firtstPage) {
-        this.showPagination = false;
+        this.showPagination = false
       } else if (this.pageCount < this.ellipsisNeed) {
-        this.pages = this.createArray(this.pageCount);
-        this.showStartEllipsis = false;
-        this.showEndEllipsis = false;
+        this.pages = this.createArray(this.pageCount)
+        this.showStartEllipsis = false
+        this.showEndEllipsis = false
         return;
       } else if (this.currentPage == this.firtstPage) {
-        this.pages = [this.firtstPage, this.firtstPage + 1, this.firtstPage + 2];
-        this.showPagination = true;
+        this.pages = [this.firtstPage, this.firtstPage + 1, this.firtstPage + 2]
+        this.showPagination = true
       } else if (this.currentPage == this.pageCount) {
-        this.pages = [this.pageCount - 2, this.pageCount - 1, this.pageCount];
-        this.showPagination = true;
+        this.pages = [this.pageCount - 2, this.pageCount - 1, this.pageCount]
+        this.showPagination = true
       } else if (this.currentPage > 3 || this.pageCount - 2) {
-        this.pages = [this.currentPage - 1, this.currentPage, this.currentPage + 1];
-        this.showPagination = true;
+        this.pages = [this.currentPage - 1, this.currentPage, this.currentPage + 1]
+        this.showPagination = true
       }
-      this.showStartEllipsis = this.currentPage > 2;
-      this.showEndEllipsis = this.currentPage < (this.pageCount - 1);
+      this.showStartEllipsis = this.currentPage > 2
+      this.showEndEllipsis = this.currentPage < (this.pageCount - 1)
     },
     createArray(n) {
-      return Array.from({ length: n }, (v, i) => i + 1);
+      return Array.from({ length: n }, (v, i) => i + 1)
     },
   },
 };
