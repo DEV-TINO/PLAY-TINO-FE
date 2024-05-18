@@ -87,8 +87,8 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: end;
-  align-content: start;
+  justify-content: flex-end;
+  align-content: flex-start;
   z-index: 20;
   padding: 4rem;
 }
