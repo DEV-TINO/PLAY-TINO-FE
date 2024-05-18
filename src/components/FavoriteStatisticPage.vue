@@ -1,12 +1,12 @@
 <template>
-  <div class="flex w-full h-24 bg-white justify-between items-center">
+  <div class="flex w-full h-24 bg-white justify-between items-center select-none">
     <div class="w-30 h-20 ml-10"></div>
     <div class="flex justify-center">
       <img @click="handleRouterMain()" src="/image/logo.png" class="w-30 h-20 cursor-pointer" />
     </div>
     <div class="text-light-purple order-last flex justify-center mr-10 font-medium cursor-pointer">Login</div>
   </div>
-  <div class="w-full bg-primary flex flex-col">
+  <div class="w-full bg-primary flex flex-col select-none">
     <div class="w-full h-14 min-h-8 flex items-center">
       <div class="text-white text-xl pl-4">고냥이 월드컵</div>
     </div>
