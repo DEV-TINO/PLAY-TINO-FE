@@ -110,46 +110,37 @@ export default createStore({
       const pageNum = page - 1
       if(pageNum == 'prev') {
         if(context.state.favoriteRankPage == 0) {
-          console.log(pageNum)
           alert('첫 번째 페이지입니다.')
         } else {
-          console.log(pageNum)
           context.commit('selectFavoriteRankPage', context.state.favoriteRankPage)
           const res = await axios.get(`${context.state.favoriteHost}/favorite/rank/all?page=${context.state.favoriteRankPage}`)
           context.state.favoriteRankData = res.data.rankList
         }
       } else if(pageNum == 'next') {
         if(context.state.favoriteRankPage + 1 > context.state.favoriteRankMaxPage) {
-          console.log(pageNum)
           alert('마지막 페이지입니다.')
         } else {
-          console.log(pageNum)
           context.commit('selectFavoriteRankPage', context.state.favoriteRankPage)
           const res = await axios.get(`${context.state.favoriteHost}/favorite/rank/all?page=${context.state.favoriteRankPage}`)
           context.state.favoriteRankData = res.data.rankList
         }
       } else if(pageNum == 'first') {
         if(context.state.favoriteRankPage < 1) {
-          console.log(pageNum)
           alert('첫 번째 페이지입니다.')
         } else {
-          console.log(pageNum)
           context.commit('selectFavoriteRankPage', 0)
           const res = await axios.get(`${context.state.favoriteHost}/favorite/rank/all?page=${context.state.favoriteRankPage}`)
           context.state.favoriteRankData = res.data.rankList
         }
       } else if(pageNum == 'last') {
         if(context.state.favoriteRankPage + 1 > context.state.favoriteRankMaxPage) {
-          console.log(pageNum)
           alert('마지막 페이지입니다.')
         } else {
-          console.log(pageNum)
           context.commit('selectFavoriteRankPage', context.state.favoriteRankMaxPage)
           const res = await axios.get(`${context.state.favoriteHost}/favorite/rank/all?page=${context.state.favoriteRankPage}`)
           context.state.favoriteRankData = res.data.rankList
         }
       } else {
-        console.log(pageNum)
         context.commit('selectFavoriteRankPage', pageNum)
         const res = await axios.get(`${context.state.favoriteHost}/favorite/rank/all?page=${context.state.favoriteRankPage}`)
         context.state.favoriteRankData = res.data.rankList
