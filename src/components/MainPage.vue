@@ -10,7 +10,7 @@
       class="text-light-purple order-last flex justify-center mr-10 font-medium cursor-pointer"
       @click="handleClickLogin()"
     >
-      {{ this.$store.getters.isLogin ? "Logout" : "Login" }}
+      {{ this.$store.state.userId !== "" ? "Logout" : "Login" }}
     </div>
   </div>
   <div class="w-full bg-primary text-white p-4 font-medium select-none">
@@ -94,7 +94,7 @@ export default {
   },
   methods: {
     handleRouterLink(i) {
-      if (this.$store.getters.isLogin) {
+      if (this.$store.state.userId !== "") {
         if (i === 0) {
           this.$router.push(`/favorite`)
         } else if (i === 1) {
@@ -107,7 +107,7 @@ export default {
       }
     },
     handleClickLogin() {
-      if (this.$store.getters.isLogin) {
+      if (this.$store.state.userId !== "") {
         this.$store.commit("logout")
         this.$router.push("/")
         alert("User Logout")
@@ -119,7 +119,7 @@ export default {
   },
   mounted() {
     const user = this.$route.query.userId
-    if (!this.$store.getters.isLogin && user == "") {
+    if (!this.$store.state.userId !== "" && user == "") {
       console.warn("No Login User")
     } else {
       console.log("Login User")
