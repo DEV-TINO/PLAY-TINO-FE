@@ -186,6 +186,11 @@ export default {
     },
   },
   mounted() {
+    if(this.$store.state.userId == '') {
+      alert("로그인 없이 이용할 수 없습니다")
+      this.$router.push(`/`)
+      return
+    }
     this.progressBarStart()
     this.getQuiz()
   },
