@@ -66,9 +66,14 @@
           class="w-96 pr-4 pl-4"
         >
           <h2 class="flex justify-center font-bold text-primary text-2xl pb-7">
-            {{ game.name }}
+            {{ game.name }} 
           </h2>
-          <p class="text-xl">{{ game.rule }}</p>
+          <p class="text-xl min-h-40 pb-7">{{ game.rule }}</p>
+          <div class="flex justify-center">
+            <div @click="handlerouterLinkStatistic(i)" class="w-32 h-10 flex justify-center items-center rounded-full bg-light-purple text-white text-lg hover:cursor-pointer hover:brightness-125">
+              Statistic
+            </div>
+          </div>
         </li>
       </ul>
     </div>
@@ -101,6 +106,19 @@ export default {
           this.$router.push(`/timer`)
         } else if (i === 2) {
           this.$router.push(`/quiz`)
+        }
+      } else {
+        alert("Please Login")
+      }
+    },
+    handlerouterLinkStatistic(i) {
+      if(this.$store.state.userId !== "") {
+        if(i === 0) {
+          this.$router.push(`/favorite-statistic`)
+        } else if (i === 1) {
+          this.$router.push(`/timer-statistic`)
+        } else if (i === 2) {
+          this.$router.push(`/quiz-statistic`)
         }
       } else {
         alert("Please Login")
