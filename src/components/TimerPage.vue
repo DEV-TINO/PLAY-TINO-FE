@@ -3,6 +3,7 @@
     <ModalCard v-if="openModal"
       :targetTime="this.targetTime"
       :stopTime="this.time"
+      @restart="getTargetTime"
       @closeModal="openModal = $event">
     </ModalCard>
   </Transition>
@@ -57,6 +58,8 @@ import axios from 'axios'
   },
   methods: {
     async getTargetTime() {
+        this.time = '00.00'
+        this.timeBegan = null
         const response = await axios.get(`${this.$store.state.timerHost}/timer/start/user/${this.$store.state.userId}`)
         this.gameId = response.data.gameId
         this.targetTime = response.data.targetTime
