@@ -42,7 +42,10 @@ export default {
       this.$router.push(`/quiz-statistic`)
     },
     reload() {
-      window.location.reload()
+      this.$emit('restart')
+      this.$emit('closeResultModal', false)
+      this.$emit('closeModal', false)
+      this.$emit('progressBarStart')
     }
   },
 }

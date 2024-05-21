@@ -42,7 +42,8 @@ export default {
       this.$router.push(`/timer-statistic`)
     },
     reload() {
-      window.location.reload()
+      this.$emit('restart')
+      this.$emit('closeModal', false)
     },
     calculateError() {
       const targetTimeNumber = Number(this.targetTime)

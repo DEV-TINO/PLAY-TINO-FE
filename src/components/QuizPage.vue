@@ -12,7 +12,11 @@
   <Transition name="modalFadeEffect">
     <ResultModalCard v-if="openResultModal"
       :nonsenseCorrect="this.nonsenseCorrect"
-      :commonCorrect="this.commonCorrect">
+      :commonCorrect="this.commonCorrect"
+      @restart="getQuiz"
+      @closeResultModal="openResultModal = $event"
+      @closeModal="openModal = false"
+      @progressBarStart="progressBarStart">
     </ResultModalCard>
   </Transition>
   <div class="flex flex-col h-screen w-full bg-primary">
@@ -91,6 +95,10 @@ export default {
   },
   methods: {
     async getQuiz() {
+      this.quizCount = 1
+      this.nonsenseCorrect = 0
+      this.commonCorrect = 0
+      this.answer = ''
       const response = await axios.get(`${this.$store.state.quizHost}/quiz/start/user/${this.$store.state.userId}`)
       const obj = response.data.responseQuizList
       this.gameId = response.data.gameId
