@@ -30,7 +30,7 @@
             <div v-else>
               <div v-if="isMyComment[index]" class="flex gap-2 select-none">
                 <div class="text-primary text-base md:text-lg cursor-pointer" @click="updateComment(index)">수정</div>
-                <div class="text-quiz-box text-base md:text-lg cursor-pointer" @click="deleteComment(index)">삭제</div>
+                <div class="text-quiz-box text-base md:text-lg cursor-pointer" @click="confirmDelete(index)">삭제</div>
               </div>
             </div>
           </div>
@@ -226,6 +226,11 @@ export default {
     changeLastPage() {
       this.currentPage = this.pageCount
       this.getComment(this.currentPage - 1)
+    },
+    confirmDelete(index) {
+      if (confirm("댓글을 삭제하시겠습니까?")) {
+        this.deleteComment(index)
+      }
     },
     async deleteComment(index) {
       const formData = {
