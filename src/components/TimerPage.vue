@@ -119,6 +119,12 @@ import axios from 'axios'
     handleRouterMain() {
       this.$router.push(`/`)
     },
+    handleKeydown(event) {
+      if (event.code == 'Space') {
+        if (this.timeBegan == null) this.start()
+        else this.stop()
+      }
+    }
   },
   mounted() {
     if(this.$store.state.userId == '') {
@@ -127,6 +133,10 @@ import axios from 'axios'
       return
     }
     this.getTargetTime()
+    window.addEventListener('keydown', this.handleKeydown)
+  },
+  beforeDestroy() {
+    window.removeEventListener('keydown', this.handleKeydown)
   },
 }
 </script>
