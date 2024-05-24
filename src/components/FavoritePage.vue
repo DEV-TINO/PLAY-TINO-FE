@@ -46,11 +46,19 @@ export default {
     FinishModal
   },
   mounted() {
-    this.$store.commit('resetFavoriteRoundFinish')
-    this.$store.dispatch('getFavoriteData')
-    this.$store.dispatch('setFavoriteRankMax')
+    if(this.$store.state.userId == '') {
+      alert("로그인 없이 이용할 수 없습니다")
+      this.$router.push(`/`)
+      return
+    }
+    this.getFavoriteGame()
   },
   methods: {
+    getFavoriteGame() {
+      this.$store.commit('resetFavoriteRoundFinish')
+      this.$store.dispatch('getFavoriteData')
+      this.$store.dispatch('setFavoriteRankMax')
+    },
     handleImageError(event) {
       event.target.src = errorImage
     },
@@ -79,12 +87,6 @@ export default {
         };
       }
       return this.$store.state.favoriteImagePairs[this.$store.state.favoriteCurrentPairIndex];
-    }
-  },
-  mounted() {
-    if(this.$store.state.userId == '') {
-      alert("로그인 없이 이용할 수 없습니다")
-      this.$router.push(`/`)
     }
   },
 }
