@@ -7,7 +7,7 @@
       @closeModal="openModal = $event">
     </ModalCard>
   </Transition>
-  <div class="flex flex-col h-screen w-full bg-primary">
+  <div class="flex flex-col h-screen w-full bg-primary" tabindex="0" ref=focusDiv @keydown.space="handleKeydown($event)">
     <div class="w-full h-24 min-h-20 flex items-center bg-primary cursor-pointer select-none" @click="handleRouterMain()">
       <div class="text-white text-xl pl-4 font-semibold hover:cursor-pointer min-w-40">PLAY - TINO</div>
     </div>
@@ -24,10 +24,10 @@
           <span class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-primary font-['Share-Tech-Mono']">{{ time }}</span>
         </div>
         <div class="flex justify-center gap-4">
-          <div @click="start()" class="cursor-pointer w-20 md:w-24 h-10 md:h-12 hover:bg-timer-start hover:text-white text-timer-start border-timer-start border-2 flex items-center justify-center rounded-md mx-4 select-none">
+          <div v-if="timeBegan == null" @click="start()" class="cursor-pointer w-40 md:w-52 lg:w-64 h-10 md:h-12 hover:bg-timer-start hover:text-white text-timer-start border-timer-start border-2 flex items-center justify-center rounded-md mx-4 select-none">
             <div class="text-l md:text-2xl font-semibold">START</div>
           </div>
-          <div @click="stop()" class="cursor-pointer w-20 md:w-24 h-10 md:h-12 hover:bg-timer-stop hover:text-white text-timer-stop border-timer-stop border-2 flex items-center justify-center rounded-md mx-4 select-none">
+          <div v-else @click="stop()" class="cursor-pointer w-40 md:w-52 lg:w-64 h-10 md:h-12 hover:bg-timer-stop hover:text-white text-timer-stop border-timer-stop border-2 flex items-center justify-center rounded-md mx-4 select-none">
             <div class="text-l md:text-2xl font-semibold">STOP</div>
           </div>
         </div>
@@ -63,6 +63,7 @@ import axios from 'axios'
         const response = await axios.get(`${this.$store.state.timerHost}/timer/start/user/${this.$store.state.userId}`)
         this.gameId = response.data.gameId
         this.targetTime = response.data.targetTime
+        this.$refs.focusDiv.focus()
     },
     async saveRank() {
       const rankData = {
@@ -75,9 +76,6 @@ import axios from 'axios'
       this.openModal = true
     },
     start() {
-      if (parseFloat(this.time) != 0) {
-        alert("멈춤 버튼을 눌러주세요")
-      }
       if (this.running) return
       if (this.timeBegan == null) {
         this.timeBegan = new Date()
@@ -86,10 +84,6 @@ import axios from 'axios'
       this.running = true
     },
     stop() {
-      if (parseFloat(this.time) == 0) {
-        alert("시작 버튼을 먼저 눌러주세요")
-        return
-      }
       this.running = false
       this.timeStopped = new Date()
       clearInterval(this.started)
@@ -119,6 +113,10 @@ import axios from 'axios'
     handleRouterMain() {
       this.$router.push(`/`)
     },
+    handleKeydown(event) {
+      if (this.timeBegan == null) this.start()
+      else this.stop()
+    }
   },
   mounted() {
     if(this.$store.state.userId == '') {
@@ -127,7 +125,7 @@ import axios from 'axios'
       return
     }
     this.getTargetTime()
-  },
+  }
 }
 </script>
 
