@@ -15,7 +15,6 @@
       :commonCorrect="this.commonCorrect"
       @restart="getQuiz"
       @closeResultModal="openResultModal = $event"
-      @closeModal="openModal = false"
       @progressBarStart="progressBarStart">
     </ResultModalCard>
   </Transition>
@@ -135,6 +134,7 @@ export default {
       }
       else {
         if (this.quizCount == 10) {
+          this.openModal = false
           this.openResultModal = true
           this.progressBarStop()
           return
