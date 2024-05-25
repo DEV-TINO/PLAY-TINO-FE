@@ -29,7 +29,7 @@
     methods: {
       confirm() {
         this.$emit('confirm')
-        this.$emit('closeModal', false)
+        this.$emit('closeModal')
         this.$emit('progressBarStart')
         if (this.quizIndex == 10) {
           this.$emit('openModal', true)
