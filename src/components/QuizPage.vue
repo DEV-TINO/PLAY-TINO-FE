@@ -19,7 +19,7 @@
     </ResultModalCard>
   </Transition>
   <div class="flex flex-col h-screen w-full bg-primary">
-    <div class="w-full h-24 min-h-16 sm:min-h-20 flex items-center cursor-pointer" @click="handleRouterMain()">
+    <div class="w-full h-24 min-h-16 sm:min-h-20 flex items-center cursor-pointer select-none" @click="handleRouterMain()">
       <div class="text-white text-sm sm:text-xl pl-4 font-semibold hover:cursor-pointer min-w-40 select-none">PLAY - TINO</div>
     </div>
     <div class="w-full min-h-16 sm:min-h-24 md:min-h-32 lg:min-h-40 pb-6 flex justify-center items-center bg-primary">
