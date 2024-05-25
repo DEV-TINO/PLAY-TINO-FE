@@ -256,7 +256,12 @@ export default createStore({
       context.commit("calculateGameRound")
 
       const totalPairs = context.state.favoriteImagePairs.length
-      context.state.favoriteSelectedPairs = []
+
+      if (totalPairs === 1 && selectedPairsCount === 1) {
+        context.state.favoriteSelectedPairs = selectedPairs
+      } else {
+        context.state.favoriteSelectedPairs = []
+      }
 
       if (totalPairs === 0) {
         context.dispatch("saveFinalSelectedImage", finalPair)
@@ -283,10 +288,10 @@ export default createStore({
           }
           imagePairs.push(pair)
         }
-      });
+      })
 
-      context.commit("updateFavoriteImagePairs", imagePairs);
-      context.commit("calculateGameRound");
+      context.commit("updateFavoriteImagePairs", imagePairs)
+      context.commit("calculateGameRound")
     },
     async saveFinalSelectedImage(context, finalPair) {
       const selected = finalPair[0]
@@ -311,9 +316,7 @@ export default createStore({
         favoriteId: favoriteId,
       }
       const res = await axios.post(
-        `${context.state.favoriteHost}/favorite/rank`,
-        rank
-      )
+        `${context.state.favoriteHost}/favorite/rank`, rank)
       context.commit("setFavoriteRoundFinish")
     },
     async preloadNextImagePairs(context) {
