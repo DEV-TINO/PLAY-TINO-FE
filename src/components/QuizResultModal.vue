@@ -18,7 +18,7 @@
             <div class="text-quiz-theme text-lg sm:text-xl md:text-2xl font-semibold">{{ this.nonsenseCorrect }} 문제</div>
           </div>
         </div>
-        <div class="flex flex-col sm:flex-row items-center gap-2 md:gap-4 select-none w-full">
+        <div class="flex flex-col sm:flex-row items-center gap-2 md:gap-4 select-none w-full pb-2 sm:pb-0">
           <div @click="handleRouterRank()" class="w-full sm:w-auto bg-quiz-theme text-white border-quiz-theme border-2 py-0.5 sm:px-5 sm:py-1 rounded-lg flex justify-center font-bold text-base sm:text-xl cursor-pointer">확인</div>
           <div @click="reload()" class="w-full sm:w-auto bg-white border-quiz-theme border-2 sm:px-4 py-0.5 sm:py-1 rounded-lg text-quiz-theme font-bold text-base sm:text-xl flex justify-center cursor-pointer">다시하기</div>
           <div @click="handleRouterMain()" class="w-full sm:w-auto bg-white border-quiz-theme border-2 py-0.5 sm:px-4 sm:py-1 rounded-lg text-quiz-theme font-bold text-base sm:text-xl flex justify-center cursor-pointer">메인으로</div>
