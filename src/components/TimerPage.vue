@@ -7,7 +7,7 @@
       @closeModal="openModal = $event">
     </ModalCard>
   </Transition>
-  <div class="flex flex-col h-screen w-full bg-primary">
+  <div class="flex flex-col h-screen w-full bg-primary" tabindex="0" ref=focusDiv @keydown.space="handleKeydown($event)">
     <div class="w-full h-24 min-h-20 flex items-center bg-primary cursor-pointer select-none" @click="handleRouterMain()">
       <div class="text-white text-xl pl-4 font-semibold hover:cursor-pointer min-w-40">PLAY - TINO</div>
     </div>
@@ -63,6 +63,7 @@ import axios from 'axios'
         const response = await axios.get(`${this.$store.state.timerHost}/timer/start/user/${this.$store.state.userId}`)
         this.gameId = response.data.gameId
         this.targetTime = response.data.targetTime
+        this.$refs.focusDiv.focus()
     },
     async saveRank() {
       const rankData = {
@@ -113,10 +114,8 @@ import axios from 'axios'
       this.$router.push(`/`)
     },
     handleKeydown(event) {
-      if (event.code == 'Space') {
-        if (this.timeBegan == null) this.start()
-        else this.stop()
-      }
+      if (this.timeBegan == null) this.start()
+      else this.stop()
     }
   },
   mounted() {
@@ -126,11 +125,7 @@ import axios from 'axios'
       return
     }
     this.getTargetTime()
-    window.addEventListener('keydown', this.handleKeydown)
-  },
-  beforeDestroy() {
-    window.removeEventListener('keydown', this.handleKeydown)
-  },
+  }
 }
 </script>
 
