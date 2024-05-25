@@ -133,10 +133,7 @@ export default createStore({
         if (context.state.favoriteRankPage == 0) {
           alert("첫 번째 페이지입니다.")
         } else {
-          context.commit(
-            "selectFavoriteRankPage",
-            context.state.favoriteRankPage
-          )
+          context.commit("selectFavoriteRankPage", context.state.favoriteRankPage)
           const res = await axios.get(
             `${context.state.favoriteHost}/favorite/rank/all?page=${context.state.favoriteRankPage}`
           )
