@@ -20,41 +20,41 @@
     </ResultModalCard>
   </Transition>
   <div class="flex flex-col h-screen w-full bg-primary">
-    <div class="w-full h-24 min-h-20 flex items-center cursor-pointer" @click="handleRouterMain()">
-      <div class="text-white text-xl pl-4 font-semibold hover:cursor-pointer min-w-40 select-none">PLAY - TINO</div>
+    <div class="w-full h-24 min-h-16 sm:min-h-20 flex items-center cursor-pointer" @click="handleRouterMain()">
+      <div class="text-white text-sm sm:text-xl pl-4 font-semibold hover:cursor-pointer min-w-40 select-none">PLAY - TINO</div>
     </div>
-    <div class="w-full min-h-40 flex justify-center items-center bg-primary">
+    <div class="w-full min-h-16 sm:min-h-24 md:min-h-32 lg:min-h-40 pb-6 flex justify-center items-center bg-primary">
       <div class="flex items-baseline gap-2 min-w-52 select-none">
         <div class="text-4xl md:text-5xl lg:text-7xl text-quiz-theme font-extrabold text-outline">문제를</div>
         <div class="text-xl md:text-2xl lg:text-4xl text-white font-bold">맞춰라!</div>
       </div>
     </div>
-    <div class="w-full h-full flex items-start justify-center bg-primary">
-      <div class="bg-white min-h-60 min-w-96 max-w-6xl py-6 md:py-8 lg:py-10 xl:py-12 h-full w-7/12 rounded-2xl flex flex-col justify-center items-center gap-2 md:gap-3">
+    <div class="w-full flex justify-center bg-primary">
+      <div class="bg-white min-w-80 max-w-6xl py-4 lg:py-6 xl:py-8 h-full w-7/12 rounded-2xl flex flex-col justify-center items-center gap-2 md:gap-3">
         <div class="flex w-11/12 select-none">
-          <div class="bg-quiz-theme text-white text-base sm:text-lg md:text-xl xl:text-2xl w-20 sm:w-24 md:w-28 xl:w-32 h-8 sm:h-9 md:h-10 xl:h-12 flex items-center justify-center rounded-xl">{{ this.currentQuiz.category }}</div>
+          <div class="bg-quiz-theme text-white text-sm sm:text-lg md:text-xl xl:text-2xl w-16 sm:w-24 md:w-28 xl:w-32 h-7 sm:h-9 md:h-10 xl:h-12 flex items-center justify-center rounded-lg sm:rounded-xl">{{ this.currentQuiz.category }}</div>
         </div>
-        <div class="flex border-quiz-box border-3 py-6 md:py-8 xl:py-10 px-6 rounded-xl w-11/12 select-none">
-          <div class="min-w-14 xl:min-w-16 text-lg md:text-xl xl:text-2xl font-semibold text-primary">Q {{ this.quizCount }}.</div>
-          <div class="text-lg md:text-xl xl:text-2xl font-semibold text-primary">{{ this.currentQuiz.question }}</div>
+        <div class="flex flex-col sm:flex-row border-quiz-box border-3 py-4 sm:py-6 md:py-8 xl:py-10 px-4 sm:px-6 rounded-xl w-11/12 select-none">
+          <div class="min-w-14 xl:min-w-16 text-base sm:text-lg md:text-xl xl:text-2xl font-semibold text-primary">Q {{ this.quizCount }}.</div>
+          <div class="text-base sm:text-lg md:text-xl xl:text-2xl font-semibold text-primary">{{ this.currentQuiz.question }}</div>
         </div>
-        <div class="flex gap-2 text-gray-500 w-11/12 pt-4 md:pt-6 select-none">
+        <div class="flex gap-2 text-gray-500 w-11/12 pt-2 sm:pt-4 md:pt-6 select-none">
           <div class="text-sm md:text-base xl:text-lg">Hint:</div>
           <div class="text-sm md:text-base xl:text-lg">{{ this.currentQuiz.hint }}</div>
         </div>
-        <div class="flex w-11/12 gap-4">
-          <input @keyup.enter="handleOpenModal($event)" v-model="answer" placeholder="정답을 작성해주세요" type="text" class="border-primary overflow-hidden rounded-xl border-2 w-full h-12 py-2 px-3 text-lg md:text-xl resize-none font-semibold"></input>
-          <div @click="handleOpenModal($event)" class="select-none cursor-pointer bg-quiz-theme text-white font-bold w-14 rounded-lg flex justify-center items-center text-2xl">
+        <div class="flex w-11/12 gap-2 sm:gap-4">
+          <input @keyup.enter="handleOpenModal($event)" v-model="answer" placeholder="정답을 작성해주세요" type="text" class="border-primary overflow-hidden rounded-lg sm:rounded-xl border-2 w-full h-8 sm:h-12 py-2 px-3 text-base sm:text-lg md:text-xl resize-none font-semibold"></input>
+          <div @click="handleOpenModal($event)" class="select-none cursor-pointer bg-quiz-theme text-white font-bold w-10 sm:w-14 rounded-lg flex justify-center items-center text-lg sm:text-2xl">
             <font-awesome-icon :icon="['fas', 'angle-right']" />
           </div>
         </div>
       </div>
     </div>
     <div class="bg-primary w-full h-full flex items-start justify-center py-5">
-      <div class="flex gap-1 items-center justify-center w-24 h-8 md:w-32 md:h-9 bg-quiz-theme rounded-xl select-none">
-        <div class="text-white font-medium text-xl md:text-2xl">{{ this.quizCount }}</div>
-        <div class="text-white text-xl"> / </div>
-        <div class="text-white text-sm md:text-lg">{{ this.quizNumber }}</div>
+      <div class="flex gap-1 items-center justify-center w-16 h-6 sm:w-24 sm:h-8 md:w-32 md:h-9 bg-quiz-theme rounded-md sm:rounded-xl select-none">
+        <div class="text-white font-medium text-base sm:text-xl md:text-2xl">{{ this.quizCount }}</div>
+        <div class="text-white text-base sm:text-xl"> / </div>
+        <div class="text-white text-xs sm:text-sm md:text-lg">{{ this.quizNumber }}</div>
       </div>
     </div>
     <div class="bg-progress-bar-light w-full h-full min-h-1 max-h-2">
