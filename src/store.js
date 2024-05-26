@@ -49,98 +49,95 @@ export default createStore({
   mutations: {
     // ====== For Login ======
     logout(state) {
-      state.userId = "";
+      state.userId = ""
     },
     setUserId(state, userId) {
-      state.userId = userId;
+      state.userId = userId
     },
     // ========================
     handleMainActive(state, i) {
-      state.MainActive = i;
+      state.MainActive = i
     },
     selectFavoriteRankPage(state, i) {
-      state.favoriteRankPage = i;
+      state.favoriteRankPage = i
     },
     setFavoriteRoundFinish(state) {
-      state.favoriteRoundFinish = true;
+      state.favoriteRoundFinish = true
     },
     resetFavoriteRoundFinish(state) {
-      state.favoriteRoundFinish = false;
+      state.favoriteRoundFinish = false
     },
     setSelectFavoriteImgIndex(state, index) {
-      state.favoriteSelectedImg = index;
+      state.favoriteSelectedImg = index
     },
     resetFavoriteSelectedImg(state) {
-      state.favoriteSelectedImg = "";
+      state.favoriteSelectedImg = ""
     },
     resetFavoriteCommentType(state) {
-      state.favoriteCommentType = "uploadTime";
+      state.favoriteCommentType = "uploadTime"
     },
     loadNextPair(state) {
-      state.favoriteCurrentPairIndex++;
+      state.favoriteCurrentPairIndex++
       if (state.favoriteCurrentPairIndex >= state.favoriteImagePairs.length) {
-        state.favoriteCurrentPairIndex = 0;
+        state.favoriteCurrentPairIndex = 0
       }
-      state.favoriteSelectedImg = "";
+      state.favoriteSelectedImg = ""
     },
     calculateGameRound(state) {
-      const totalPairs = state.favoriteImagePairs.length;
+      const totalPairs = state.favoriteImagePairs.length
       if (totalPairs === 8) {
-        state.favoriteGameRound = "16강";
+        state.favoriteGameRound = "16강"
       } else if (totalPairs === 4) {
-        state.favoriteGameRound = "8강";
+        state.favoriteGameRound = "8강"
       } else if (totalPairs === 2) {
-        state.favoriteGameRound = "4강";
+        state.favoriteGameRound = "4강"
       } else if (totalPairs === 1) {
-        state.favoriteGameRound = "결승";
+        state.favoriteGameRound = "결승"
       } else {
-        state.favoriteGameRound = "";
+        state.favoriteGameRound = ""
       }
     },
     updateFavoriteImagePairs(state, imagePairs) {
-      state.favoriteImagePairs = imagePairs;
+      state.favoriteImagePairs = imagePairs
     },
     addToFavoriteSelectedPairs(state, selectedImageData) {
-      state.favoriteSelectedPairs.push(selectedImageData);
+      state.favoriteSelectedPairs.push(selectedImageData)
     },
   },
   actions: {
     handleActive(state, i) {
-      state.active = i;
+      state.active = i
     },
     async getFavoriteData(context) {
       const res = await axios.get(
         `${context.state.favoriteHost}/favorite/start/user/${context.state.userId}`
-      );
-      context.state.favoriteList = res.data.favoriteList;
-      context.state.favoriteGameId = res.data.gameId;
+      )
+      context.state.favoriteList = res.data.favoriteList
+      context.state.favoriteGameId = res.data.gameId
 
-      context.dispatch("generateImagePairs");
+      context.dispatch("generateImagePairs")
     },
     async setFavoriteRankMax(context) {
       const res = await axios.get(
         `${context.state.favoriteHost}/favorite/rank/all?page=${context.state.favoriteRankPage}`
-      );
+      )
       context.state.favoriteRankTotal = res.data.favoriteRankTotal;
 
       context.state.favoriteRankMaxPage = parseInt(
         context.state.favoriteRankTotal / context.state.favoriteRanksPerPage
-      );
+      )
     },
     async getFavoriteRank(context, page) {
       const pageNum = page - 1;
       if (pageNum == "prev") {
         if (context.state.favoriteRankPage == 0) {
-          alert("첫 번째 페이지입니다.");
+          alert("첫 번째 페이지입니다.")
         } else {
-          context.commit(
-            "selectFavoriteRankPage",
-            context.state.favoriteRankPage
-          );
+          context.commit("selectFavoriteRankPage", context.state.favoriteRankPage)
           const res = await axios.get(
             `${context.state.favoriteHost}/favorite/rank/all?page=${context.state.favoriteRankPage}`
-          );
-          context.state.favoriteRankData = res.data.rankList;
+          )
+          context.state.favoriteRankData = res.data.rankList
         }
       } else if (pageNum == "next") {
         if (
@@ -152,21 +149,21 @@ export default createStore({
           context.commit(
             "selectFavoriteRankPage",
             context.state.favoriteRankPage
-          );
+          )
           const res = await axios.get(
             `${context.state.favoriteHost}/favorite/rank/all?page=${context.state.favoriteRankPage}`
-          );
-          context.state.favoriteRankData = res.data.rankList;
+          )
+          context.state.favoriteRankData = res.data.rankList
         }
       } else if (pageNum == "first") {
         if (context.state.favoriteRankPage < 1) {
-          alert("첫 번째 페이지입니다.");
+          alert("첫 번째 페이지입니다.")
         } else {
-          context.commit("selectFavoriteRankPage", 0);
+          context.commit("selectFavoriteRankPage", 0)
           const res = await axios.get(
             `${context.state.favoriteHost}/favorite/rank/all?page=${context.state.favoriteRankPage}`
-          );
-          context.state.favoriteRankData = res.data.rankList;
+          )
+          context.state.favoriteRankData = res.data.rankList
         }
       } else if (pageNum == "last") {
         if (
@@ -182,61 +179,61 @@ export default createStore({
           const res = await axios.get(
             `${context.state.favoriteHost}/favorite/rank/all?page=${context.state.favoriteRankPage}`
           );
-          context.state.favoriteRankData = res.data.rankList;
+          context.state.favoriteRankData = res.data.rankList
         }
       } else {
-        context.commit("selectFavoriteRankPage", pageNum);
+        context.commit("selectFavoriteRankPage", pageNum)
         const res = await axios.get(
           `${context.state.favoriteHost}/favorite/rank/all?page=${context.state.favoriteRankPage}`
-        );
-        context.state.favoriteRankData = res.data.rankList;
+        )
+        context.state.favoriteRankData = res.data.rankList
       }
     },
     selectFavoriteImgIndex(context, index) {
-      context.commit("setSelectFavoriteImgIndex", index);
-      context.dispatch("handleSelectedImage");
+      context.commit("setSelectFavoriteImgIndex", index)
+      context.dispatch("handleSelectedImage")
     },
     async handleSelectedImage(context) {
       const selectedImgIndex = context.state.favoriteSelectedImg;
       const selectedPair =
         context.state.favoriteImagePairs[
           context.state.favoriteCurrentPairIndex
-        ];
+        ]
       const selectedImageId =
-        selectedImgIndex === 0 ? selectedPair.id1 : selectedPair.id2;
+        selectedImgIndex === 0 ? selectedPair.id1 : selectedPair.id2
       const selectedImage =
-        selectedImgIndex === 0 ? selectedPair.image1 : selectedPair.image2;
+        selectedImgIndex === 0 ? selectedPair.image1 : selectedPair.image2
       const selectedImageTitle =
-        selectedImgIndex === 0 ? selectedPair.title1 : selectedPair.title2;
+        selectedImgIndex === 0 ? selectedPair.title1 : selectedPair.title2
 
       const selectedImageData = {
         id: selectedImageId,
         image: selectedImage,
         title: selectedImageTitle,
-      };
+      }
 
-      context.commit("addToFavoriteSelectedPairs", selectedImageData);
+      context.commit("addToFavoriteSelectedPairs", selectedImageData)
 
-      const totalPairs = context.state.favoriteImagePairs.length;
-      const selectedPairsCount = context.state.favoriteSelectedPairs.length;
+      const totalPairs = context.state.favoriteImagePairs.length
+      const selectedPairsCount = context.state.favoriteSelectedPairs.length
 
       if (totalPairs === 8 && selectedPairsCount === 8) {
-        context.dispatch("advanceToNextRound");
+        context.dispatch("advanceToNextRound")
       } else if (totalPairs === 4 && selectedPairsCount === 4) {
-        context.dispatch("advanceToNextRound");
+        context.dispatch("advanceToNextRound")
       } else if (totalPairs === 2 && selectedPairsCount === 2) {
-        context.dispatch("advanceToNextRound");
+        context.dispatch("advanceToNextRound")
       } else if (totalPairs === 1 && selectedPairsCount === 1) {
-        context.dispatch("advanceToNextRound");
+        context.dispatch("advanceToNextRound")
       } else {
-        context.dispatch("preloadNextImagePairs");
+        context.dispatch("preloadNextImagePairs")
       }
     },
     async advanceToNextRound(context) {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      const selectedPairs = context.state.favoriteSelectedPairs;
-      const newPairs = [];
-      let finalPair = "";
+      await new Promise((resolve) => setTimeout(resolve, 1000))
+      const selectedPairs = context.state.favoriteSelectedPairs
+      const newPairs = []
+      let finalPair = ""
 
       if (context.state.favoriteGameRound !== "결승") {
         for (let i = 0; i < selectedPairs.length; i += 2) {
@@ -247,32 +244,37 @@ export default createStore({
             image2: selectedPairs[i + 1].image,
             title1: selectedPairs[i].title,
             title2: selectedPairs[i + 1].title,
-          };
-          newPairs.push(pair);
+          }
+          newPairs.push(pair)
         }
       } else {
-        finalPair = context.state.favoriteSelectedPairs;
+        finalPair = context.state.favoriteSelectedPairs
       }
 
-      context.dispatch("selectFavoriteImgIndex", -1);
-      context.commit("updateFavoriteImagePairs", newPairs);
-      context.commit("calculateGameRound");
+      context.dispatch("selectFavoriteImgIndex", -1)
+      context.commit("updateFavoriteImagePairs", newPairs)
+      context.commit("calculateGameRound")
 
-      const totalPairs = context.state.favoriteImagePairs.length;
-      context.state.favoriteSelectedPairs = [];
+      const totalPairs = context.state.favoriteImagePairs.length
+
+      if (totalPairs === 1 && selectedPairsCount === 1) {
+        context.state.favoriteSelectedPairs = selectedPairs
+      } else {
+        context.state.favoriteSelectedPairs = []
+      }
 
       if (totalPairs === 0) {
-        context.dispatch("saveFinalSelectedImage", finalPair);
+        context.dispatch("saveFinalSelectedImage", finalPair)
       } else {
-        context.dispatch("preloadNextImagePairs");
+        context.dispatch("preloadNextImagePairs")
       }
     },
     async loadNextPairWithDelay(context) {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      context.commit("loadNextPair");
+      await new Promise((resolve) => setTimeout(resolve, 2000))
+      context.commit("loadNextPair")
     },
     async generateImagePairs(context) {
-      const imagePairs = [];
+      const imagePairs = []
 
       context.state.favoriteList.forEach((item, index) => {
         if (index % context.state.favoriteImagePair === 0) {
@@ -283,67 +285,65 @@ export default createStore({
             image2: context.state.favoriteList[index + 1]?.favoriteImage,
             title1: item?.favoriteTitle,
             title2: context.state.favoriteList[index + 1]?.favoriteTitle,
-          };
-          imagePairs.push(pair);
+          }
+          imagePairs.push(pair)
         }
-      });
+      })
 
-      context.commit("updateFavoriteImagePairs", imagePairs);
-      context.commit("calculateGameRound");
+      context.commit("updateFavoriteImagePairs", imagePairs)
+      context.commit("calculateGameRound")
     },
     async saveFinalSelectedImage(context, finalPair) {
-      const selected = finalPair[0];
-      const finalId = selected.id;
-      const finalImage = selected.image;
-      const finalImageTitle = selected.title;
+      const selected = finalPair[0]
+      const finalId = selected.id
+      const finalImage = selected.image
+      const finalImageTitle = selected.title
 
       const finalData = {
         finalId,
         finalImage,
         finalImageTitle,
-      };
+      }
 
-      context.state.favoriteFinalImage = finalData.finalImage;
-      context.state.favoriteFinalTitle = finalData.finalImageTitle;
+      context.state.favoriteFinalImage = finalData.finalImage
+      context.state.favoriteFinalTitle = finalData.finalImageTitle
 
-      context.dispatch("postFavoriteRank", finalData.finalId);
+      context.dispatch("postFavoriteRank", finalData.finalId)
     },
     async postFavoriteRank(context, favoriteId) {
       const rank = {
         gameId: context.state.favoriteGameId,
         favoriteId: favoriteId,
-      };
+      }
       const res = await axios.post(
-        `${context.state.favoriteHost}/favorite/rank`,
-        rank
-      );
-      context.commit("setFavoriteRoundFinish");
+        `${context.state.favoriteHost}/favorite/rank`, rank)
+      context.commit("setFavoriteRoundFinish")
     },
     async preloadNextImagePairs(context) {
       const nextImagePairs = context.state.favoriteImagePairs.slice(
         context.state.favoriteCurrentPairIndex + 1,
         context.state.favoriteCurrentPairIndex + 3
-      );
+      )
 
-      const imageUrlsToPreload = [];
+      const imageUrlsToPreload = []
       nextImagePairs.forEach((pair) => {
-        imageUrlsToPreload.push(pair.image1);
-        imageUrlsToPreload.push(pair.image2);
-      });
+        imageUrlsToPreload.push(pair.image1)
+        imageUrlsToPreload.push(pair.image2)
+      })
 
-      const preloadPromises = [];
+      const preloadPromises = []
       imageUrlsToPreload.forEach((imageUrl) => {
         preloadPromises.push(
           new Promise((resolve, reject) => {
-            const img = new Image();
-            img.onload = resolve;
-            img.onerror = reject;
-            img.src = imageUrl;
+            const img = new Image()
+            img.onload = resolve
+            img.onerror = reject
+            img.src = imageUrl
           })
-        );
-      });
+        )
+      })
 
-      context.dispatch("loadNextPairWithDelay");
+      context.dispatch("loadNextPairWithDelay")
     },
   },
-});
+})
