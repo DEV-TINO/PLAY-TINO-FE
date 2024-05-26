@@ -8,19 +8,19 @@
     </ModalCard>
   </Transition>
   <div class="flex flex-col h-screen w-full bg-primary" tabindex="0" ref=focusDiv @keydown.space="handleKeydown($event)">
-    <div class="w-full h-24 min-h-20 flex items-center bg-primary cursor-pointer select-none" @click="handleRouterMain()">
-      <div class="text-white text-xl pl-4 font-semibold hover:cursor-pointer min-w-40">PLAY - TINO</div>
+    <div class="w-full h-24 min-h-16 sm:min-h-20 flex items-center cursor-pointer select-none" @click="handleRouterMain()">
+      <div class="text-white text-sm sm:text-xl pl-4 font-semibold hover:cursor-pointer min-w-40 select-none">PLAY - TINO</div>
     </div>
-    <div class="w-full min-h-40 flex justify-center items-center bg-primary">
+    <div class="w-full min-h-16 sm:min-h-24 md:min-h-32 lg:min-h-40 pb-6 flex justify-center items-center bg-primary">
       <div class="flex items-baseline gap-2 min-w-52 select-none">
         <div class="text-4xl md:text-5xl lg:text-7xl text-timer-stop font-extrabold text-outline">정각을</div>
         <div class="text-xl md:text-2xl lg:text-4xl text-white font-bold">맞춰라!</div>
       </div>
     </div>
     <div class="w-full h-full flex items-start justify-center bg-primary">
-      <div class="bg-white min-h-60 min-w-96 max-w-6xl py-5 md:py-6 lg:py-7 h-auto w-7/12 rounded-2xl flex flex-col justify-center items-center gap-3 sm:gap-4 md:gap-5 select-none">
+      <div class="bg-white min-h-60 min-w-80 max-w-6xl py-5 md:py-6 lg:py-7 h-auto w-7/12 rounded-2xl flex flex-col justify-center items-center gap-3 sm:gap-4 md:gap-5 select-none">
         <div class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-timer-stop font-['Share-Tech-Mono']">{{ this.targetTime }}</div>
-        <div class="w-8/12 h-auto py-4 sm:py-5 md:py-6 lg:py-7 bg-timer-bg rounded-2xl border-primary border-4 md:border-5 flex items-center justify-center select-none">
+        <div class="w-10/12 sm:w-9/12 md:8/12 h-auto py-4 sm:py-5 md:py-6 lg:py-7 bg-timer-bg rounded-2xl border-primary border-4 md:border-5 flex items-center justify-center select-none">
           <span class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-primary font-['Share-Tech-Mono']">{{ time }}</span>
         </div>
         <div class="flex justify-center gap-4">
