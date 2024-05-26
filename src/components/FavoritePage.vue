@@ -16,16 +16,18 @@
         </div>
         <div class="w-full text-white text-xl flex justify-center items-center pt-5">{{ this.$store.state.favoriteGameRound }}</div>
       </div>
-      <div :class="{ 'click-disabled': this.isDisabled() == true }" class="w-full h-full mt-2 flex justify-center relative min-w-min">
+      <div :class="{ 'click-disabled': isDisabled() }" class="w-full h-full mt-2 flex justify-center relative min-w-min">
         <div @click="selectedImg(0)" :class="{ 'selected-left': this.$store.state.favoriteSelectedImg === 0 }" class="flex flex-col justify-center items-end cursor-pointer">
           <div :class="{ 'selected-left': this.$store.state.favoriteSelectedImg === 0, 'unselected-left': this.$store.state.favoriteSelectedImg === 1 }" class="w-favorite-content-width h-favorite-content-height aspect-w-1 aspect-h-1 border-8 cursor-pointer sm:min-w-72 min-h-72 overflow-hidden">
-            <img @error="handleImageError($event)" class="object-cover w-full h-full" :src="currentPair.image1" />
+            <div v-if="!imageLoaded1" class="skeleton-loader"></div>
+            <img v-show="imageLoaded1" @load="handleImageLoad(1)" @error="handleImageError(1)" class="object-cover w-full h-full" :src="currentPair.image1" />
           </div>
           <div :class="{ 'selected-left-text': this.$store.state.favoriteSelectedImg === 0, 'hidden': this.$store.state.favoriteSelectedImg === 1 }" class="flex items-center justify-center w-favorite-content-width text-white text-2xl mt-3 min-w-72 sm:text-2xl selected-text-outline">{{ currentPair.title1 }}</div>
         </div>
         <div @click="selectedImg(1)" :class="{ 'selected-right': this.$store.state.favoriteSelectedImg === 1 }" class="flex flex-col justify-center cursor-pointer">
           <div :class="{ 'selected-right': this.$store.state.favoriteSelectedImg === 1, 'unselected-right': this.$store.state.favoriteSelectedImg === 0 }" class="w-favorite-content-width h-favorite-content-height aspect-w-1 aspect-h-1 border-8 cursor-pointer sm:min-w-72 min-h-72 overflow-hidden">
-            <img @error="handleImageError($event)" class="object-cover w-full h-full" :src="currentPair.image2" />
+            <div v-if="!imageLoaded2" class="skeleton-loader"></div>
+            <img v-show="imageLoaded2" @load="handleImageLoad(2)" @error="handleImageError(2)" class="object-cover w-full h-full" :src="currentPair.image2" />
           </div>
           <div :class="{ 'selected-right-text': this.$store.state.favoriteSelectedImg === 1, 'hidden': this.$store.state.favoriteSelectedImg === 0 }" class="flex items-center justify-center w-favorite-content-width text-white text-2xl mt-3 min-w-72 sm:text-2xl selected-text-outline">{{ currentPair.title2 }}</div>
           <div v-if="this.$store.state.favoriteSelectedImg == 0" class="absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center pointer-events-none">
@@ -39,11 +41,16 @@
 
 <script>
 import FinishModal from './FavoriteFinishModal.vue'
-import errorImage from '../assets/css/errorImage.png'
 
 export default {
   components: {
     FinishModal
+  },
+  data() {
+    return {
+      imageLoaded1: false,
+      imageLoaded2: false,
+    }
   },
   mounted() {
     if(this.$store.state.userId == '') {
@@ -59,8 +66,19 @@ export default {
       this.$store.dispatch('getFavoriteData')
       this.$store.dispatch('setFavoriteRankMax')
     },
-    handleImageError(event) {
-      event.target.src = errorImage
+    handleImageError(index) {
+      if (index === 1) {
+        this.imageLoaded1 = false
+      } else if (index === 2) {
+        this.imageLoaded2 = false
+      }
+    },
+    handleImageLoad(index) {
+      if (index === 1) {
+        this.imageLoaded1 = true
+      } else if (index === 2) {
+        this.imageLoaded2 = true
+      }
     },
     selectedImg(index) {
       if (this.$store.state.favoriteSelectedImg !== '') {
@@ -84,11 +102,17 @@ export default {
           image2: '',
           title1: '',
           title2: ''
-        };
+        }
       }
-      return this.$store.state.favoriteImagePairs[this.$store.state.favoriteCurrentPairIndex];
+      return this.$store.state.favoriteImagePairs[this.$store.state.favoriteCurrentPairIndex]
     }
   },
+  watch: {
+    currentPair(newPair, oldPair) {
+      this.imageLoaded1 = false
+      this.imageLoaded2 = false
+    }
+  }
 }
 </script>
 
@@ -158,5 +182,22 @@ export default {
 }
 .click-disabled {
   pointer-events: none;
+}
+.skeleton-loader {
+  width: 100%;
+  height: 100%;
+  background-color: #e0e0e0;
+  animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+  0% {
+    background-color: #e0e0e0;
+  }
+  50% {
+    background-color: #f0f0f0;
+  }
+  100% {
+    background-color: #e0e0e0;
+  }
 }
 </style>
