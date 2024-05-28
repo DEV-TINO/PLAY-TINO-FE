@@ -15,10 +15,10 @@
         <div class="w-3/4 flex justify-around items-center">
           <div :class="getRankColor(getRank(i))" class="w-16 h-16 flex justify-center items-center p-4 text-light-purple text-4xl font-bold">{{ getRank(i) }}</div>
           <img @error="handleImageError($event)" class="w-48 h-48 border-5 border-light-purple bg-light-purple" :src="this.$store.state.favoriteRankData[i]?.favoriteImage ?? ''" />
-          <div class="w-80 flex justify-center text-primary text-2xl">{{ this.$store.state.favoriteRankData[i]?.favoriteTitle ?? 'Now Loading...' }}</div>
+          <div class="w-1/4 flex justify-center text-primary text-2xl">{{ this.$store.state.favoriteRankData[i]?.favoriteTitle ?? 'Now Loading...' }}</div>
           <div class="w-1/3 flex justify-center">
             <div class="w-72 bg-gray-300 rounded-xl">
-              <div class="p-3 bg-light-purple text-xl font-medium text-primary text-center leading-none rounded-xl flex" :style="{ width: $store.state.favoriteRankData[i]?.favoriteRankPercentage < 2 ? '1.5rem' : $store.state.favoriteRankData[i]?.favoriteRankPercentage * 6 + '%' }">{{ this.$store.state.favoriteRankData[i]?.favoriteRankPercentage.toFixed(2) }}%</div>
+              <div class="p-3 bg-light-purple text-xl font-medium text-primary text-center leading-none rounded-xl flex" :style="{ width: $store.state.favoriteRankData[i]?.favoriteRankPercentage < 2 ? '1.5rem' : $store.state.favoriteRankData[i]?.favoriteRankPercentage + '%' }">{{ this.$store.state.favoriteRankData[i]?.favoriteRankPercentage.toFixed(2) }}%</div>
             </div>
           </div>
         </div>
