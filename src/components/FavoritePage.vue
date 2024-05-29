@@ -81,7 +81,6 @@ export default {
       if (this.$store.state.favoriteSelectedImg !== '') {
         return
       }
-
       this.$store.dispatch('selectFavoriteImgIndex', index)
     },
     handleRouterMain() {
