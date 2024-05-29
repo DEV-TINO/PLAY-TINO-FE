@@ -11,10 +11,15 @@
       <div class="text-white text-xl pl-4">고냥이 월드컵</div>
     </div>
     <div class="w-full h-auto flex flex-col justify-center pt-8 pb-8 bg-white">
-      <div v-for="rank, i in 3" :key="i" class="flex justify-center pb-8">
+      <div v-for="(rank, i) in 3" :key="i" class="flex justify-center pb-8">
         <div class="w-3/4 flex justify-around items-center">
           <div :class="getRankColor(getRank(i))" class="w-16 h-16 flex justify-center items-center p-4 text-light-purple text-4xl font-bold">{{ getRank(i) }}</div>
-          <img @error="handleImageError($event)" class="w-48 h-48 border-5 border-light-purple bg-light-purple" :src="this.$store.state.favoriteRankData[i]?.favoriteImage ?? ''" />
+          
+          <div class="relative w-48 h-48 border-5 border-light-purple bg-light-purple">
+            <div v-if="!loading[i]" class="skeleton-loader"></div>
+            <img v-else @error="handleImageError($event)" :src="this.$store.state.favoriteRankData[i]?.favoriteImage ?? ''" @load="loading[i]" class="w-full h-full object-cover" />
+          </div>
+          
           <div class="w-1/4 flex justify-center text-primary text-2xl">{{ this.$store.state.favoriteRankData[i]?.favoriteTitle ?? 'Now Loading...' }}</div>
           <div class="w-1/3 flex justify-center">
             <div class="w-72 bg-gray-300 rounded-xl">
@@ -45,8 +50,8 @@
 </template>
 
 <script>
+import { faL } from '@fortawesome/free-solid-svg-icons';
 import CommentPage from './CommentPage.vue'
-import errorImage from '../assets/css/errorImage.png'
 
 export default {
   components: {
@@ -62,6 +67,7 @@ export default {
       pages: [],
       showStartEllipsis: false,
       showEndEllipsis: false,
+      loading: [false, false, false],
     };
   },
   computed: {
@@ -75,7 +81,6 @@ export default {
   },
   methods: {
     handleImageError(event) {
-      event.target.src = errorImage
     },
     handleRouterMain() {
       this.$router.push(`/`)
@@ -122,6 +127,7 @@ export default {
       this.$store.dispatch('getFavoriteRank', pageNumber).then((res) => {
         this.totalRank = this.$store.state.favoriteRankMaxPage * this.itemsPerPage
         this.updatePagination()
+        this.loading = [true, true, true]
       })
     },
     updatePagination() {
