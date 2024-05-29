@@ -13,19 +13,18 @@ const TIMER = "https://api.timer.play-tino.com";
 const QUIZ = "https://api.quiz.play-tino.com";
 const FAVORITE = "https://api.favorite.play-tino.com";
 
-const FOOTERMENU = ["Contact", "Our Team", "Social"];
-const USERID = "604bfbe0-0ecf-4d08-8c42-579c6f5da7a9"; // for Test
+const FOOTER_MENU = ["Contact", "Our Team", "Social"];
+const USER_ID = "604bfbe0-0ecf-4d08-8c42-579c6f5da7a9"; // for Test
 
 export default createStore({
   state: {
     timerHost: TIMER,
     quizHost: QUIZ,
     gameData: game,
-    footerMenu: FOOTERMENU,
-    userId: USERID,
+    footerMenu: FOOTER_MENU,
+    userId: USER_ID,
     active: 0,
     MainGameData: game,
-    footerMenu: FOOTERMENU,
     MainActive: 0,
     favoriteHost: FAVORITE,
     favoriteList: [],
@@ -334,7 +333,6 @@ export default createStore({
           })
         )
       })
-      
       context.dispatch("loadNextPairWithDelay")
     },
   },
