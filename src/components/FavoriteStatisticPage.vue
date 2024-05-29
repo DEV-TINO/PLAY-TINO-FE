@@ -50,7 +50,6 @@
 </template>
 
 <script>
-import { faL } from '@fortawesome/free-solid-svg-icons';
 import CommentPage from './CommentPage.vue'
 
 export default {
