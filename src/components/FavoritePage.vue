@@ -30,8 +30,8 @@
             <img v-show="imagePair[this.imageIndex.right]" @load="handleImageLoad(this.imageIndex.right)" @error="handleImageError(this.imageIndex.right)" class="object-cover w-full h-full" :src="currentPair.image2" />
           </div>
           <div :class="{ 'selected-right-text': this.$store.state.favoriteSelectedImg === this.imageIndex.right, 'hidden': this.$store.state.favoriteSelectedImg === this.imageIndex.left }" class="flex items-center justify-center w-favorite-content-width text-white text-2xl mt-3 min-w-72 sm:text-2xl selected-text-outline">{{ currentPair.title2 }}</div>
-          <div v-if="this.$store.state.favoriteSelectedImg === this.imageIndex.left" class="absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center pointer-events-none">
-            <img v-show="this.$store.state.favoriteSelectedImg === this.imageIndex.left" class="w-24 h-24 sm:-translate-y-18" src="/image/vs.png" />
+          <div v-if="this.$store.state.favoriteSelectedImg === ''" class="absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center pointer-events-none">
+            <img class="w-24 h-24 sm:-translate-y-18" src="/image/vs.png" />
           </div>
         </div>
       </div>
@@ -81,6 +81,7 @@ export default {
       if (this.$store.state.favoriteSelectedImg !== '') {
         return
       }
+
       this.$store.dispatch('selectFavoriteImgIndex', index)
     },
     handleRouterMain() {
