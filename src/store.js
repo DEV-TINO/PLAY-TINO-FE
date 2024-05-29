@@ -22,7 +22,7 @@ export default createStore({
     quizHost: QUIZ,
     gameData: game,
     footerMenu: FOOTER_MENU,
-    userId: USER_ID,
+    userId: "",
     active: 0,
     MainGameData: game,
     MainActive: 0,
