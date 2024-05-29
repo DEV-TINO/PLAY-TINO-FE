@@ -83,7 +83,7 @@ export default createStore({
         state.favoriteCurrentPairIndex = 0
       }
       state.favoriteSelectedImg = ""
-      this.$store.state.favoriteImageError = false
+      state.favoriteImageError = false
     },
     calculateGameRound(state) {
       const totalPairs = state.favoriteImagePairs.length
@@ -111,10 +111,7 @@ export default createStore({
       state.active = i
     },
     async getFavoriteData(context) {
-      const res = await axios({
-        'method': 'get',
-        'url': `${context.state.favoriteHost}/favorite/start/user/${context.state.userId}`,
-      })
+      const res = await axios.get(`${context.state.favoriteHost}/favorite/start/user/${context.state.userId}`)
       context.state.favoriteList = res.data.favoriteList
       context.state.favoriteGameId = res.data.gameId
 
