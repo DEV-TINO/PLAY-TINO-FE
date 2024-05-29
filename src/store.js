@@ -5,13 +5,13 @@ import game from "./data/gameData.js";
 // for Dev
 // const TIMER  = 'http://13.124.245.152:8080'
 // const QUIZ = 'http://54.180.115.118:8080'
-const FAVORITE = 'http://43.201.78.161:8080'
+// const FAVORITE = 'http://43.201.78.161:8080'
 
 // for Prod
 
 const TIMER = "https://api.timer.play-tino.com";
 const QUIZ = "https://api.quiz.play-tino.com";
-// const FAVORITE = "https://api.favorite.play-tino.com";
+const FAVORITE = "https://api.favorite.play-tino.com";
 
 const FOOTERMENU = ["Contact", "Our Team", "Social"];
 const USERID = "604bfbe0-0ecf-4d08-8c42-579c6f5da7a9"; // for Test
