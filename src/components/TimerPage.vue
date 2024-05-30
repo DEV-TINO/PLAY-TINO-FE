@@ -3,6 +3,7 @@
     <ModalCard v-if="openModal"
       :targetTime="this.targetTime"
       :stopTime="this.time"
+      :rankIn="this.rankIn"
       @restart="getTargetTime"
       @closeModal="openModal = $event">
     </ModalCard>
@@ -54,6 +55,7 @@ import axios from 'axios'
       running: false,
       targetTime: '',
       gameId: '',
+      rankIn: false,
     }
   },
   methods: {
@@ -73,6 +75,7 @@ import axios from 'axios'
         targetTime: this.targetTime
       }
       const response = await axios.post(`${this.$store.state.timerHost}/timer/rank`, rankData)
+      this.rankIn = response.data.rankIn
       this.openModal = true
     },
     start() {
