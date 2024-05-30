@@ -128,7 +128,7 @@ export default {
         this.modalComponent = 'ResultModalCard'
       }
     },
-    handleOpenModal(){
+    async handleOpenModal(){
       if (this.openResultModal) return
       if (!this.openModal) {
         this.openModal = true
