@@ -2,7 +2,7 @@
   <div
     class="flex w-full h-24 bg-white justify-between items-center select-none"
   >
-    <div class="w-30 h-20 ml-10"></div>
+    <div class="w-30 h-20 ml-20"></div>
     <div class="flex justify-center">
       <img src="/image/logo.png" class="w-30 h-20" />
     </div>
@@ -17,9 +17,10 @@
     Games
   </div>
   <div class="bg-primary w-full h-[calc(100svh-9rem)] select-none">
-    <ul class="flex w-full h-full overflow-hidden">
+    <ul class="flex flex-col w-full h-full overflow-hidden sm:flex-row md:flex-row lg:flex-row">
       <li
         id="game-list"
+        class=""
         v-for="(game, i) in this.$store.state.MainGameData"
         :key="i"
         :style="`background-image: url(${game.image});`"
@@ -38,6 +39,7 @@
               ? 'title-default'
               : 'select-title'
           "
+          class="flex"
         >
           <h3 class="text-3xl font-bold">{{ game.name }}</h3>
           <div
@@ -52,24 +54,24 @@
       </li>
     </ul>
   </div>
-  <div class="pb-20 pt-20 select-none">
+  <div class="pt-20 select-none md:pb-20">
     <div
       class="flex text-light-purple font-semibold text-4xl justify-center pb-8"
     >
       How can use?
     </div>
     <div class="w-full text-primary flex justify-evenly">
-      <ul class="w-5/6 pt-8 flex justify-evenly items-start">
+      <ul class="pr-4 pl-4 md:w-5/6 md:pt-8 flex flex-col justify-evenly items-center sm:flex-row md:flex-row lg:flex-row">
         <li
           v-for="(game, i) in this.$store.state.MainGameData"
           :key="i"
-          class="w-96 pr-4 pl-4"
+          class="flex flex-col align-center justify-center md:w-96 pr-4 pl-4"
         >
           <h2 class="flex justify-center font-bold text-primary text-2xl pb-7">
             {{ game.name }} 
           </h2>
-          <p class="text-xl min-h-40 pb-7">{{ game.rule }}</p>
-          <div class="flex justify-center">
+          <p class="text-xl h-auto pb-8 md:min-h-40">{{ game.rule }}</p>
+          <div class="flex justify-center pb-16 md:pb-0">
             <div @click="handlerouterLinkStatistic(i)" class="w-32 h-10 flex justify-center items-center rounded-full bg-light-purple text-white text-lg hover:cursor-pointer hover:brightness-125">
               Statistic
             </div>
@@ -79,12 +81,12 @@
     </div>
   </div>
   <div
-    class="bg-primary h-64 p-10 flex flex-row justify-around items-center select-none"
+    class="bg-primary h-full p-10 pb-0 flex flex-col justify-around items-center select-none md:flex-row md:h-48"
   >
     <div
       v-for="(menu, i) in this.$store.state.footerMenu"
       :key="i"
-      class="w-48"
+      class="w-48 pb-10 flex flex-col justify-start"
     >
       <div class="text-white text-xl font-medium mb-3">{{ menu }}</div>
       <div class="text-white font-medium">{{ menu }}</div>
