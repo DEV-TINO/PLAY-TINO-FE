@@ -134,6 +134,7 @@ export default {
       }
       else {
         if (this.quizCount == 10) {
+          await this.saveRank()
           this.openModal = false
           this.openResultModal = true
           this.progressBarStop()
