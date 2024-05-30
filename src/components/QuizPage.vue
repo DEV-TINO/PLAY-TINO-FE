@@ -13,6 +13,7 @@
     <ResultModalCard v-if="openResultModal"
       :nonsenseCorrect="this.nonsenseCorrect"
       :commonCorrect="this.commonCorrect"
+      :rankIn="this.rankIn"
       @restart="getQuiz"
       @closeResultModal="openResultModal = $event"
       @progressBarStart="progressBarStart">
@@ -90,6 +91,7 @@ export default {
       nonsenseCorrect: 0,
       commonCorrect: 0,
       gameId: '',
+      rankIn: false,
     }
   },
   methods: {
@@ -112,6 +114,7 @@ export default {
         commonsenseCorrect: this.commonCorrect
       }
       const response = await axios.post(`${this.$store.state.quizHost}/quiz/rank`, rankData)
+      this.rankIn = response.data.rankIn
     },
     loadNextQuiz() {
       if(this.quizCount < this.quizNumber) {
