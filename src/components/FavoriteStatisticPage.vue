@@ -7,23 +7,21 @@
     <div class="w-20 text-xs sm:text-lg text-light-purple order-last flex justify-center font-medium cursor-pointer select-none">Login</div>
   </div>
   <div class="w-full bg-primary flex flex-col select-none">
-    <div class="w-full h-14 min-h-8 flex items-center">
-      <div class="text-white text-xl pl-4">고냥이 월드컵</div>
+    <div class="w-full h-10 md:h-14 min-h-8 flex items-center select-none">
+      <div class="text-white text-sm pl-4 min-w-36 md:text-xl">고냥이 월드컵</div>
     </div>
     <div class="w-full h-auto flex flex-col justify-center pt-8 pb-8 bg-white">
       <div v-for="(rank, i) in 3" :key="i" class="flex justify-center pb-8">
-        <div class="w-3/4 flex justify-around items-center">
-          <div :class="getRankColor(getRank(i))" class="w-16 h-16 flex justify-center items-center p-4 text-light-purple text-4xl font-bold">{{ getRank(i) }}</div>
-          
-          <div class="relative w-48 h-48 border-5 border-light-purple bg-light-purple">
+        <div class="w-full flex justify-center items-center">
+          <div :class="getRankColor(getRank(i))" class="w-1/12 min-w-4 flex justify-center px-0 sm:px-8 md:px-10 lg:px-14 xl:px-20 text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold items-center select-none">{{ getRank(i) }}</div>
+          <div class="relative w-14 h-14 min-w-14 min-h-14 sm:w-24 sm:h-24 md:w-36 md:h-36 lg:w-40 lg:w-40 xl:w-48 xl:h-48 border-5 border-light-purple bg-light-purple">
             <div v-if="!loading[i]" class="skeleton-loader"></div>
             <img v-else @error="handleImageError($event)" :src="this.$store.state.favoriteRankData[i]?.favoriteImage ?? ''" @load="loading[i]" class="w-full h-full object-cover" />
           </div>
-          
-          <div class="w-1/4 flex justify-center text-primary text-2xl">{{ this.$store.state.favoriteRankData[i]?.favoriteTitle ?? 'Now Loading...' }}</div>
-          <div class="w-1/3 flex justify-center">
-            <div class="w-72 bg-gray-300 rounded-xl">
-              <div class="p-3 bg-light-purple text-xl font-medium text-primary text-center leading-none rounded-xl flex" :style="{ width: $store.state.favoriteRankData[i]?.favoriteRankPercentage < 2 ? '1.5rem' : $store.state.favoriteRankData[i]?.favoriteRankPercentage + '%' }">{{ this.$store.state.favoriteRankData[i]?.favoriteRankPercentage.toFixed(2) }}%</div>
+          <div class="w-1/4 min-w-32 flex justify-center text-primary text-xs sm:text-lg md:text-lg lg:text-xl xl:text-2xl">{{ this.$store.state.favoriteRankData[i]?.favoriteTitle ?? 'Now Loading...' }}</div>
+          <div class="w-1/4 min-w-32 flex justify-center">
+            <div class="w-28 h-5 sm:h-8 sm:w-36 md:h-10 md:w-48 lg:h-11 lg:w-64 xl:w-72 bg-gray-300 rounded-xl">
+              <div class="flex items-center pl-2 bg-light-purple text-xs h-5 sm:h-8 sm:text-sm md:h-10 md:text-md lg:h-11 lg:text-lg xl:text-xl font-medium text-primary text-center leading-none rounded-xl flex" :style="{ width: $store.state.favoriteRankData[i]?.favoriteRankPercentage < 2 ? '1.5rem' : $store.state.favoriteRankData[i]?.favoriteRankPercentage + '%' }">{{ this.$store.state.favoriteRankData[i]?.favoriteRankPercentage.toFixed(2) }}%</div>
             </div>
           </div>
         </div>
