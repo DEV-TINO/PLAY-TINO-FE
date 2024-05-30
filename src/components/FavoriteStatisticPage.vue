@@ -1,6 +1,6 @@
 <template>
   <div class="flex w-full h-24 bg-white justify-between items-center select-none">
-    <div class="w-30 h-20 ml-10"></div>
+    <div class="w-30 h-20 ml-20"></div>
     <div class="flex justify-center">
       <img @click="handleRouterMain()" src="/image/logo.png" class="w-30 h-20 cursor-pointer" />
     </div>
