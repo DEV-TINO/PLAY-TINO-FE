@@ -1,11 +1,11 @@
 <template>
-  <div class="flex w-full h-16 sm:h-24 bg-white justify-between items-center select-none">
-    <div class="w-30 ml-20"></div>
+  <div class="flex w-full h-16 sm:h-24 bg-white justify-between items-center pr-0 md:pr-4">
+    <div class="w-30 h-10 ml-20"></div>
     <div class="flex justify-center select-none">
-      <img src="/image/logo.png" class="w-30 h-14 sm:h-20 cursor-pointer" />
+      <img src="/image/logo.png" class="w-30 h-14 min-h-14 min-w-16 sm:h-20 cursor-pointer" />
     </div>
     <div
-      class="w-16 text-xs sm:text-lg text-light-purple order-last flex justify-center mr-10 font-medium cursor-pointer"
+      class="w-32 text-xs sm:text-lg text-light-purple order-last flex justify-center font-medium cursor-pointer select-none"
       @click="handleClickLogin()"
     >
       {{ this.$store.state.userId !== "" ? "Logout" : "Login" }}

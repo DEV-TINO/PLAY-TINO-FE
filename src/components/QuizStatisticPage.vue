@@ -1,5 +1,5 @@
 <template>
-  <div class="flex w-full h-16 sm:h-24 bg-white justify-between items-center">
+  <div class="flex w-full h-16 sm:h-24 bg-white justify-between items-center pr-0 md:pr-4">
     <div class="w-30 h-10 ml-20"></div>
     <div class="flex justify-center select-none">
       <img src="/image/logo.png" class="w-30 h-14 min-h-14 min-w-16 sm:h-20 cursor-pointer" @click="handleRouterMain()"/>
