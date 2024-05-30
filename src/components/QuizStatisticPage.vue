@@ -1,31 +1,31 @@
 <template>
-  <div class="flex w-full h-24 bg-white justify-between items-center">
-    <div class="w-30 h-20 ml-20"></div>
+  <div class="flex w-full h-16 sm:h-24 bg-white justify-between items-center">
+    <div class="w-30 sm:h-20 ml-20"></div>
     <div class="flex justify-center select-none">
-      <img src="/image/logo.png" class="w-30 h-20 cursor-pointer" @click="handleRouterMain()"/>
+      <img src="/image/logo.png" class="w-30 h-14 sm:h-20 cursor-pointer" @click="handleRouterMain()"/>
     </div>
-    <div class="text-light-purple order-last flex justify-center mr-10 font-medium cursor-pointer select-none">Login</div>
+    <div class="text-xs text-light-purple order-last flex justify-center mr-10 font-medium cursor-pointer select-none">Login</div>
   </div>
   <div class="flex flex-col h-auto w-full bg-primary">
-    <div class="w-full h-14 min-h-8 flex items-center select-none">
-      <div class="text-white text-xl pl-4 min-w-36">문제를 맞춰라</div>
+    <div class="w-full h-10 md:h-14 min-h-8 flex items-center select-none">
+      <div class="text-white text-sm pl-4 min-w-36 md:text-xl">문제를 맞춰라</div>
     </div>
-    <div class="w-full h-auto bg-white pt-10 pb-3">
+    <div class="w-full h-auto bg-white pt-4 md:pt-10 pb-3">
       <div class="flex pb-2 sm:pb-4 md:pb-6 lg:pb-8 xl:pb-10">
-        <div class="w-2/12 min-w-10 px-4 sm:px-8 md:px-10 lg:px-14 xl:px-20"></div>
-        <div class="text-light-purple text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold w-3/12 items-center min-w-40 pl-2 select-none">닉네임</div>
-        <div class="text-light-purple text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold w-4/12 flex justify-center items-center min-w-48 select-none">맞춘 문제</div>
-        <div class="text-light-purple text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold w-2/12 flex justify-center items-center min-w-16 select-none">총점</div>
+        <div class="md:w-2/12 sm:min-w-10 flex justify-start px-4 sm:px-8 md:px-10 lg:px-14 xl:px-20 text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold items-center select-none text-white">0</div>
+        <div class="w-3/12 flex justify-center text-light-purple text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold items-center sm:min-w-40 select-none pl-1">닉네임</div>
+        <div class="text-light-purple text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold w-40 flex justify-center items-center sm:min-w-48 select-none">맞춘 문제</div>
+        <div class="text-light-purple text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold w-2/12 flex justify-center items-center min-w-16 select-none">총점</div>
       </div>
       <div v-for="(user, index) in this.rankData" :key="user.quizRankId">
         <div class="flex pb-4 md:pb-7">
-          <div class="w-2/12 min-w-10 flex justify-end px-4 sm:px-8 md:px-10 lg:px-14 xl:px-20 text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold items-center select-none">
+          <div class="w-10 sm:min-w-10 flex justify-center pl-2 sm:px-8 md:px-10 lg:px-14 xl:px-20 text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold items-center select-none">
             <div :class=this.rankColor(this.getRank(index))>
               {{ this.getRank(index) }}
             </div>
           </div>
-          <div class="w-3/12 min-w-40 items-center pl-1 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl select-none">alswlfjddl</div>
-          <div class="w-4/12 min-w-48 flex gap-2 justify-center text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl items-center">
+          <div class="w-3/12 flex justify-center sm:min-w-40 items-center pl-1 text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl select-none">alswlfjddl</div>
+          <div class="w-40 sm:min-w-48 flex gap-2 justify-center text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl items-center">
             <div class="flex gap-2 select-none">
               <div>넌센스</div>
               <div class="flex">
@@ -42,7 +42,7 @@
               </div>
             </div>
           </div>
-          <div class="w-2/12 flex justify-center items-center text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl min-w-16 gap-1 select-none">
+          <div class="w-2/12 flex justify-center items-center text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl min-w-16 gap-1 select-none">
             <div>{{ user.allCorrect }}</div>
             <div>/</div>
             <div>10</div>
@@ -50,20 +50,20 @@
         </div>
       </div>
       <div class="select-none flex items-center justify-center text-sm md:text-lg lg:text-xl">
-        <font-awesome-icon class="text-primary text-base px-1 font-bold cursor-pointer" :icon="['fas', 'angle-double-left']" @click="changeFirstPage()"/>
-        <font-awesome-icon class="text-primary text-base pr-2 pl-1 font-bold cursor-pointer" :icon="['fas', 'angle-left']" @click="decressePageNumber()"/>
-        <div v-if="showStartEllipsis" class="text-primary px-2 font-bold text-base cursor-pointer" @click="changeFirstPage()">1</div>
-        <div v-if="showStartEllipsis" class="text-primary px-1 font-bold text-base">...</div>
+        <font-awesome-icon class="svg-inline--fa fa-angles-left text-primary text-xs sm:text-base px-1 font-bold cursor-pointer" :icon="['fas', 'angle-double-left']" @click="changeFirstPage()"/>
+        <font-awesome-icon class="svg-inline--fa fa-angle-left text-primary text-xs sm:text-base pr-2 pl-1 font-bold cursor-pointer" :icon="['fas', 'angle-left']" @click="decressePageNumber()"/>
+        <div v-if="showStartEllipsis" class="text-white w-4 h-4 sm:w-7 sm:h-7 flex justify-center items-center font-bold bg-light-purple rounded-2xl text-xs sm:text-base cursor-pointer" @click="changeFirstPage()">1</div>
+        <div v-if="showStartEllipsis" class="text-primary px-1 font-bold text-xs sm:text-base">...</div>
         <div v-for="(page, index) in pages" :key="index">
-          <div class="text-white w-7 h-7 flex justify-center items-center font-bold bg-light-purple rounded-2xl text-base cursor-pointer" @click="changePage(page)">
+          <div class="text-white w-4 h-4 sm:w-7 sm:h-7 flex justify-center items-center font-bold bg-light-purple rounded-2xl text-xs sm:text-base cursor-pointer" @click="changePage(page)">
             <div class="text-primary font-bold bg-white w-7 h-7 flex justify-center items-center" v-if="currentPage != page">{{ page }}</div>
             <div v-else>{{ page }}</div>
           </div>
         </div>
-        <div v-if="showEndEllipsis" class="text-primary font-bold px-1 text-base">...</div>
-        <div v-if="showEndEllipsis" class="text-primary font-bold px-2 text-base cursor-pointer" @click="changeLastPage()">{{ this.pageCount }}</div>
-        <font-awesome-icon class="text-primary font-bold text-base pr-1 pl-2 cursor-pointer" :icon="['fas', 'angle-right']" @click="increasePageNumber()"/>
-        <font-awesome-icon class="text-primary font-bold text-base px-1 cursor-pointer" :icon="['fas', 'angle-double-right']" @click="changeLastPage()"/>
+        <div v-if="showEndEllipsis" class="text-primary font-bold px-1 text-xs sm:text-base">...</div>
+        <div v-if="showEndEllipsis" class="text-primary font-bold px-2 text-xs sm:text-base cursor-pointer" @click="changeLastPage()">{{ this.pageCount }}</div>
+        <font-awesome-icon class="text-primary font-bold text-xs sm:text-base pr-1 pl-2 cursor-pointer" :icon="['fas', 'angle-right']" @click="increasePageNumber()"/>
+        <font-awesome-icon class="text-primary font-bold text-xs sm:text-base px-1 cursor-pointer" :icon="['fas', 'angle-double-right']" @click="changeLastPage()"/>
       </div>
     </div>
   </div>
