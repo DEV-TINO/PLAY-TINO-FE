@@ -11,21 +11,21 @@
       <div class="text-white text-sm pl-4 min-w-36 md:text-xl">문제를 맞춰라</div>
     </div>
     <div class="w-full h-auto bg-white pt-4 md:pt-10 pb-3">
-      <div class="flex pb-2 sm:pb-4 md:pb-6 lg:pb-8 xl:pb-10">
-        <div class="md:w-2/12 sm:min-w-10 flex justify-start px-4 sm:px-8 md:px-10 lg:px-14 xl:px-20 text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold items-center select-none text-white">0</div>
+      <div class="flex justify-center pb-2 w-full sm:pb-4 md:pb-6 lg:pb-8 xl:pb-10">
+        <div class="md:w-1/12 sm:min-w-10 flex justify-start px-4 sm:px-8 md:px-10 lg:px-14 xl:px-20 text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold items-center select-none text-white">0</div>
         <div class="w-3/12 flex justify-center text-light-purple text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold items-center sm:min-w-40 select-none pl-1">닉네임</div>
-        <div class="text-light-purple text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold w-40 flex justify-center items-center sm:min-w-48 select-none">맞춘 문제</div>
+        <div class="text-light-purple text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold w-40 flex justify-center items-center sm:min-w-72 select-none">맞춘 문제</div>
         <div class="text-light-purple text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold w-2/12 flex justify-center items-center min-w-16 select-none">총점</div>
       </div>
-      <div v-for="(user, index) in this.rankData" :key="user.quizRankId">
-        <div class="flex pb-4 md:pb-7">
-          <div class="w-10 sm:min-w-10 flex justify-center pl-2 sm:px-8 md:px-10 lg:px-14 xl:px-20 text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold items-center select-none">
+      <div v-for="(user, index) in this.rankData" :key="user.quizRankId" class="w-full">
+        <div class="flex justify-center pb-4 md:pb-7">
+          <div class="md:w-1/12 sm:min-w-10 flex justify-start px-4 sm:px-8 md:px-10 lg:px-14 xl:px-20 text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold items-center select-none">
             <div :class=this.rankColor(this.getRank(index))>
               {{ this.getRank(index) }}
             </div>
           </div>
           <div class="w-3/12 flex justify-center sm:min-w-40 items-center pl-1 text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl select-none">alswlfjddl</div>
-          <div class="w-40 sm:min-w-48 flex gap-2 justify-center text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl items-center">
+          <div class="w-40 sm:min-w-72 flex gap-2 justify-center text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl items-center">
             <div class="flex gap-2 select-none">
               <div>넌센스</div>
               <div class="flex">
