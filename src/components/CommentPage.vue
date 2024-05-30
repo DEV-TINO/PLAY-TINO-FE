@@ -23,7 +23,7 @@
         <div v-for="(comment, index) in this.comments" :key="index" class="bg-white w-full h-auto rounded-xl py-2 sm:py-3 my-3 items-center px-4 sm:px-7 min-w-72">
           <div class="flex justify-between pb-0.5">
             <div class="sm:px-0.5 flex flex-col sm:flex-row sm:gap-2 items-start sm:items-end select-none">
-              <div class="text-primary font-extrabold text-lg md:text-2xl">alswlfjddl</div>
+              <div class="text-primary font-extrabold text-lg md:text-2xl">{{ comment.userName }}</div>
               <div class="text-quiz-box text-sm sm:text-base md:text-lg">{{ comment.uploadTime }}</div>
             </div>
             <div v-if="findEditComment(index)" class="text-primary text-sm sm:text-base md:text-lg select-none cursor-pointer" @click="submitComment(index)">완료</div>
