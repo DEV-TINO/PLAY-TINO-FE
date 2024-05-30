@@ -1,6 +1,6 @@
 <template>
   <div class="flex w-full h-24 bg-white justify-between items-center">
-    <div class="w-30 h-20 ml-10"></div>
+    <div class="w-30 h-20 ml-20"></div>
     <div class="flex justify-center">
       <img src="/image/logo.png" class="w-30 h-20 cursor-pointer select-none" @click="handleRouterMain()"/>
     </div>
@@ -17,7 +17,7 @@
           <div class="text-light-purple text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold w-3/12 flex justify-center items-center min-w-40 select-none">기록 / 목표 시간</div>
           <div class="text-light-purple text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold w-1/12 flex justify-center items-center min-w-14 select-none">오차</div>
         </div>
-        <div v-for="(user, index) in this.rankData" key="user.quizRankId">
+        <div v-for="(user, index) in this.rankData" :key="user.quizRankId">
           <div class="flex pb-4 md:pb-7">
             <div class="w-3/12 min-w-10 flex justify-end px-4 sm:px-8 md:px-10 lg:px-14 xl:px-20 items-center text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold select-none">
               <div :class=this.rankColor(this.getRank(index))>{{ this.getRank(index) }}</div>
