@@ -5,7 +5,7 @@
     </Transition>
     <div class="flex flex-col h-screen w-full bg-primary select-none">
       <div class="w-full h-24 flex items-center pt-4">
-        <div @click="handleRouterMain()" class="text-white text-xl pl-6 font-semibold hover:cursor-pointer min-w-40">PLAY - TINO</div>
+        <div @click="handleRouterMain()" class="text-white text-md md:text-xl pl-6 font-semibold hover:cursor-pointer min-w-40">PLAY - TINO</div>
       </div>
       <div class="w-full sm:min-h-32 flex flex-col justify-end pt-20 md:pt-16">
         <div class="w-full h-16 md:h-24 flex justify-center items-center">
