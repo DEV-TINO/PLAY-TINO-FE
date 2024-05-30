@@ -2,9 +2,9 @@
   <div class="flex w-full h-16 sm:h-24 bg-white justify-between items-center">
     <div class="w-30 h-10 ml-20"></div>
     <div class="flex justify-center select-none">
-      <img src="/image/logo.png" class="w-30 h-14 sm:h-20 cursor-pointer" @click="handleRouterMain()"/>
+      <img src="/image/logo.png" class="w-30 h-14 min-h-14 min-w-16 sm:h-20 cursor-pointer" @click="handleRouterMain()"/>
     </div>
-    <div class="w-16 text-xs sm:text-lg text-light-purple order-last flex justify-center mr-10 font-medium cursor-pointer select-none">Login</div>
+    <div class="w-32 text-xs sm:text-lg text-light-purple order-last flex justify-center font-medium cursor-pointer select-none">Login</div>
   </div>
   <div class="flex flex-col h-auto w-full bg-primary">
     <div class="w-full h-10 md:h-14 min-h-8 flex items-center select-none">
@@ -13,8 +13,8 @@
     <div class="w-full h-auto bg-white pt-4 md:pt-10 pb-3">
       <div class="flex justify-center pb-2 w-full sm:pb-4 md:pb-6 lg:pb-8 xl:pb-10">
         <div class="md:w-1/12 sm:min-w-10 flex justify-start px-4 sm:px-8 md:px-10 lg:px-14 xl:px-20 text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold items-center select-none text-white">0</div>
-        <div class="w-3/12 flex justify-center text-light-purple text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold items-center sm:min-w-40 select-none pl-1">닉네임</div>
-        <div class="text-light-purple text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold w-40 flex justify-center items-center sm:min-w-72 select-none">맞춘 문제</div>
+        <div class="w-3/12 flex justify-center text-light-purple text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold items-center min-w-24 select-none pl-1">닉네임</div>
+        <div class="text-light-purple text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold w-40 flex justify-center items-center min-w-40 select-none">맞춘 문제</div>
         <div class="text-light-purple text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold w-2/12 flex justify-center items-center min-w-16 select-none">총점</div>
       </div>
       <div v-for="(user, index) in this.rankData" :key="user.quizRankId" class="w-full">
@@ -24,8 +24,8 @@
               {{ this.getRank(index) }}
             </div>
           </div>
-          <div class="w-3/12 flex justify-center sm:min-w-40 items-center pl-1 text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl select-none">alswlfjddl</div>
-          <div class="w-40 sm:min-w-72 flex gap-2 justify-center text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl items-center">
+          <div class="w-3/12 flex justify-center min-w-24 items-center pl-1 text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl select-none">alswlfjddl</div>
+          <div class="min-w-40 flex gap-2 justify-center text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl items-center">
             <div class="flex gap-2 select-none">
               <div>넌센스</div>
               <div class="flex">
