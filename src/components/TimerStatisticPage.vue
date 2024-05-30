@@ -1,10 +1,10 @@
 <template>
-  <div class="flex w-full h-24 bg-white justify-between items-center">
-    <div class="w-30 h-20 ml-20"></div>
-    <div class="flex justify-center">
-      <img src="/image/logo.png" class="w-30 h-20 cursor-pointer select-none" @click="handleRouterMain()"/>
+  <div class="flex w-full h-16 sm:h-24 bg-white justify-between items-center">
+    <div class="w-30 h-10 ml-20"></div>
+    <div class="flex justify-center select-none">
+      <img src="/image/logo.png" class="w-30 h-14 sm:h-20 cursor-pointer" @click="handleRouterMain()"/>
     </div>
-    <div class="text-light-purple order-last flex justify-center mr-10 font-medium cursor-pointer select-none">Login</div>
+    <div class="w-16 text-xs sm:text-lg text-light-purple order-last flex justify-center mr-10 font-medium cursor-pointer select-none">Login</div>
   </div>
   <div class="flex flex-col h-auto w-full bg-primary">
     <div class="w-full h-14 min-h-8 flex items-center select-none">
