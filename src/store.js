@@ -8,23 +8,23 @@ import game from "./data/gameData.js";
 // const FAVORITE = 'http://43.201.78.161:8080'
 
 // for Prod
+
 const TIMER = "https://api.timer.play-tino.com";
 const QUIZ = "https://api.quiz.play-tino.com";
 const FAVORITE = "https://api.favorite.play-tino.com";
 
-const FOOTERMENU = ["Contact", "Our Team", "Social"];
-const USERID = "3978099b-419d-46cb-a2ca-258b7f7ee535"; // for Test
+const FOOTER_MENU = ["Contact", "Our Team", "Social"];
+const USER_ID = "604bfbe0-0ecf-4d08-8c42-579c6f5da7a9"; // for Test
 
 export default createStore({
   state: {
     timerHost: TIMER,
     quizHost: QUIZ,
     gameData: game,
-    footerMenu: FOOTERMENU,
+    footerMenu: FOOTER_MENU,
     userId: "",
     active: 0,
     MainGameData: game,
-    footerMenu: FOOTERMENU,
     MainActive: 0,
     favoriteHost: FAVORITE,
     favoriteList: [],
@@ -82,6 +82,7 @@ export default createStore({
         state.favoriteCurrentPairIndex = 0
       }
       state.favoriteSelectedImg = ""
+      state.favoriteImageError = false
     },
     calculateGameRound(state) {
       const totalPairs = state.favoriteImagePairs.length
@@ -109,9 +110,7 @@ export default createStore({
       state.active = i
     },
     async getFavoriteData(context) {
-      const res = await axios.get(
-        `${context.state.favoriteHost}/favorite/start/user/${context.state.userId}`
-      )
+      const res = await axios.get(`${context.state.favoriteHost}/favorite/start/user/${context.state.userId}`)
       context.state.favoriteList = res.data.favoriteList
       context.state.favoriteGameId = res.data.gameId
 
@@ -195,10 +194,7 @@ export default createStore({
     },
     async handleSelectedImage(context) {
       const selectedImgIndex = context.state.favoriteSelectedImg;
-      const selectedPair =
-        context.state.favoriteImagePairs[
-          context.state.favoriteCurrentPairIndex
-        ]
+      const selectedPair = context.state.favoriteImagePairs[context.state.favoriteCurrentPairIndex]
       const selectedImageId =
         selectedImgIndex === 0 ? selectedPair.id1 : selectedPair.id2
       const selectedImage =
@@ -256,12 +252,7 @@ export default createStore({
       context.commit("calculateGameRound")
 
       const totalPairs = context.state.favoriteImagePairs.length
-
-      if (totalPairs === 1 && selectedPairsCount === 1) {
-        context.state.favoriteSelectedPairs = selectedPairs
-      } else {
-        context.state.favoriteSelectedPairs = []
-      }
+      context.state.favoriteSelectedPairs = []
 
       if (totalPairs === 0) {
         context.dispatch("saveFinalSelectedImage", finalPair)
@@ -342,7 +333,6 @@ export default createStore({
           })
         )
       })
-
       context.dispatch("loadNextPairWithDelay")
     },
   },
