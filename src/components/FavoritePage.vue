@@ -4,34 +4,34 @@
       <FinishModal v-if="this.$store.state.favoriteRoundFinish"></FinishModal>
     </Transition>
     <div class="flex flex-col h-screen w-full bg-primary select-none">
-      <div class="w-full h-24 flex items-center">
+      <div class="w-full h-24 flex items-center pt-4">
         <div @click="handleRouterMain()" class="text-white text-xl pl-6 font-semibold hover:cursor-pointer min-w-40">PLAY - TINO</div>
       </div>
-      <div class="w-full sm:min-h-32 flex flex-col justify-end pt-16">
-        <div class="w-full h-24 flex justify-center items-center">
-          <div class="flex items-baseline min-w-52">
+      <div class="w-full sm:min-h-32 flex flex-col justify-end pt-20 md:pt-16">
+        <div class="w-full h-16 md:h-24 flex justify-center items-center">
+          <div class="flex justify-center items-baseline min-w-52">
             <div class="text-4xl md:text-5xl lg:text-7xl text-favorite-theme font-extrabold text-outline">고냥이</div>
             <div class="text-xl md:text-2xl lg:text-4xl text-white font-bold">월드컵!</div>
           </div>
         </div>
-        <div class="w-full text-white text-xl flex justify-center items-center pt-5">{{ this.$store.state.favoriteGameRound }}</div>
+        <div class="w-full text-white text-sm pb-4 md:text-xl flex justify-center items-center md:pt-5">{{ this.$store.state.favoriteGameRound }}</div>
       </div>
-      <div :class="{ 'click-disabled': isDisabled() }" class="w-full h-full mt-2 flex justify-center relative min-w-min">
-        <div @click="selectImage(this.imageIndex.left)" :class="{ 'selected-left': this.$store.state.favoriteSelectedImg === this.imageIndex.left }" class="flex flex-col justify-center items-end cursor-pointer">
-          <div :class="{ 'selected-left': this.$store.state.favoriteSelectedImg === this.imageIndex.left, 'unselected-left': this.$store.state.favoriteSelectedImg === this.imageIndex.right }" class="w-favorite-content-width h-favorite-content-height aspect-w-1 aspect-h-1 border-8 cursor-pointer sm:min-w-72 min-h-72 overflow-hidden">
+      <div :class="{ 'click-disabled': isDisabled() }" class="w-full h-auto md:h-full mt-2 flex justify-center relative md:min-w-min">
+        <div @click="selectImage(this.imageIndex.left)" :class="{ 'selected-left': this.$store.state.favoriteSelectedImg === this.imageIndex.left }" class="flex flex-col md:justify-center items-center cursor-pointer">
+          <div :class="{ 'selected-left': this.$store.state.favoriteSelectedImg === this.imageIndex.left, 'unselected-left': this.$store.state.favoriteSelectedImg === this.imageIndex.right }" class="w-40 h-40 md:w-favorite-content-width md:h-favorite-content-height aspect-w-1 aspect-h-1 border-8 cursor-pointer sm:min-w-72 sm:min-h-72 overflow-hidden">
             <div v-if="!imagePair[this.imageIndex.left]" class="skeleton-loader"></div>
             <img v-show="imagePair[this.imageIndex.left]" @load="handleImageLoad(this.imageIndex.left)" @error="handleImageError(this.imageIndex.left)" class="object-cover w-full h-full" :src="currentPair.image1" />
           </div>
-          <div :class="{ 'selected-left-text': this.$store.state.favoriteSelectedImg === this.imageIndex.left, 'hidden': this.$store.state.favoriteSelectedImg === this.imageIndex.right }" class="flex items-center justify-center w-favorite-content-width text-white text-2xl mt-3 min-w-72 sm:text-2xl selected-text-outline">{{ currentPair.title1 }}</div>
+          <div :class="{ 'selected-left-text': this.$store.state.favoriteSelectedImg === this.imageIndex.left, 'hidden': this.$store.state.favoriteSelectedImg === this.imageIndex.right }" class="flex text-xs items-center justify-center md:w-favorite-content-width text-white text-2xl mt-1 md:mt-3 md:min-w-72 sm:text-2xl selected-text-outline">{{ currentPair.title1 }}</div>
         </div>
-        <div @click="selectImage(this.imageIndex.right)" :class="{ 'selected-right': this.$store.state.favoriteSelectedImg === this.imageIndex.right }" class="flex flex-col justify-center cursor-pointer">
-          <div :class="{ 'selected-right': this.$store.state.favoriteSelectedImg === this.imageIndex.right, 'unselected-right': this.$store.state.favoriteSelectedImg === this.imageIndex.left }" class="w-favorite-content-width h-favorite-content-height aspect-w-1 aspect-h-1 border-8 cursor-pointer sm:min-w-72 min-h-72 overflow-hidden">
+        <div @click="selectImage(this.imageIndex.right)" :class="{ 'selected-right': this.$store.state.favoriteSelectedImg === this.imageIndex.right }" class="flex flex-col md:justify-center cursor-pointer">
+          <div :class="{ 'selected-right': this.$store.state.favoriteSelectedImg === this.imageIndex.right, 'unselected-right': this.$store.state.favoriteSelectedImg === this.imageIndex.left }" class="w-40 h-40 md:w-favorite-content-width md:h-favorite-content-height aspect-w-1 aspect-h-1 border-8 cursor-pointer sm:min-w-72 sm:min-h-72 overflow-hidden">
             <div v-if="!imagePair[this.imageIndex.right]" class="skeleton-loader"></div>
             <img v-show="imagePair[this.imageIndex.right]" @load="handleImageLoad(this.imageIndex.right)" @error="handleImageError(this.imageIndex.right)" class="object-cover w-full h-full" :src="currentPair.image2" />
           </div>
-          <div :class="{ 'selected-right-text': this.$store.state.favoriteSelectedImg === this.imageIndex.right, 'hidden': this.$store.state.favoriteSelectedImg === this.imageIndex.left }" class="flex items-center justify-center w-favorite-content-width text-white text-2xl mt-3 min-w-72 sm:text-2xl selected-text-outline">{{ currentPair.title2 }}</div>
+          <div :class="{ 'selected-right-text': this.$store.state.favoriteSelectedImg === this.imageIndex.right, 'hidden': this.$store.state.favoriteSelectedImg === this.imageIndex.left }" class="flex text-xs items-center justify-center md:w-favorite-content-width text-white text-2xl mt-1 md:mt-3 md:min-w-72 md:text-2xl selected-text-outline">{{ currentPair.title2 }}</div>
           <div v-if="this.$store.state.favoriteSelectedImg === ''" class="absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center pointer-events-none">
-            <img class="w-24 h-24 sm:-translate-y-18" src="/image/vs.png" />
+            <img class="w-8 h-8 md:w-24 md:h-24 sm:-translate-y-18" src="/image/vs.png" />
           </div>
         </div>
       </div>
