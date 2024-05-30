@@ -33,6 +33,7 @@ export default {
   props: {
     commonCorrect: Number,
     nonsenseCorrect: Number,
+    rankIn: Boolean,
   },
   methods: {
     handleRouterMain() {
