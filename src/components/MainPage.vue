@@ -11,14 +11,13 @@
       {{ this.$store.state.userId !== "" ? "Logout" : "Login" }}
     </div>
   </div>
-  <div class="w-full bg-primary text-white p-4 font-medium select-none">
+  <div class="w-full bg-primary text-white p-3 text-sm md:p-4 md:text-xl font-medium select-none">
     Games
   </div>
   <div class="bg-primary w-full h-[calc(100svh-9rem)] select-none">
-    <ul class="flex flex-col w-full h-full overflow-hidden sm:flex-row md:flex-row lg:flex-row">
+    <ul class="flex flex-col w-full h-full overflow-hidden sm:flex-col md:flex-col lg:flex-col xl:flex-row">
       <li
         id="game-list"
-        class=""
         v-for="(game, i) in this.$store.state.MainGameData"
         :key="i"
         :style="`background-image: url(${game.image});`"
@@ -37,14 +36,15 @@
               ? 'title-default'
               : 'select-title'
           "
-          class="flex"
+          class="flex p-10 min-w-72"
         >
-          <h3 class="text-3xl font-bold">{{ game.name }}</h3>
+          <h3 class="text-xl md:text-3xl font-bold">{{ game.name }}</h3>
           <div
             :class="this.$store.state.MainActive === i ? '' : 'section-content'"
             @click="this.$store.commit('handleMainActive', i)"
+            class="min-w-56"
           >
-            <p>
+            <p class="text-sm md:text-md">
               {{ game.subtitle }}
             </p>
           </div>
@@ -54,12 +54,12 @@
   </div>
   <div class="pt-20 select-none md:pb-20">
     <div
-      class="flex text-light-purple font-semibold text-4xl justify-center pb-8"
+      class="flex text-light-purple font-semibold text-3xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-4xl justify-center pb-8"
     >
       How can use?
     </div>
     <div class="w-full text-primary flex justify-evenly">
-      <ul class="pr-4 pl-4 md:w-5/6 md:pt-8 flex flex-col justify-evenly items-center sm:flex-row md:flex-row lg:flex-row">
+      <ul class="pr-4 pl-4 w-96 w-min-96 sm:w-96 md:w-5/6 md:pt-8 flex flex-col justify-evenly items-start sm:flex-col md:flex-row lg:flex-row">
         <li
           v-for="(game, i) in this.$store.state.MainGameData"
           :key="i"
@@ -68,7 +68,7 @@
           <h2 class="flex justify-center font-bold text-primary text-2xl pb-7">
             {{ game.name }} 
           </h2>
-          <p class="text-xl h-auto pb-8 md:min-h-40">{{ game.rule }}</p>
+          <p class="text-xl h-auto pb-8 md:h-72 md:w-full lg:h-48">{{ game.rule }}</p>
           <div class="flex justify-center pb-16 md:pb-0">
             <div @click="handlerouterLinkStatistic(i)" class="w-32 h-10 flex justify-center items-center rounded-full bg-light-purple text-white text-lg hover:cursor-pointer hover:brightness-125">
               Statistic
@@ -165,7 +165,6 @@ export default {
   justify-content: flex-end;
   align-content: flex-start;
   z-index: 20;
-  padding: 4rem;
 }
 #game-list {
   flex: 1;
