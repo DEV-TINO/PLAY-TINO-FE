@@ -102,7 +102,7 @@ export default {
       return this.$store.state.favoriteImagePairs[this.$store.state.favoriteCurrentPairIndex]
     },
     imagePair() {
-      return [!!this.currentPair.image1, !!this.currentPair.image2];
+      return [this.currentPair.image1, this.currentPair.image2];
     }
   },
   watch: {
