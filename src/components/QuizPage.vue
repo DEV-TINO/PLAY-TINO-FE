@@ -149,8 +149,8 @@ export default {
       }
     },
     isCorrect() {
-      const strippedAnswer = this.answer.trim().replace(/\n|\r|\s*/g, "")
-      const strippedCorrectAnswer = String(this.currentQuiz.answer).trim().replace(/\n|\r|\s*/g, "")
+      const strippedAnswer = this.answer.trim().replace(/\n|\r|\s*/g, "").toLowerCase()
+      const strippedCorrectAnswer = String(this.currentQuiz.answer).trim().replace(/\n|\r|\s*/g, "").toLowerCase()
       if (strippedAnswer == strippedCorrectAnswer) {
         this.modalComponent = 'CorrectModalCard'
         if (this.currentQuiz.category == "상식") this.commonCorrect++
