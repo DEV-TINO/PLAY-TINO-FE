@@ -16,20 +16,22 @@
         </div>
         <div class="w-full text-white text-xl flex justify-center items-center pt-5">{{ this.$store.state.favoriteGameRound }}</div>
       </div>
-      <div :class="{ 'click-disabled': this.isDisabled() == true }" class="w-full h-full mt-2 flex justify-center relative min-w-min">
-        <div @click="selectedImg(0)" :class="{ 'selected-left': this.$store.state.favoriteSelectedImg === 0 }" class="flex flex-col justify-center items-end cursor-pointer">
-          <div :class="{ 'selected-left': this.$store.state.favoriteSelectedImg === 0, 'unselected-left': this.$store.state.favoriteSelectedImg === 1 }" class="w-favorite-content-width h-favorite-content-height aspect-w-1 aspect-h-1 border-8 cursor-pointer sm:min-w-72 min-h-72 overflow-hidden">
-            <img @error="handleImageError($event)" class="object-cover w-full h-full" :src="currentPair.image1" />
+      <div :class="{ 'click-disabled': isDisabled() }" class="w-full h-full mt-2 flex justify-center relative min-w-min">
+        <div @click="selectImage(this.imageIndex.left)" :class="{ 'selected-left': this.$store.state.favoriteSelectedImg === this.imageIndex.left }" class="flex flex-col justify-center items-end cursor-pointer">
+          <div :class="{ 'selected-left': this.$store.state.favoriteSelectedImg === this.imageIndex.left, 'unselected-left': this.$store.state.favoriteSelectedImg === this.imageIndex.right }" class="w-favorite-content-width h-favorite-content-height aspect-w-1 aspect-h-1 border-8 cursor-pointer sm:min-w-72 min-h-72 overflow-hidden">
+            <div v-if="!imagePair[this.imageIndex.left]" class="skeleton-loader"></div>
+            <img v-show="imagePair[this.imageIndex.left]" @load="handleImageLoad(this.imageIndex.left)" @error="handleImageError(this.imageIndex.left)" class="object-cover w-full h-full" :src="currentPair.image1" />
           </div>
-          <div :class="{ 'selected-left-text': this.$store.state.favoriteSelectedImg === 0, 'hidden': this.$store.state.favoriteSelectedImg === 1 }" class="flex items-center justify-center w-favorite-content-width text-white text-2xl mt-3 min-w-72 sm:text-2xl selected-text-outline">{{ currentPair.title1 }}</div>
+          <div :class="{ 'selected-left-text': this.$store.state.favoriteSelectedImg === this.imageIndex.left, 'hidden': this.$store.state.favoriteSelectedImg === this.imageIndex.right }" class="flex items-center justify-center w-favorite-content-width text-white text-2xl mt-3 min-w-72 sm:text-2xl selected-text-outline">{{ currentPair.title1 }}</div>
         </div>
-        <div @click="selectedImg(1)" :class="{ 'selected-right': this.$store.state.favoriteSelectedImg === 1 }" class="flex flex-col justify-center cursor-pointer">
-          <div :class="{ 'selected-right': this.$store.state.favoriteSelectedImg === 1, 'unselected-right': this.$store.state.favoriteSelectedImg === 0 }" class="w-favorite-content-width h-favorite-content-height aspect-w-1 aspect-h-1 border-8 cursor-pointer sm:min-w-72 min-h-72 overflow-hidden">
-            <img @error="handleImageError($event)" class="object-cover w-full h-full" :src="currentPair.image2" />
+        <div @click="selectImage(this.imageIndex.right)" :class="{ 'selected-right': this.$store.state.favoriteSelectedImg === this.imageIndex.right }" class="flex flex-col justify-center cursor-pointer">
+          <div :class="{ 'selected-right': this.$store.state.favoriteSelectedImg === this.imageIndex.right, 'unselected-right': this.$store.state.favoriteSelectedImg === this.imageIndex.left }" class="w-favorite-content-width h-favorite-content-height aspect-w-1 aspect-h-1 border-8 cursor-pointer sm:min-w-72 min-h-72 overflow-hidden">
+            <div v-if="!imagePair[this.imageIndex.right]" class="skeleton-loader"></div>
+            <img v-show="imagePair[this.imageIndex.right]" @load="handleImageLoad(this.imageIndex.right)" @error="handleImageError(this.imageIndex.right)" class="object-cover w-full h-full" :src="currentPair.image2" />
           </div>
-          <div :class="{ 'selected-right-text': this.$store.state.favoriteSelectedImg === 1, 'hidden': this.$store.state.favoriteSelectedImg === 0 }" class="flex items-center justify-center w-favorite-content-width text-white text-2xl mt-3 min-w-72 sm:text-2xl selected-text-outline">{{ currentPair.title2 }}</div>
-          <div v-if="this.$store.state.favoriteSelectedImg == 0" class="absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center pointer-events-none">
-            <img v-show="this.$store.state.favoriteSelectedImg == 0" class="w-24 h-24 sm:-translate-y-18" src="/image/vs.png" />
+          <div :class="{ 'selected-right-text': this.$store.state.favoriteSelectedImg === this.imageIndex.right, 'hidden': this.$store.state.favoriteSelectedImg === this.imageIndex.left }" class="flex items-center justify-center w-favorite-content-width text-white text-2xl mt-3 min-w-72 sm:text-2xl selected-text-outline">{{ currentPair.title2 }}</div>
+          <div v-if="this.$store.state.favoriteSelectedImg === ''" class="absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center pointer-events-none">
+            <img class="w-24 h-24 sm:-translate-y-18" src="/image/vs.png" />
           </div>
         </div>
       </div>
@@ -39,14 +41,23 @@
 
 <script>
 import FinishModal from './FavoriteFinishModal.vue'
-import errorImage from '../assets/css/errorImage.png'
+
+const ImageIndex = {
+  left: 0,
+  right: 1
+}
 
 export default {
   components: {
     FinishModal
   },
+  data() {
+    return {
+      imageIndex: ImageIndex
+    }
+  },
   mounted() {
-    if(this.$store.state.userId == '') {
+    if (this.$store.state.userId === '') {
       alert("로그인 없이 이용할 수 없습니다")
       this.$router.push(`/`)
       return
@@ -59,14 +70,16 @@ export default {
       this.$store.dispatch('getFavoriteData')
       this.$store.dispatch('setFavoriteRankMax')
     },
-    handleImageError(event) {
-      event.target.src = errorImage
+    handleImageError(index) {
+      this.imagePair[index] = false
     },
-    selectedImg(index) {
+    handleImageLoad(index) {
+      this.imagePair[index] = true
+    },
+    selectImage(index) {
       if (this.$store.state.favoriteSelectedImg !== '') {
         return
       }
-
       this.$store.dispatch('selectFavoriteImgIndex', index)
     },
     handleRouterMain() {
@@ -84,11 +97,19 @@ export default {
           image2: '',
           title1: '',
           title2: ''
-        };
+        }
       }
-      return this.$store.state.favoriteImagePairs[this.$store.state.favoriteCurrentPairIndex];
+      return this.$store.state.favoriteImagePairs[this.$store.state.favoriteCurrentPairIndex]
+    },
+    imagePair() {
+      return [this.currentPair.image1, this.currentPair.image2];
     }
   },
+  watch: {
+    currentPair() {
+      this.imagePair = [false, false]
+    }
+  }
 }
 </script>
 
@@ -158,5 +179,22 @@ export default {
 }
 .click-disabled {
   pointer-events: none;
+}
+.skeleton-loader {
+  width: 100%;
+  height: 100%;
+  background-color: #e0e0e0;
+  animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+  0% {
+    background-color: #e0e0e0;
+  }
+  50% {
+    background-color: #f0f0f0;
+  }
+  100% {
+    background-color: #e0e0e0;
+  }
 }
 </style>
