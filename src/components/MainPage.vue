@@ -99,7 +99,7 @@ export default {
   },
   methods: {
     handleRouterLink(i) {
-      if (this.$store.state.userId !== "") {
+     if (this.$store.state.userId !== "") {
         if (i === 0) {
           this.$router.push(`/favorite`)
         } else if (i === 1) {
