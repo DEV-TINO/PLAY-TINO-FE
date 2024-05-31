@@ -37,7 +37,7 @@
         <div v-if="showStartEllipsis" class="text-primary px-2 font-bold text-xs sm:text-base cursor-pointer" @click="changeFirstPage()">1</div>
         <div v-if="showStartEllipsis" class="text-primary px-1 font-bold text-xs sm:text-base">...</div>
         <div v-for="(page, index) in pages" :key="index">
-          <div class="text-white w-7 h-7 flex justify-center items-center font-bold bg-light-purple rounded-2xl text-xs sm:text-base cursor-pointer" @click="changePage(page)">
+          <div class="text-white w-4 h-4 sm:w-7 sm:h-7 flex justify-center items-center font-bold bg-light-purple rounded-2xl text-xs sm:text-base cursor-pointer" @click="changePage(page)">
             <div class="text-primary font-bold bg-white w-7 h-7 flex justify-center items-center" v-if="currentPage != page">{{ page }}</div>
             <div v-else>{{ page }}</div>
           </div>
