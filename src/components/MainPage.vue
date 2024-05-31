@@ -22,26 +22,21 @@
         :key="i"
         :style="`background-image: url(${game.image});`"
         role="button"
-        :class="this.$store.state.MainActive === i ? 'active' : ''"
-        @mouseover="this.$store.commit('handleMainActive', i)"
-        @click="
-          this.$store.state.MainActive === i
-            ? handleRouterLink(i)
-            : this.$store.commit('handleMainActive', i)
-        "
+        :class="isMobile ? beforeDestroy() : $store.state.MainActive === i ? 'active' : ''"
+        @mouseover="!isMobile && $store.commit('handleMainActive', i)"
       >
         <div
           :class="
-            this.$store.state.MainActive === i
+            $store.state.MainActive === i
               ? 'title-default'
               : 'select-title'
           "
-          class="flex p-10 min-w-72"
+          class="flex flex-col justify-end p-10 min-w-72 h-full bg-opacity-50"
         >
           <h3 class="text-xl md:text-3xl font-bold">{{ game.name }}</h3>
           <div
-            :class="this.$store.state.MainActive === i ? '' : 'section-content'"
-            @click="this.$store.commit('handleMainActive', i)"
+            :class="[$store.state.MainActive === i ? '' : 'section-content', isMobile ? 'show-subtitle' : '']"
+            @click="$store.commit('handleMainActive', i)"
             class="min-w-56"
           >
             <p class="text-sm md:text-md">
@@ -59,16 +54,16 @@
       How can use?
     </div>
     <div class="w-full text-primary flex justify-evenly">
-      <ul class="pr-4 pl-4 w-96 w-min-96 sm:w-96 md:w-5/6 md:pt-8 flex flex-col justify-evenly items-start sm:flex-col md:flex-row lg:flex-row">
+      <ul class="pr-4 pl-4 w-96 w-min-96 sm:w-96 md:w-5/6 md:pt-8 flex flex-col justify-evenly items-center sm:items-center sm:flex-col md:items-center md:flex-row lg:items-start lg:flex-row">
         <li
-          v-for="(game, i) in this.$store.state.MainGameData"
+          v-for="(game, i) in $store.state.MainGameData"
           :key="i"
           class="flex flex-col align-center justify-center md:w-96 pr-4 pl-4"
         >
           <h2 class="flex justify-center font-bold text-primary text-2xl pb-7">
             {{ game.name }} 
           </h2>
-          <p class="text-xl h-auto pb-8 md:h-72 md:w-full lg:h-48">{{ game.rule }}</p>
+          <p class="text-md w-72 h-auto pb-8 md:text-xl md:h-72 md:w-full lg:h-48">{{ game.rule }}</p>
           <div class="flex justify-center pb-16 md:pb-0">
             <div @click="handlerouterLinkStatistic(i)" class="w-32 h-10 flex justify-center items-center rounded-full bg-light-purple text-white text-lg hover:cursor-pointer hover:brightness-125">
               Statistic
@@ -82,7 +77,7 @@
     class="bg-primary h-full p-10 pb-0 flex flex-col justify-around items-center select-none md:flex-row md:h-48"
   >
     <div
-      v-for="(menu, i) in this.$store.state.footerMenu"
+      v-for="(menu, i) in $store.state.footerMenu"
       :key="i"
       class="w-48 pb-10 flex flex-col justify-start"
     >
@@ -95,7 +90,9 @@
 <script>
 export default {
   data() {
-    return {}
+    return {
+      isMobile: window.innerWidth <= 768
+    }
   },
   methods: {
     handleRouterLink(i) {
@@ -134,6 +131,12 @@ export default {
           "https://accounts.google.com/o/oauth2/auth?client_id=461061717960-3qjph66sbpc88fte75el297ca14ht30t.apps.googleusercontent.com&redirect_uri=https://api.favorite.play-tino.com/login/oauth2/code/google&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
       }
     },
+    handleResize() {
+      this.isMobile = window.innerWidth <= 768
+    },
+    beforeDestroy() {
+      window.removeEventListener('resize', this.handleResize)
+    }
   },
   mounted() {
     const user = this.$route.query.userId
@@ -145,7 +148,17 @@ export default {
       this.$store.commit("setUserId", user)
       this.$router.push("/")
     }
+    window.addEventListener('resize', this.handleResize)
   },
+  watch: {
+    isMobile() {
+      if(window.innerWidth <= 768) {
+        return this.isMobile;
+      } else {
+        return !this.isMobile;
+      }
+    }
+  }
 }
 </script>
 
@@ -213,5 +226,14 @@ export default {
 }
 #game-list.active .section-content .inner {
   opacity: 1;
+}
+.show-subtitle {
+  opacity: 1 !important;
+}
+@media (max-width: 768px) {
+  #game-list {
+    height: 200px;
+    flex-direction: column;
+  }
 }
 </style>
