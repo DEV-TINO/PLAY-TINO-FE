@@ -22,7 +22,7 @@
           <div class="w-1/12 min-w-10 flex justify-start px-4 sm:px-8 md:px-10 lg:px-14 xl:px-20 text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold items-center select-none">
             <div :class=this.rankColor(this.getRank(index))>{{ this.getRank(index) }}</div>
           </div>
-          <div class="w-3/12 flex justify-center min-w-24 items-center pl-1 text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl select-none">alswlfjddl</div>
+          <div class="w-3/12 flex justify-center min-w-24 items-center pl-1 text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl select-none">{{ user.userName }}</div>
           <div class="min-w-40 flex gap-2 justify-center text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl items-center">
             <div>{{ user.stopTime }}</div>
             <div>/</div>

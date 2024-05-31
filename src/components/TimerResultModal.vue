@@ -3,8 +3,14 @@
     <div class="bg-white rounded-3xl">
       <div class="flex flex-col items-center py-4 sm:py-8 md:py-10 px-12 sm:px-20 md:px-24 sm:m-2 sm:border-3 md:border-4 border-timer-stop rounded-3xl select-none">
         <div class="text-lg sm:text-xl md:text-2xl font-extrabold text-primary py-1 sm:py-2 md:py-3">정각을 맞춰라</div>
-        <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-timer-stop pt-1 sm:pt-2">축하드려요!</div>
-        <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-timer-stop pb-1 sm:pb-2">랭킹에 오르셨어요</div>
+        <div v-if="rankIn" class="flex items-center flex-col">
+          <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-timer-stop pt-1 sm:pt-2">축하드려요!</div>
+          <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-timer-stop pb-1 sm:pb-2">랭킹에 오르셨어요</div>
+        </div>
+        <div v-else class="flex items-center flex-col">
+          <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-timer-stop pt-1 sm:pt-2">랭킹을 위해</div>
+          <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-timer-stop pb-1 sm:pb-2">한번 더 도전해볼까요?</div>
+        </div>
         <div class="flex py-4">
           <hr class="w-8 h-0.5 sm:h-1 bg-timer-stop">
         </div>
@@ -33,6 +39,7 @@ export default {
   props: {
     targetTime: String,
     stopTime: String,
+    rankIn: Boolean,
   },
   methods: {
     handleRouterMain() {
