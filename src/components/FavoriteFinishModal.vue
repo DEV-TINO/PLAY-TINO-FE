@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-full bg-modal-background bg-opacity-50 fixed flex justify-center items-center">
+  <div class="w-full h-full bg-modal-background bg-opacity-50 fixed flex justify-center items-center z-50">
     <div class="bg-white rounded-3xl">
       <div class="flex flex-col items-center py-4 sm:py-8 md:py-10 px-9 sm:px-20 md:px-24 sm:m-2 sm:border-3 md:border-4 border-favorite-theme rounded-3xl select-none">
         <div class="text-lg sm:text-xl md:text-2xl font-extrabold text-primary py-1 sm:py-2 md:py-3">고냥이 월드컵</div>
