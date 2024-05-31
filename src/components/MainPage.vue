@@ -24,6 +24,11 @@
         role="button"
         :class="isMobile ? beforeDestroy() : $store.state.MainActive === i ? 'active' : ''"
         @mouseover="!isMobile && $store.commit('handleMainActive', i)"
+        @click="
+          this.$store.state.MainActive === i
+            ? handleRouterLink(i)
+            : this.$store.commit('handleMainActive', i)
+        "
       >
         <div
           :class="
