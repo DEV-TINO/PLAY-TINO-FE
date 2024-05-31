@@ -13,6 +13,7 @@
     <ResultModalCard v-if="openResultModal"
       :nonsenseCorrect="this.nonsenseCorrect"
       :commonCorrect="this.commonCorrect"
+      :rankIn="this.rankIn"
       @restart="getQuiz"
       @closeResultModal="openResultModal = $event"
       @progressBarStart="progressBarStart">
@@ -90,6 +91,7 @@ export default {
       nonsenseCorrect: 0,
       commonCorrect: 0,
       gameId: '',
+      rankIn: false,
     }
   },
   methods: {
@@ -112,6 +114,7 @@ export default {
         commonsenseCorrect: this.commonCorrect
       }
       const response = await axios.post(`${this.$store.state.quizHost}/quiz/rank`, rankData)
+      this.rankIn = response.data.rankIn
     },
     loadNextQuiz() {
       if(this.quizCount < this.quizNumber) {
@@ -125,7 +128,7 @@ export default {
         this.modalComponent = 'ResultModalCard'
       }
     },
-    handleOpenModal(){
+    async handleOpenModal(){
       if (this.openResultModal) return
       if (!this.openModal) {
         this.openModal = true
@@ -134,6 +137,7 @@ export default {
       }
       else {
         if (this.quizCount == 10) {
+          await this.saveRank()
           this.openModal = false
           this.openResultModal = true
           this.progressBarStop()
@@ -145,8 +149,8 @@ export default {
       }
     },
     isCorrect() {
-      const strippedAnswer = this.answer.trim().replace(/\n|\r|\s*/g, "")
-      const strippedCorrectAnswer = String(this.currentQuiz.answer).trim().replace(/\n|\r|\s*/g, "")
+      const strippedAnswer = this.answer.trim().replace(/\n|\r|\s*/g, "").toLowerCase()
+      const strippedCorrectAnswer = String(this.currentQuiz.answer).trim().replace(/\n|\r|\s*/g, "").toLowerCase()
       if (strippedAnswer == strippedCorrectAnswer) {
         this.modalComponent = 'CorrectModalCard'
         if (this.currentQuiz.category == "상식") this.commonCorrect++
