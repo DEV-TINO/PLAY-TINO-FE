@@ -180,7 +180,6 @@ export default {
       }
       comment.userHeart = !comment.userHeart
       comment.heartCount += comment.userHeart ? 1 : -1
-      this.getComment(this.currentPage - 1)
     },
     async handleClickCommentSubmit(index) {
       if (this.editTextIndex == EDIT_FINISHED) {
