@@ -24,7 +24,7 @@
               {{ this.getRank(index) }}
             </div>
           </div>
-          <div class="w-3/12 min-w-40 items-center pl-1 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl select-none">{{ user.userName }}</div>
+          <div class="w-3/12 min-w-40 items-center pl-1 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl select-none">{{ this.userNames[index] }}</div>
           <div class="w-4/12 min-w-48 flex gap-2 justify-center text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl items-center">
             <div class="flex gap-2 select-none">
               <div>넌센스</div>
@@ -88,6 +88,7 @@ export default {
       pages: [],
       showStartEllipsis: false,
       showEndEllipsis: false,
+      userNames: [],
     }
   },
   computed: {
@@ -100,25 +101,32 @@ export default {
       const response = await axios.get(`${this.$store.state.quizHost}/quiz/rank/all?page=${pageNumber ?? 0}`)
       this.rankData = response.data.quizRankList
       this.totalRank = response.data.quizTotal
-        if(this.pageCount == FIRST_PAGE) {
+      this.rankData.forEach((data, index) => {
+        this.userNames[index] = data.userName
+      })
+      this.userNames.forEach((userName, index) => {
+        if (/[a-zA-Z]/.test(userName)) {
+          if(userName.length > 20) this.userNames[index] = userName.slice(0, 19) + "..."
+        } else if (userName.length > 10) {
+          this.userNames[index] = userName.slice(0, 9) + "..."
+        }
+      })
+      if(this.pageCount == FIRST_PAGE) {
         this.showPagination = false
       } else if (this.pageCount < ELLIPSIS_NEED) {
         this.pages = this.createArray(this.pageCount)
+        this.showPagination = true
         this.showStartEllipsis = false
         this.showEndEllipsis = false
         return
-      }
-      else if(this.currentPage == FIRST_PAGE) {
+      } else if(this.currentPage == FIRST_PAGE) {
         this.pages = [FIRST_PAGE, FIRST_PAGE + 1, FIRST_PAGE + 2]
-        this.showPagination = true
-      }
-      else if(this.currentPage == this.pageCount) {
+        this.showStartEllipsis = true
+        this.showEndEllipsis = true
+      } else if(this.currentPage == this.pageCount) {
         this.pages = [this.pageCount - 2, this.pageCount - 1, this.pageCount]
-        this.showPagination = true
-      }
-      else if(this.currentPage > 3 || this.pageCount - 2) {
+      } else if(this.currentPage > 3 || this.pageCount - 2) {
         this.pages = [this.currentPage - 1, this.currentPage, this.currentPage + 1]
-        this.showPagination = true
       }
       this.showStartEllipsis = this.currentPage > 2
       this.showEndEllipsis = this.currentPage < (this.pageCount - 1)
