@@ -71,6 +71,7 @@ export default {
       showStartEllipsis: false,
       showEndEllipsis: false,
       showPagination: true,
+      userNames: [],
     }
   },
   computed: {
@@ -85,26 +86,33 @@ export default {
     async getRankData(pageNumber) {
       const response = await axios.get(`${this.$store.state.timerHost}/timer/rank/all?page=${pageNumber ?? 0}`)
       this.rankData = response.data.timerList
-      this.totalRank = response.data.timerTotal - 1
+      this.totalRank = response.data.timerTotal
+      this.rankData.forEach((data, index) => {
+        this.userNames[index] = data.userName
+      })
+      this.userNames.forEach((userName, index) => {
+        if (/[a-zA-Z]/.test(userName)) {
+          if(userName.length > 20) this.userNames[index] = userName.slice(0, 19) + "..."
+        } else if (userName.length > 10) {
+          this.userNames[index] = userName.slice(0, 9) + "..."
+        }
+      })
       if(this.pageCount == FIRST_PAGE) {
         this.showPagination = false
       } else if (this.pageCount < ELLIPSIS_NEED) {
         this.pages = this.createArray(this.pageCount)
+        this.showPagination = true
         this.showStartEllipsis = false
         this.showEndEllipsis = false
         return
-      }
-      else if(this.currentPage == FIRST_PAGE) {
+      } else if(this.currentPage == FIRST_PAGE) {
         this.pages = [FIRST_PAGE, FIRST_PAGE + 1, FIRST_PAGE + 2]
-        this.showPagination = true
-      }
-      else if(this.currentPage == this.pageCount) {
+        this.showStartEllipsis = true
+        this.showEndEllipsis = true
+      } else if(this.currentPage == this.pageCount) {
         this.pages = [this.pageCount - 2, this.pageCount - 1, this.pageCount]
-        this.showPagination = true
-      }
-      else if(this.currentPage > 3 || this.pageCount - 2) {
+      } else if(this.currentPage > 3 || this.pageCount - 2) {
         this.pages = [this.currentPage - 1, this.currentPage, this.currentPage + 1]
-        this.showPagination = true
       }
       this.showStartEllipsis = this.currentPage > 2
       this.showEndEllipsis = this.currentPage < (this.pageCount - 1)

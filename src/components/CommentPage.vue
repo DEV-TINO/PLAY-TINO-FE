@@ -23,7 +23,7 @@
         <div v-for="(comment, index) in this.comments" :key="index" class="bg-white w-full h-auto rounded-xl py-2 sm:py-3 my-3 items-center px-4 sm:px-7 min-w-72">
           <div class="flex justify-between pb-0.5">
             <div class="sm:px-0.5 flex flex-col sm:flex-row sm:gap-2 items-start sm:items-end select-none">
-              <div class="text-primary font-extrabold text-lg md:text-2xl">{{ comment.userName }}</div>
+              <div class="text-primary font-extrabold text-lg md:text-2xl">{{ this.userNames[index] }}</div>
               <div class="text-quiz-box text-sm sm:text-base md:text-lg">{{ comment.uploadTime }}</div>
             </div>
             <div v-if="findEditComment(index)" class="text-primary text-sm sm:text-base md:text-lg select-none cursor-pointer" @click="submitComment(index)">완료</div>
@@ -77,7 +77,6 @@ export default {
       gameType: '',
       checkedheartIcon: ['fas', 'heart'],
       uncheckedHeartIcon: ['far', 'heart'],
-      isHeart: false,
       comments: [],
       currentComment: '',
       totalComment: 0,
@@ -91,6 +90,7 @@ export default {
       showPagination: true,
       editTextIndex: EDIT_FINISHED,
       editComment: '',
+      userNames: [],
     }
   },
   computed: {
@@ -117,23 +117,33 @@ export default {
         } else {
           this.isMyComment[i] = false
         }
-      });
+      })
+      this.comments.forEach((data, index) => {
+        this.userNames[index] = data.userName
+      })
+      this.userNames.forEach((userName, index) => {
+        if (/[a-zA-Z]/.test(userName)) {
+          if(userName.length > 30) this.userNames[index] = userName.slice(0, 29) + "..."
+        } else if (userName.length > 15) {
+          this.userNames[index] = userName.slice(0, 14) + "..."
+        }
+      })
       if(this.pageCount == FIRST_PAGE) {
         this.showPagination = false
       } else if (this.pageCount < ELLIPSIS_NEED) {
+        this.showPagination = true
         this.pages = this.createArray(this.pageCount)
         this.showStartEllipsis = false
         this.showEndEllipsis = false
         return
       } else if(this.currentPage == FIRST_PAGE) {
         this.pages = [FIRST_PAGE, FIRST_PAGE + 1, FIRST_PAGE + 2]
-        this.showPagination = true
+        this.showStartEllipsis = true
+        this.showEndEllipsis = true
       } else if(this.currentPage == this.pageCount) {
         this.pages = [this.pageCount - 2, this.pageCount - 1, this.pageCount]
-        this.showPagination = true
       } else if(this.currentPage > 3 || this.pageCount - 2) {
         this.pages = [this.currentPage - 1, this.currentPage, this.currentPage + 1]
-        this.showPagination = true
       }
       this.showStartEllipsis = this.currentPage > 2
       this.showEndEllipsis = this.currentPage < (this.pageCount - 1)
@@ -170,7 +180,6 @@ export default {
       }
       comment.userHeart = !comment.userHeart
       comment.heartCount += comment.userHeart ? 1 : -1
-      this.getComment(this.currentPage - 1)
     },
     async handleClickCommentSubmit(index) {
       if (this.editTextIndex == EDIT_FINISHED) {
