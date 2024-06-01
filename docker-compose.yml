@@ -11,4 +11,5 @@ services:
       - .:/code
       - /code/node_modules
     ports:
-      - 5173:5173
+      - 5173:80
+    restart: always
