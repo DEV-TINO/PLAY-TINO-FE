@@ -77,7 +77,6 @@ export default {
       gameType: '',
       checkedheartIcon: ['fas', 'heart'],
       uncheckedHeartIcon: ['far', 'heart'],
-      isHeart: false,
       comments: [],
       currentComment: '',
       totalComment: 0,
@@ -118,7 +117,7 @@ export default {
         } else {
           this.isMyComment[i] = false
         }
-      });
+      })
       this.comments.forEach((data, index) => {
         this.userNames[index] = data.userName
       })
