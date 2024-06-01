@@ -22,7 +22,7 @@
             <div class="w-3/12 min-w-10 flex justify-end px-4 sm:px-8 md:px-10 lg:px-14 xl:px-20 items-center text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold select-none">
               <div :class=this.rankColor(this.getRank(index))>{{ this.getRank(index) }}</div>
             </div>
-            <div class="w-3/12 min-w-40 items-center pl-1 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl select-none">{{ user.userName }}</div>
+            <div class="w-3/12 min-w-40 items-center pl-1 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl select-none">{{ this.userNames[index] }}</div>
             <div class="w-3/12 min-w-40 flex gap-3 justify-center text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl items-center select-none">
               <div>{{ user.stopTime }}</div>
               <div>/</div>
@@ -71,6 +71,7 @@ export default {
       showStartEllipsis: false,
       showEndEllipsis: false,
       showPagination: true,
+      userNames: [],
     }
   },
   computed: {
@@ -85,26 +86,33 @@ export default {
     async getRankData(pageNumber) {
       const response = await axios.get(`${this.$store.state.timerHost}/timer/rank/all?page=${pageNumber ?? 0}`)
       this.rankData = response.data.timerList
-      this.totalRank = response.data.timerTotal - 1
+      this.totalRank = response.data.timerTotal
+      this.rankData.forEach((data, index) => {
+        this.userNames[index] = data.userName
+      })
+      this.userNames.forEach((userName, index) => {
+        if (/[a-zA-Z]/.test(userName)) {
+          if(userName.length > 20) this.userNames[index] = userName.slice(0, 19) + "..."
+        } else if (userName.length > 10) {
+          this.userNames[index] = userName.slice(0, 9) + "..."
+        }
+      })
       if(this.pageCount == FIRST_PAGE) {
         this.showPagination = false
       } else if (this.pageCount < ELLIPSIS_NEED) {
         this.pages = this.createArray(this.pageCount)
+        this.showPagination = true
         this.showStartEllipsis = false
         this.showEndEllipsis = false
         return
-      }
-      else if(this.currentPage == FIRST_PAGE) {
+      } else if(this.currentPage == FIRST_PAGE) {
         this.pages = [FIRST_PAGE, FIRST_PAGE + 1, FIRST_PAGE + 2]
-        this.showPagination = true
-      }
-      else if(this.currentPage == this.pageCount) {
+        this.showStartEllipsis = true
+        this.showEndEllipsis = true
+      } else if(this.currentPage == this.pageCount) {
         this.pages = [this.pageCount - 2, this.pageCount - 1, this.pageCount]
-        this.showPagination = true
-      }
-      else if(this.currentPage > 3 || this.pageCount - 2) {
+      } else if(this.currentPage > 3 || this.pageCount - 2) {
         this.pages = [this.currentPage - 1, this.currentPage, this.currentPage + 1]
-        this.showPagination = true
       }
       this.showStartEllipsis = this.currentPage > 2
       this.showEndEllipsis = this.currentPage < (this.pageCount - 1)
