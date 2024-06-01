@@ -44,6 +44,7 @@ module.exports = {
       '24': '24px'
     },
     fontSize: {
+      'xs': '0.75rem',
       'sm': '0.8rem',
       'base': '1rem',
       'xl': '1.25rem',
