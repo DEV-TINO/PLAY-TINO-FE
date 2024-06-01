@@ -86,7 +86,7 @@ export default {
     async getRankData(pageNumber) {
       const response = await axios.get(`${this.$store.state.timerHost}/timer/rank/all?page=${pageNumber ?? 0}`)
       this.rankData = response.data.timerList
-      this.totalRank = response.data.timerTotal - 1
+      this.totalRank = response.data.timerTotal
       this.rankData.forEach((data, index) => {
         this.userNames[index] = data.userName
       })
