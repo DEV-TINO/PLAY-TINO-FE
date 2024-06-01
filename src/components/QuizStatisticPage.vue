@@ -10,7 +10,7 @@
     <div class="w-full h-10 md:h-14 min-h-8 flex items-center select-none min-w-72">
       <div class="text-white text-sm pl-4 min-w-36 md:text-xl">문제를 맞춰라</div>
     </div>
-    <div class="w-full h-auto flex flex-col items-center bg-white pt-10 pb-3">
+    <div class="w-full h-auto flex flex-col items-center bg-white pt-10 pb-3 overflow-auto">
       <div class="flex pb-2 sm:pb-4 md:pb-6 lg:pb-8 xl:pb-10">
         <div class="w-12 min-w-12 flex justify-center sm:w-12 md:w-16 lg:w-20 xl:w-24 sm:px-8 md:px-10 lg:px-14 xl:px-20 text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold items-center select-none text-white">0</div>
         <div class="w-3/12 flex justify-start text-light-purple text-xs sm:text-lg sm:w-24 md:w-40 lg:w-48 xl:w-96 md:text-xl lg:text-2xl xl:text-3xl font-bold items-center min-w-24 select-none pl-1">닉네임</div>
