@@ -2,9 +2,14 @@
   <div class="flex w-full h-16 sm:h-24 bg-white justify-between items-center pr-0 md:pr-4">
     <div class="w-30 h-10 ml-20"></div>
     <div class="flex justify-center select-none">
-      <img src="/image/logo.png" class="w-30 h-14 min-h-14 min-w-16 sm:h-20 cursor-pointer" @click="handleRouterMain()"/>
+      <img src="/image/logo.png" class="w-30 h-14 min-h-14 min-w-16 sm:h-20 cursor-pointer" @click="handleRouterMain()" />
     </div>
-    <div class="w-20 text-xs sm:text-lg text-light-purple order-last flex justify-center font-medium cursor-pointer select-none">Login</div>
+    <div
+      class="w-20 text-xs sm:text-md md:text-md lg:text-sm xl:text-lg text-light-purple order-last flex justify-center font-medium cursor-pointer select-none"
+      @click="handleClickLogin()"
+    >
+      {{ this.$store.state.userId !== "" ? "Logout" : "Login" }}
+    </div>
   </div>
   <div class="w-full bg-primary flex flex-col select-none">
     <div class="w-full h-10 md:h-14 min-h-8 flex items-center select-none">
@@ -77,6 +82,13 @@ export default {
     this.getRankData(this.currentPage)
   },
   methods: {
+    handleClickLogin() {
+      if (this.$store.state.userId !== "") {
+        this.$store.commit("logout")
+        this.$router.push("/")
+        alert("User Logout")
+      }
+    },
     handleImageError(event) {
     },
     handleRouterMain() {
