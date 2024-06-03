@@ -5,7 +5,7 @@
       <img src="/image/logo.png" class="w-30 h-14 min-h-14 min-w-16 sm:h-20 cursor-pointer" />
     </div>
     <div
-      class="w-20 text-xs sm:text-lg text-light-purple order-last flex justify-center font-medium cursor-pointer select-none"
+      class="w-20 text-xs sm:text-md md:text-md lg:text-sm xl:text-lg text-light-purple order-last flex justify-center font-medium cursor-pointer select-none"
       @click="handleClickLogin()"
     >
       {{ this.$store.state.userId !== "" ? "Logout" : "Login" }}
