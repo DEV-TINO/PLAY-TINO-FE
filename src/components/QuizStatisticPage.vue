@@ -52,7 +52,7 @@
       <div class="select-none flex items-center justify-center text-sm md:text-lg lg:text-xl">
         <font-awesome-icon class="svg-inline--fa fa-angles-left text-primary text-xs sm:text-base px-1 font-bold cursor-pointer" :icon="['fas', 'angle-double-left']" @click="changeFirstPage()"/>
         <font-awesome-icon class="svg-inline--fa fa-angle-left text-primary text-xs sm:text-base pr-2 pl-1 font-bold cursor-pointer" :icon="['fas', 'angle-left']" @click="decressePageNumber()"/>
-        <div v-if="showStartEllipsis" class="text-white w-4 h-4 sm:w-7 sm:h-7 flex justify-center items-center font-bold bg-light-purple rounded-2xl text-xs sm:text-base cursor-pointer" @click="changeFirstPage()">1</div>
+        <div v-if="showStartEllipsis" class="text-primary px-2 font-bold text-xs sm:text-base cursor-pointer" @click="changeFirstPage()">1</div>
         <div v-if="showStartEllipsis" class="text-primary px-1 font-bold text-xs sm:text-base">...</div>
         <div v-for="(page, index) in pages" :key="index">
           <div class="text-white w-4 h-4 sm:w-7 sm:h-7 flex justify-center items-center font-bold bg-light-purple rounded-2xl text-xs sm:text-base cursor-pointer" @click="changePage(page)">
