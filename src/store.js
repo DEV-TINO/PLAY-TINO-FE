@@ -3,11 +3,11 @@ import { createStore } from "vuex";
 import game from "./data/gameData.js";
 
 // for Dev
-const HOST  = 'http://54.180.102.87:8090'
+// const HOST  = 'http://54.180.102.87:8090'
 
 // for Prod
 
-// const HOST = "https://api.play-tino.com"
+const HOST = "https://api.play-tino.com"
 // const TIMER = "https://api.timer.play-tino.com";
 // const QUIZ = "https://api.quiz.play-tino.com";
 // const FAVORITE = "https://api.favorite.play-tino.com";
@@ -21,7 +21,7 @@ export default createStore({
     quizHost: HOST,
     gameData: game,
     footerMenu: FOOTER_MENU,
-    userId: USER_ID,
+    userId: "",
     active: 0,
     MainGameData: game,
     MainActive: 0,
