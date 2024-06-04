@@ -9,7 +9,7 @@ export default {
   name: "App",
 
   mounted() {
-    if (this.$router.currentRoute.path !== "/") {
+    if (this.$router.currentRoute.path.inlcude('statistic')) {
       if (this.$store.state.userId === "") {
         alert("Please Login")
         this.$router.push("/")
