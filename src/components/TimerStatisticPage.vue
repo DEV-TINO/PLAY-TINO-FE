@@ -18,8 +18,8 @@
     <div class="w-full h-auto bg-white pt-10 pb-3 px-2">
       <div class="flex justify-center pb-2 sm:pb-4 md:pb-6 lg:pb-8 xl:pb-10">
         <div class="w-1/12 min-w-10 flex justify-start px-4 sm:px-8 md:px-10 lg:px-14 xl:px-20 text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold items-center select-none text-white">0</div>
-        <div class="w-3/12 flex justify-center text-light-purple text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold items-center min-w-24 select-none pl-1">닉네임</div>
-        <div class="text-light-purple text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold flex justify-center items-center min-w-40 select-none">기록 / 목표 시간</div>
+        <div class="w-4/12 flex justify-center text-light-purple text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold items-center min-w-24 select-none pl-1">닉네임</div>
+        <div class="text-light-purple text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold flex justify-center items-center min-w-40 sm:w-48 md:w-56 lg:w-64 xl:w-72 select-none">기록 / 목표 시간</div>
         <div class="text-light-purple text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold w-2/12 flex justify-center items-center min-w-16 select-none">오차</div>
       </div>
       <div v-for="(user, index) in this.rankData" :key="user.quizRankId" class="w-full">
@@ -27,8 +27,8 @@
           <div class="w-1/12 min-w-10 flex justify-start px-4 sm:px-8 md:px-10 lg:px-14 xl:px-20 text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold items-center select-none">
             <div :class=this.rankColor(this.getRank(index))>{{ this.getRank(index) }}</div>
           </div>
-          <div class="w-3/12 flex justify-center min-w-24 items-center pl-1 text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl select-none">{{ user.userName }}</div>
-          <div class="min-w-40 flex gap-2 justify-center text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl items-center">
+          <div class="w-4/12 flex justify-center min-w-24 items-center pl-1 text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl select-none whitespace-nowrap text-ellipsis overflow-hidden">{{ user.userName }}</div>
+          <div class="min-w-40 flex gap-2 sm:w-48 md:w-56 lg:w-64 xl:w-72 justify-center text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl items-center">
             <div>{{ user.stopTime }}</div>
             <div>/</div>
             <div>{{ user.targetTime }}</div>
