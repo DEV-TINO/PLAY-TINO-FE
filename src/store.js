@@ -3,30 +3,29 @@ import { createStore } from "vuex";
 import game from "./data/gameData.js";
 
 // for Dev
-// const TIMER  = 'http://13.124.245.152:8080'
-// const QUIZ = 'http://54.180.115.118:8080'
-// const FAVORITE = 'http://43.201.78.161:8080'
+// const HOST  = 'http://54.180.102.87:8090'
 
 // for Prod
 
-const TIMER = "https://api.timer.play-tino.com";
-const QUIZ = "https://api.quiz.play-tino.com";
-const FAVORITE = "https://api.favorite.play-tino.com";
+const HOST = "https://api.play-tino.com"
+// const TIMER = "https://api.timer.play-tino.com";
+// const QUIZ = "https://api.quiz.play-tino.com";
+// const FAVORITE = "https://api.favorite.play-tino.com";
 
 const FOOTER_MENU = ["Contact", "Our Team", "Social"];
 const USER_ID = "604bfbe0-0ecf-4d08-8c42-579c6f5da7a9"; // for Test
 
 export default createStore({
   state: {
-    timerHost: TIMER,
-    quizHost: QUIZ,
+    timerHost: HOST,
+    quizHost: HOST,
     gameData: game,
     footerMenu: FOOTER_MENU,
     userId: "",
     active: 0,
     MainGameData: game,
     MainActive: 0,
-    favoriteHost: FAVORITE,
+    favoriteHost: HOST,
     favoriteList: [],
     favoriteGameId: "",
     favoriteSelectedImg: "",
