@@ -172,6 +172,11 @@ export default {
     }
   },
   mounted() {
+    if (this.$store.state.userId === "") {
+        alert("Please Login")
+        this.$router.push("/")
+        return
+    }
     this.getRankData()
   },
 }
