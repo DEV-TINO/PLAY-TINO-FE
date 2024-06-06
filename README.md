@@ -5,6 +5,9 @@ Play-Tino Website FrontEnd Project by using `Vue.js`
 - Vue3.js
 - Tailwind.css
 
+# Conventions
+[FE Code Convention](https://github.com/DEV-TINO/Festino/wiki/FE-Code-Conventions)
+
 # Installation
 
 ## Using docker
