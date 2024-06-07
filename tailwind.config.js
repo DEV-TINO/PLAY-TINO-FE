@@ -28,10 +28,10 @@ module.exports = {
         'sort-type' : '#ECBDFF',
       },
       width: {
-        'favorite-content-width' : '600px'
+        'favorite-content-width' : '540px'
       },
       height: {
-        'favorite-content-height' : '600px'
+        'favorite-content-height' : '540px'
       },
     },
     borderWidth: {
