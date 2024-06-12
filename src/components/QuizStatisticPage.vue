@@ -15,16 +15,16 @@
     <div class="w-full h-10 md:h-14 min-h-8 flex items-center select-none min-w-72">
       <div class="text-white text-sm pl-4 min-w-36 md:text-xl">문제를 맞춰라</div>
     </div>
-    <div class="w-full h-auto flex flex-col items-center bg-white pt-10 pb-3 overflow-auto">
-      <div class="w-3/4 lg:w-2/3 flex pb-2 sm:pb-4 md:pb-6 lg:pb-8 xl:pb-10">
-        <div class="min-w-12 flex justify-center w-12 md:w-16 lg:w-20 xl:w-24 sm:px-8 md:px-10 lg:px-14 xl:px-20 text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold items-center select-none text-white"></div>
+    <div class="w-full h-auto flex flex-col items-center bg-white pt-10 pb-3">
+      <div class="w-full sm:w-3/4 lg:w-2/3 flex pb-2 sm:pb-4 md:pb-6 lg:pb-8 xl:pb-10">
+        <div class="min-w-8 flex justify-center w-12 md:w-16 lg:w-20 xl:w-24 sm:px-8 md:px-10 lg:px-14 xl:px-20 text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold items-center select-none text-white"></div>
         <div class="flex justify-center text-light-purple text-xs sm:text-lg w-32 md:w-56 lg:w-72 xl:w-96 md:text-xl lg:text-2xl xl:text-3xl font-bold items-center min-w-28 select-none pl-1">닉네임</div>
         <div class="text-light-purple w-5/12 text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold w-40 flex justify-center items-center min-w-40 select-none">맞춘 문제</div>
         <div class="text-light-purple text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold w-2/12 flex justify-center items-center min-w-16 select-none">총점</div>
       </div>
-      <div v-for="(user, index) in this.rankData" :key="user.quizRankId" class="w-3/4 lg:w-2/3">
+      <div v-for="(user, index) in this.rankData" :key="user.quizRankId" class="w-full sm:w-3/4 lg:w-2/3">
         <div class="flex pb-4 md:pb-7">
-          <div class="w-12 min-w-12 flex justify-center sm:w-12 md:w-16 lg:w-20 xl:w-24 sm:px-8 md:px-10 lg:px-14 xl:px-20 text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold items-center select-none">
+          <div class="w-12 min-w-8 flex justify-center sm:w-12 md:w-16 lg:w-20 xl:w-24 sm:px-8 md:px-10 lg:px-14 xl:px-20 text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold items-center select-none">
             <div :class=this.rankColor(this.getRank(index))>
               {{ this.getRank(index) }}
             </div>

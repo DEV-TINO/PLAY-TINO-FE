@@ -11,7 +11,7 @@
     <div class="w-full h-30 flex justify-center items-start bg-primary py-2 md:py-5">
       <div class="w-11/12 sm:w-10/12">
         <div class="bg-white w-full h-auto rounded-xl py-2 sm:py-3 px-4 sm:px-7 flex justify-center items-center min-w-72 gap-4">
-          <input type="text" v-model="currentComment" placeholder="댓글을 입력해주세요 (최대 200자)" class="w-full resize-none overflow-hidden text-lg md:text-2xl" @keyup.enter="handleClickCommentSubmit()" />
+          <input type="text" v-model="currentComment" placeholder="댓글을 입력해주세요 (최대 200자)" class="w-full resize-none overflow-hidden border-white text-lg md:text-2xl" @keyup.enter="handleClickCommentSubmit()" />
           <div class="text-gray-300 text-xl sm:text-3xl cursor-pointer select-none" @click="handleClickCommentSubmit()">
             <font-awesome-icon :icon="['fas', 'circle-chevron-up']" />
           </div>
