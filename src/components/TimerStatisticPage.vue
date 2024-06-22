@@ -22,12 +22,12 @@
         <div class="w-1/6 text-light-purple text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold flex justify-center items-center min-w-40 sm:w-48 md:w-56 lg:w-64 xl:w-72 select-none">기록 / 목표</div>
         <div class="text-light-purple text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold w-2/12 flex justify-center items-center min-w-16 select-none">오차</div>
       </div>
-      <div v-for="(user, index) in this.rankData" :key="user.quizRankId" class="w-full">
+      <div v-for="(user, index) in rankData" :key="user.quizRankId" class="w-full">
         <div class="flex justify-center pb-4 md:pb-7">
           <div class="w-1/12 min-w-10 flex justify-start px-4 sm:px-8 md:px-10 lg:px-14 xl:px-20 text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold items-center select-none">
-            <div :class=this.rankColor(this.getRank(index))>{{ this.getRank(index) }}</div>
+            <div :class=rankColor(getRank(index))>{{ getRank(index) }}</div>
           </div>
-          <div class="w-32 md:w-48 lg:w-64 xl:w-96 flex justify-start min-w-28 items-center pl-1 text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl select-none whitespace-nowrap text-ellipsis overflow-hidden">{{ this.userNames[index] }}</div>
+          <div class="w-32 md:w-48 lg:w-64 xl:w-96 flex justify-start min-w-28 items-center pl-1 text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl select-none whitespace-nowrap text-ellipsis overflow-hidden">{{ userNames[index] }}</div>
           <div class="w-1/6 min-w-40 flex gap-2 sm:w-48 md:w-56 lg:w-64 xl:w-72 justify-center text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl items-center">
             <div>{{ user.stopTime }}</div>
             <div>/</div>
@@ -39,7 +39,7 @@
       <div v-if="showPagination" class="select-none flex items-center justify-center text-sm md:text-lg lg:text-xl">
         <font-awesome-icon class="text-primary text-xs sm:text-base px-1 font-bold cursor-pointer" :icon="['fas', 'angle-double-left']" @click="changeFirstPage()"/>
         <font-awesome-icon class="text-primary text-xs sm:text-base pr-2 pl-1 font-bold cursor-pointer" :icon="['fas', 'angle-left']" @click="decressePageNumber()"/>
-        <div v-if="showStartEllipsis" class="text-primary px-2 font-bold text-xs sm:text-base cursor-pointer" @click="changeFirstPage()">1</div>
+        <div v-if="showStartEllipsis" class="text-primary px-2 font-bold text-xs sm:text-base cursor-pointer" @click="changeFirstPage()">{{ FIRST_PAGE }}</div>
         <div v-if="showStartEllipsis" class="text-primary px-1 font-bold text-xs sm:text-base">...</div>
         <div v-for="(page, index) in pages" :key="index">
           <div class="text-white w-4 h-4 sm:w-7 sm:h-7 flex justify-center items-center font-bold bg-light-purple rounded-2xl text-xs sm:text-base cursor-pointer" @click="changePage(page)">
@@ -48,7 +48,7 @@
           </div>
         </div>
         <div v-if="showEndEllipsis" class="text-primary font-bold px-1 text-xs sm:text-base">...</div>
-        <div v-if="showEndEllipsis" class="text-primary font-bold px-2 text-xs sm:text-base cursor-pointer" @click="changeLastPage()">{{ this.pageCount }}</div>
+        <div v-if="showEndEllipsis" class="text-primary font-bold px-2 text-xs sm:text-base cursor-pointer" @click="changeLastPage()">{{ pageCount }}</div>
         <font-awesome-icon class="text-primary font-bold text-xs sm:text-base pr-1 pl-2 cursor-pointer" :icon="['fas', 'angle-right']" @click="increasePageNumber()"/>
         <font-awesome-icon class="text-primary font-bold text-xs sm:text-base px-1 cursor-pointer" :icon="['fas', 'angle-double-right']" @click="changeLastPage()"/>
       </div>
@@ -56,110 +56,125 @@
   </div>
   <CommentPage></CommentPage>
 </template>
-  
+
 <script>
+import { ref, computed, onMounted } from 'vue'
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 import CommentPage from '../components/CommentPage.vue'
 import axios from 'axios'
+
 const FIRST_PAGE = 1
 const ELLIPSIS_NEED = 6
+const ITEMS_PER_PAGE = 5
+
 export default {
-  components:{
+  components: {
     CommentPage,
   },
-  data() { 
-    return {
-      rankData: [],
-      currentPage: 1,
-      itemsPerPage: 5,
-      totalRank: 0,
-      pages: [],
-      showStartEllipsis: false,
-      showEndEllipsis: false,
-      showPagination: true,
-      userNames: [],
-    }
-  },
-  computed: {
-    pageCount() {
-      return Math.ceil(this.totalRank / this.itemsPerPage)
-    },
-  },
-  methods: {
-    handleClickLogin() {
-      if (this.$store.state.userId !== "") {
-        this.$store.commit("logout")
-        this.$router.push("/")
+  setup() {
+    const router = useRouter()
+    const store = useStore()
+    const rankData = ref([])
+    const currentPage = ref(1)
+    const totalRank = ref(0)
+    const pages = ref([])
+    const showStartEllipsis = ref(false)
+    const showEndEllipsis = ref(false)
+    const showPagination = ref(false)
+    const userNames = ref([])
+
+    const pageCount = computed(() => Math.ceil(totalRank.value / ITEMS_PER_PAGE))
+    
+    const handleClickLogin = () => {
+      if (store.state.userId !== "") {
+        store.commit("logout")
+        router.push("/")
         alert("User Logout")
       }
-    },
-    handleRouterMain() {
-      this.$router.push(`/`)
-    },
-    async getRankData(pageNumber) {
-      const response = await axios.get(`${this.$store.state.timerHost}/timer/rank/all?page=${pageNumber ?? 0}`)
-      this.rankData = response.data.timerList
-      this.totalRank = response.data.timerTotal
-      this.rankData.forEach((data, index) => {
-        this.userNames[index] = data.userName
-      })
-      this.userNames.forEach((userName, index) => {
-        if (/[a-zA-Z]/.test(userName)) {
-          if(userName.length > 20) this.userNames[index] = userName.slice(0, 19) + "..."
-        } else if (userName.length > 10) {
-          this.userNames[index] = userName.slice(0, 9) + "..."
+    }
+
+    const handleRouterMain = () => {
+      router.push('/')
+    }
+
+    const getRankData = async (pageNumber) => {
+      try {
+        const response = await axios.get(`${store.state.host}/timer/rank/all?page=${pageNumber ?? 0}`)
+        rankData.value = response.data.timerList
+        totalRank.value = response.data.timerTotal
+        rankData.value.forEach((data, index) => {
+          userNames.value[index] = data.userName
+        })
+        userNames.value.forEach((userName, index) => {
+          if (/[a-zA-Z]/.test(userName)) {
+            if (userName.length > 20) userNames.value[index] = userName.slice(0, 19) + "..."
+          } else if (userName.length > 10) {
+            userNames.value[index] = userName.slice(0, 9) + "..."
+          }
+        })
+        if (pageCount.value == FIRST_PAGE) {
+          showPagination.value = false
+        } else if (pageCount.value < ELLIPSIS_NEED) {
+          pages.value = createArray(pageCount.value)
+          showPagination.value = true
+          showStartEllipsis.value = false
+          showEndEllipsis.value = false
+          return
+        } else if (currentPage.value == FIRST_PAGE) {
+          pages.value = [FIRST_PAGE, FIRST_PAGE + 1, FIRST_PAGE + 2]
+          showStartEllipsis.value = true
+          showEndEllipsis.value = true
+        } else if (currentPage.value == pageCount.value) {
+          pages.value = [pageCount.value - 2, pageCount.value - 1, pageCount.value]
+        } else if (currentPage.value > 3 || pageCount.value - 2) {
+          pages.value = [currentPage.value - 1, currentPage.value, currentPage.value + 1]
         }
-      })
-      if(this.pageCount == FIRST_PAGE) {
-        this.showPagination = false
-      } else if (this.pageCount < ELLIPSIS_NEED) {
-        this.pages = this.createArray(this.pageCount)
-        this.showPagination = true
-        this.showStartEllipsis = false
-        this.showEndEllipsis = false
-        return
-      } else if(this.currentPage == FIRST_PAGE) {
-        this.pages = [FIRST_PAGE, FIRST_PAGE + 1, FIRST_PAGE + 2]
-        this.showStartEllipsis = true
-        this.showEndEllipsis = true
-      } else if(this.currentPage == this.pageCount) {
-        this.pages = [this.pageCount - 2, this.pageCount - 1, this.pageCount]
-      } else if(this.currentPage > 3 || this.pageCount - 2) {
-        this.pages = [this.currentPage - 1, this.currentPage, this.currentPage + 1]
+        showStartEllipsis.value = currentPage.value > 2
+        showEndEllipsis.value = currentPage.value < (pageCount.value - 1)
+      } catch (error) {
+        console.error("Error fetching rank data:", error)
       }
-      this.showStartEllipsis = this.currentPage > 2
-      this.showEndEllipsis = this.currentPage < (this.pageCount - 1)
-    },
-    createArray(n) {
+    }
+
+    const createArray = (n) => {
       return Array.from({ length: n }, (v, i) => i + 1)
-    },
-    getRank(index) {
-      return (this.currentPage - 1) * 5 + index + 1
-    },
-    changePage(pageNumber) {
-      this.currentPage = pageNumber
-      this.getRankData(this.currentPage - 1)
-    },
-    decressePageNumber() {
-      if (this.currentPage > 1) {
-        this.currentPage -= 1
-        this.getRankData(this.currentPage - 1)
+    }
+
+    const getRank = (index) => {
+      return (currentPage.value - 1) * ITEMS_PER_PAGE + index + 1
+    }
+
+    const changePage = (pageNumber) => {
+      currentPage.value = pageNumber
+      getRankData(currentPage.value - 1)
+    }
+
+    const decressePageNumber = () => {
+      if (currentPage.value > 1) {
+        currentPage.value -= 1
+        getRankData(currentPage.value - 1)
       }
-    },
-    increasePageNumber() {
-      if (this.currentPage < this.pageCount) {
-        this.currentPage += 1
-        this.getRankData(this.currentPage - 1)
+    }
+
+    const increasePageNumber = () => {
+      if (currentPage.value < pageCount.value) {
+        currentPage.value += 1
+        getRankData(currentPage.value - 1)
       }
-    },
-    changeFirstPage() {
-      this.currentPage = 1
-      this.getRankData(this.currentPage - 1)
-    },
-    changeLastPage() {
-      this.currentPage = this.pageCount
-      this.getRankData(this.currentPage - 1)
-    },
-    rankColor(rank) {
+    }
+
+    const changeFirstPage = () => {
+      currentPage.value = 1
+      getRankData(currentPage.value - 1)
+    }
+
+    const changeLastPage = () => {
+      currentPage.value = pageCount.value
+      getRankData(currentPage.value - 1)
+    }
+
+    const rankColor = (rank) => {
       if (rank == 1) {
         return "text-quiz-theme"
       } else if (rank == 2) {
@@ -170,14 +185,38 @@ export default {
         return "text-light-purple"
       }
     }
-  },
-  mounted() {
-    if (this.$store.state.userId === "") {
+
+    onMounted(() => {
+      if (store.state.userId === "") {
         alert("Please Login")
-        this.$router.push("/")
+        router.push("/")
         return
+      }
+      if (pageCount.value < ELLIPSIS_NEED)
+        showPagination.value = true
+      getRankData()
+    })
+
+    return {
+      FIRST_PAGE,
+      currentPage,
+      rankData,
+      pages,
+      showStartEllipsis,
+      showEndEllipsis,
+      showPagination,
+      userNames,
+      pageCount,
+      handleClickLogin,
+      handleRouterMain,
+      getRank,
+      changePage,
+      decressePageNumber,
+      increasePageNumber,
+      changeFirstPage,
+      changeLastPage,
+      rankColor,
     }
-    this.getRankData()
   },
 }
 </script>

@@ -2,21 +2,18 @@ import axios from "axios";
 import { createStore } from "vuex";
 import game from "./data/gameData.js";
 
-
 const HOST = import.meta.env.VITE_API_URL;
 const FOOTER_MENU = ["Contact", "Our Team", "Social"];
 
 export default createStore({
   state: {
-    timerHost: HOST,
-    quizHost: HOST,
+    host: HOST,
     gameData: game,
     footerMenu: FOOTER_MENU,
     userId: "",
     active: 0,
     MainGameData: game,
     MainActive: 0,
-    favoriteHost: HOST,
     favoriteList: [],
     favoriteGameId: "",
     favoriteSelectedImg: "",
@@ -100,7 +97,7 @@ export default createStore({
       state.active = i
     },
     async getFavoriteData(context) {
-      const res = await axios.get(`${context.state.favoriteHost}/favorite/start/user/${context.state.userId}`)
+      const res = await axios.get(`${context.state.host}/favorite/start/user/${context.state.userId}`)
       context.state.favoriteList = res.data.favoriteList
       context.state.favoriteGameId = res.data.gameId
 
@@ -108,7 +105,7 @@ export default createStore({
     },
     async setFavoriteRankMax(context) {
       const res = await axios.get(
-        `${context.state.favoriteHost}/favorite/rank/all?page=${context.state.favoriteRankPage}`
+        `${context.state.host}/favorite/rank/all?page=${context.state.favoriteRankPage}`
       )
       context.state.favoriteRankTotal = res.data.favoriteRankTotal;
 
@@ -124,7 +121,7 @@ export default createStore({
         } else {
           context.commit("selectFavoriteRankPage", context.state.favoriteRankPage)
           const res = await axios.get(
-            `${context.state.favoriteHost}/favorite/rank/all?page=${context.state.favoriteRankPage}`
+            `${context.state.host}/favorite/rank/all?page=${context.state.favoriteRankPage}`
           )
           context.state.favoriteRankData = res.data.rankList
         }
@@ -140,7 +137,7 @@ export default createStore({
             context.state.favoriteRankPage
           )
           const res = await axios.get(
-            `${context.state.favoriteHost}/favorite/rank/all?page=${context.state.favoriteRankPage}`
+            `${context.state.host}/favorite/rank/all?page=${context.state.favoriteRankPage}`
           )
           context.state.favoriteRankData = res.data.rankList
         }
@@ -150,7 +147,7 @@ export default createStore({
         } else {
           context.commit("selectFavoriteRankPage", 0)
           const res = await axios.get(
-            `${context.state.favoriteHost}/favorite/rank/all?page=${context.state.favoriteRankPage}`
+            `${context.state.host}/favorite/rank/all?page=${context.state.favoriteRankPage}`
           )
           context.state.favoriteRankData = res.data.rankList
         }
@@ -166,14 +163,14 @@ export default createStore({
             context.state.favoriteRankMaxPage
           );
           const res = await axios.get(
-            `${context.state.favoriteHost}/favorite/rank/all?page=${context.state.favoriteRankPage}`
+            `${context.state.host}/favorite/rank/all?page=${context.state.favoriteRankPage}`
           );
           context.state.favoriteRankData = res.data.rankList
         }
       } else {
         context.commit("selectFavoriteRankPage", pageNum)
         const res = await axios.get(
-          `${context.state.favoriteHost}/favorite/rank/all?page=${context.state.favoriteRankPage}`
+          `${context.state.host}/favorite/rank/all?page=${context.state.favoriteRankPage}`
         )
         context.state.favoriteRankData = res.data.rankList
       }
@@ -297,7 +294,7 @@ export default createStore({
         favoriteId: favoriteId,
       }
       const res = await axios.post(
-        `${context.state.favoriteHost}/favorite/rank`, rank)
+        `${context.state.host}/favorite/rank`, rank)
       context.commit("setFavoriteRoundFinish")
     },
     async preloadNextImagePairs(context) {

@@ -25,9 +25,9 @@
           </div>
         </div>
         <div class="flex flex-col sm:flex-row items-center gap-2 md:gap-4 select-none w-full pb-2 sm:pb-0">
-          <div @click="handleRouterRank()" class="w-full sm:w-auto bg-timer-stop text-white border-timer-stop border-2 py-0.5 sm:px-5 sm:py-1 rounded-lg flex justify-center font-bold text-base sm:text-xl cursor-pointer">확인</div>
-          <div @click="reload()" class="w-full sm:w-auto bg-white border-timer-stop border-2 sm:px-4 py-0.5 sm:py-1 rounded-lg text-timer-stop font-bold text-base sm:text-xl flex justify-center cursor-pointer">다시하기</div>
-          <div @click="handleRouterMain()" class="w-full sm:w-auto bg-white border-timer-stop border-2 sm:px-4 py-0.5 sm:py-1 rounded-lg text-timer-stop font-bold text-base sm:text-xl flex justify-center cursor-pointer">메인으로</div>
+          <div @click="handleRouterRank" class="w-full sm:w-auto bg-timer-stop text-white border-timer-stop border-2 py-0.5 sm:px-5 sm:py-1 rounded-lg flex justify-center font-bold text-base sm:text-xl cursor-pointer">확인</div>
+          <div @click="reload" class="w-full sm:w-auto bg-white border-timer-stop border-2 sm:px-4 py-0.5 sm:py-1 rounded-lg text-timer-stop font-bold text-base sm:text-xl flex justify-center cursor-pointer">다시하기</div>
+          <div @click="handleRouterMain" class="w-full sm:w-auto bg-white border-timer-stop border-2 sm:px-4 py-0.5 sm:py-1 rounded-lg text-timer-stop font-bold text-base sm:text-xl flex justify-center cursor-pointer">메인으로</div>
         </div>
       </div>
     </div>
@@ -35,35 +35,45 @@
 </template>
 
 <script>
+import { useRouter } from 'vue-router'
+import { toRefs } from 'vue'
 export default {
   props: {
     targetTime: String,
     stopTime: String,
     rankIn: Boolean,
   },
-  methods: {
-    handleRouterMain() {
-      this.$router.push(`/`)
-    },
-    handleRouterRank() {
-      this.$router.push(`/timer-statistic`)
-    },
-    reload() {
-      this.$emit('restart')
-      this.$emit('closeModal', false)
-    },
-    calculateError() {
-      const targetTimeNumber = Number(this.targetTime)
-      const stopTimeNumber = Number(this.stopTime)
+  setup(props, { emit }) {
+    const router = useRouter()
+    const { targetTime, stopTime } = toRefs(props)
 
-      let error = Math.abs(targetTimeNumber - stopTimeNumber).toFixed(2)
+    const handleRouterMain = () => {
+      router.push(`/`)
+    }
 
+    const handleRouterRank = () => {
+      router.push('/timer-statistic')
+    }
+
+    const reload = () => {
+      emit('restart')
+      emit('closeModal', false)
+    }
+
+    const calculateError = () => {
+      let error = Math.abs(Number(targetTime.value) - Number(stopTime.value)).toFixed(2)
       if (error.split('.')[0].length == 1) {
         error = '0' + error
-      }
+      } 
       return error
-    },
-  },
+    }
+    return {
+      handleRouterMain,
+      handleRouterRank,
+      reload,
+      calculateError,
+    }
+  }
 }
 </script>
 
