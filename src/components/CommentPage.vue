@@ -11,7 +11,7 @@
     <div class="w-full h-30 flex justify-center items-start bg-primary py-2 md:py-5">
       <div class="w-11/12 sm:w-10/12">
         <div class="bg-white w-full h-auto rounded-xl py-2 sm:py-3 px-4 sm:px-7 flex justify-center items-center min-w-72 gap-4">
-          <input type="text" v-model="currentComment" placeholder="댓글을 입력해주세요 (최대 200자)" class="w-full resize-none overflow-hidden border-white text-lg md:text-2xl" @keyup.enter="handleClickCommentSubmit()" />
+          <input type="text" v-model="currentComment" placeholder="댓글을 입력해주세요 (최대 200자)" class="w-full resize-none overflow-hidden border-white text-lg md:text-2xl" @keypress.enter="handleClickCommentSubmit()" />
           <div class="text-gray-300 text-xl sm:text-3xl cursor-pointer select-none" @click="handleClickCommentSubmit()">
             <font-awesome-icon :icon="['fas', 'circle-chevron-up']" />
           </div>
@@ -35,7 +35,7 @@
             </div>
           </div>
           <div class="flex place-content-between pb-0.5 sm:pb-1 items-end">
-            <textarea v-if="editTextIndex == index" type="text" v-model="editComment" class="bg-gray-100 mt-1 rounded-lg w-full resize-none text-base sm:text-lg md:text-2xl" @keyup.enter="handleClickCommentSubmit(index)"></textarea>
+            <textarea v-if="editTextIndex == index" type="text" v-model="editComment" class="bg-gray-100 mt-1 rounded-lg w-full resize-none text-base sm:text-lg md:text-2xl" @keypress.enter="handleClickCommentSubmit(index)"></textarea>
             <div v-else class="text-base text-primary sm:text-lg md:text-2xl md:pt-1 select-none">{{ comment.content }}</div>
             <div class="flex justify-end items-center pl-2 sm:pl-4 gap-1 text-quiz-theme select-none">
               <div class="text-sm md:text-lg">{{ comment.heartCount }}</div>

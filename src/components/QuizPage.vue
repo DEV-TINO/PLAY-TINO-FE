@@ -43,8 +43,8 @@
           <div class="text-sm md:text-base xl:text-lg">{{ this.currentQuiz.hint }}</div>
         </div>
         <div class="flex w-11/12 gap-2 sm:gap-4">
-          <input @keyup.enter="handleOpenModal($event)" v-model="answer" placeholder="정답을 작성해주세요" type="text" class="border-primary overflow-hidden rounded-lg sm:rounded-xl border-2 w-full h-8 sm:h-12 py-2 px-3 text-base sm:text-lg md:text-xl resize-none font-semibold" />
           <div @click="handleOpenModal($event)" class="select-none cursor-pointer bg-quiz-theme text-white font-bold w-10 sm:w-14 rounded-lg flex justify-center items-center text-lg sm:text-2xl">
+          <input @keypress.enter="handleOpenModal" v-model="answer" placeholder="정답을 작성해주세요" type="text" class="border-primary overflow-hidden rounded-lg sm:rounded-xl border-2 w-full h-8 sm:h-12 py-2 px-3 text-base sm:text-lg md:text-xl resize-none font-semibold"/>
             <font-awesome-icon :icon="['fas', 'angle-right']" />
           </div>
         </div>
