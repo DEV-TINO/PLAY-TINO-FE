@@ -7,38 +7,41 @@
       </div>
       <div class="flex justify-center select-none">
         <img class="py-6 sm:py-8 object-cover w-40 sm:w-52 md:w-56 lg:w-64 select-none" src="/o.png"/>
-    </div>
-        <div class="flex justify-center pb-1 sm:pb-2">
-          <div class="font-bold text-lg sm:text-xl md:text-2xl text-primary pb-1 md:pb-2">정답입니다</div> 
+      </div>
+      <div class="flex justify-center pb-1 sm:pb-2">
+        <div class="font-bold text-lg sm:text-xl md:text-2xl text-primary pb-1 md:pb-2">정답입니다</div> 
       </div>
       <div class="flex justify-center py-0.5 md:py-1">
-        <div class="w-16 md:w-20 h-6 md:h-8 items-center select-none rounded-lg bg-correct-modal flex justify-center font-bold text-white cursor-pointer" @click="confirm()">
+        <div class="w-16 md:w-20 h-6 md:h-8 items-center select-none rounded-lg bg-correct-modal flex justify-center font-bold text-white cursor-pointer" @click="confirm">
           <div>확인</div>
         </div>
       </div>
     </div>
   </div>
 </template>
-  
+
 <script>
-  export default {
-    name: 'ModalCard',
-    props: {
-      quizIndex: Number,
-    },
-    methods: {
-      confirm() {
-        this.$emit('confirm')
-        this.$emit('closeModal')
-        this.$emit('progressBarStart')
-        if (this.quizIndex == 10) {
-          this.$emit('openModal', true)
-          this.$emit('progressBarStop')
-        }
-      },
+export default {
+  name: 'ModalCard',
+  props: {
+    quizIndex: Number,
+  },
+  setup(props, { emit }) {
+    const confirm = () => {
+      emit('confirm')
+      emit('closeModal')
+      emit('progressBarStart')
+      if (props.quizIndex == 10) {
+        emit('openModal', true)
+        emit('progressBarStop')
+      }
+    }
+    return {
+      confirm,
     }
   }
+}
 </script>
-  
+
 <style>
 </style>
